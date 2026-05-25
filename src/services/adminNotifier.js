@@ -10,6 +10,10 @@ function isAdmin(userId) {
   return !!userId && parseInt(userId, 10) === parseInt(process.env.ADMIN_CHAT_ID, 10);
 }
 
+function esc(text) {
+  return String(text).replace(/_/g, "\\_").replace(/\*/g, "\\*").replace(/`/g, "\\`").replace(/\[/g, "\\[").replace(/~/g, "\\~");
+}
+
 async function sendToAdmin(message, parseMode) {
   const adminId = process.env.ADMIN_CHAT_ID;
   if (!adminId || !bot) return;
@@ -26,9 +30,9 @@ async function notifyNewUser(userId, userName, username, language) {
   const msg =
     `🆕 *NEW USER JOINED*\n\n` +
     `👤 ID: \`${userId}\`\n` +
-    `👤 Name: ${userName || "N/A"}\n` +
-    `📛 Username: @${username || "N/A"}\n` +
-    `🌐 Telegram Lang: ${language || "unknown"}\n` +
+    `👤 Name: ${esc(userName)}\n` +
+    `📛 Username: @${esc(username)}\n` +
+    `🌐 Telegram Lang: ${esc(language)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
   await sendToAdmin(msg, "Markdown");
 }
@@ -38,24 +42,24 @@ async function notifyLanguageSelection(userId, userName, language) {
   const msg =
     `🌐 *LANGUAGE SELECTED*\n\n` +
     `👤 ID: \`${userId}\`\n` +
-    `👤 Name: ${userName || "N/A"}\n` +
+    `👤 Name: ${esc(userName)}\n` +
     `🗣 Language: ${langDisplay}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
   await sendToAdmin(msg, "Markdown");
 }
 
 async function notifyUserAction(userId, userName, username, text, type, language) {
-  const preview = text ? text.substring(0, 200) : "non-text action";
+  const preview = text ? esc(text).substring(0, 200) : "non-text action";
   const langDisplay = language || "unknown";
 
   const msg =
     `📡 *ACTION LOG*\n\n` +
     `👤 ID: \`${userId}\`\n` +
-    `👤 Name: ${userName || "N/A"}\n` +
-    `📛 Username: @${username || "N/A"}\n` +
+    `👤 Name: ${esc(userName)}\n` +
+    `📛 Username: @${esc(username)}\n` +
     `💬 Message: "${preview}"\n` +
     `📍 Type: ${type}\n` +
-    `🌐 Language: ${langDisplay}\n` +
+    `🌐 Language: ${esc(langDisplay)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}\n` +
     `━━━━━━━━━━━━━━`;
   await sendToAdmin(msg, "Markdown");
@@ -65,10 +69,10 @@ async function notifyCommand(userId, userName, username, command, args) {
   const msg =
     `⌨️ *COMMAND EXECUTED*\n\n` +
     `👤 ID: \`${userId}\`\n` +
-    `👤 Name: ${userName || "N/A"}\n` +
-    `📛 Username: @${username || "N/A"}\n` +
+    `👤 Name: ${esc(userName)}\n` +
+    `📛 Username: @${esc(username)}\n` +
     `🔧 Command: ${command}\n` +
-    `📝 Args: ${args || "none"}\n` +
+    `📝 Args: ${esc(args)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
   await sendToAdmin(msg, "Markdown");
 }
@@ -78,7 +82,7 @@ async function notifyError(source, userId, message) {
     `🚨 *ERROR*\n\n` +
     `📁 Source: ${source}\n` +
     `👤 User: \`${userId || "system"}\`\n` +
-    `❌ Message: ${message || "unknown"}\n` +
+    `❌ Message: ${esc(message)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
   await sendToAdmin(msg, "Markdown");
 }
@@ -87,8 +91,8 @@ async function notifySecurity(userId, userName, reason) {
   const msg =
     `🔒 *SECURITY ALERT*\n\n` +
     `👤 ID: \`${userId}\`\n` +
-    `👤 Name: ${userName || "N/A"}\n` +
-    `⚠️ Reason: ${reason}\n` +
+    `👤 Name: ${esc(userName)}\n` +
+    `⚠️ Reason: ${esc(reason)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
   await sendToAdmin(msg, "Markdown");
 }
@@ -97,7 +101,7 @@ async function notifySystem(event, details) {
   const msg =
     `⚙️ *SYSTEM EVENT*\n\n` +
     `📌 Event: ${event}\n` +
-    `📋 Details: ${details || "N/A"}\n` +
+    `📋 Details: ${esc(details)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
   await sendToAdmin(msg, "Markdown");
 }
