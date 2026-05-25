@@ -198,6 +198,17 @@ async function handleCallback(callbackQuery, bot) {
     return;
   }
 
+  if (data === "show_email") {
+    const email = "yihunebelay859@gmail.com";
+    try {
+      await bot.sendMessage(chatId, `✉️ *Email:* ${email}\n\n📋 *Copied!* (tap and copy above)`, { parse_mode: "Markdown" });
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "show_email", email);
+    } catch (err) {
+      logger.error(`show_email callback error: ${err.message}`);
+    }
+    return;
+  }
+
   if (data.startsWith("lang_switch_")) {
     const newLang = data.replace("lang_switch_", "");
     setUserLanguage(userId, newLang);

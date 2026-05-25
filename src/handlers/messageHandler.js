@@ -28,7 +28,7 @@ function languageSelectionKeyboard() {
         { text: "📱 Telegram", url: "https://t.me/Y13bel" },
       ],
       [
-        { text: "✉️ Email", url: "mailto:yihunebelay859@gmail.com" },
+        { text: "✉️ Email", callback_data: "show_email" },
       ],
     ],
   };

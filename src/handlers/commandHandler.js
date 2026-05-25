@@ -352,7 +352,7 @@ function contactKeyboard() {
       [{ text: "💻 GitHub", url: "https://github.com/yihune1234" }],
       [{ text: "🔗 LinkedIn", url: "https://www.linkedin.com/in/yihune-belay-30b0a4383" }],
       [{ text: "📱 Telegram", url: "https://t.me/Y13bel" }],
-      [{ text: "✉️ Email", url: "mailto:yihunebelay859@gmail.com" }],
+      [{ text: "✉️ Email", callback_data: "show_email" }],
     ],
   };
 }
