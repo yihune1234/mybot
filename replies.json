@@ -19,7 +19,9 @@
     "Akkam! Akkamitti bulte/bultani?",
     "Akkam! (Hi/Hello! How are you?)",
     "Akkam! Nagaa fi baye? (Hi! Everything okay?)",
-    "Akkam! Ani as jira, ati hoo?"
+    "Akkam! Ani as jira, ati hoo?",
+    "Hey! I was just thinking about you. What's new?",
+    "Yo yo! Look who's here. What's happening?"
   ],
   "triggerReplies": {
     "how are you": [
@@ -27,12 +29,17 @@
       "Pretty good! You?",
       "Can't complain. How about you?",
       "Doing well! What's up with you?",
-      "All good here. You?"
+      "All good here. You?",
+      "Living the dream 😎 You?",
+      "Nagaa, ati hoo?",
+      "Bayyeen nagaa, ati hoo?"
     ],
     "what are you doing": [
       "Just chilling. You?",
       "Nothing much, just hanging. You?",
-      "Browsing around. What are you up to?"
+      "Browsing around. What are you up to?",
+      "Just waiting for you to message me 😄 What's up?",
+      "Thinking about deep stuff. You know, the usual."
     ],
     "tell me a joke": [
       "Why don't scientists trust atoms? Because they make up everything!",
@@ -40,7 +47,10 @@
       "Why did the scarecrow win an award? Because he was outstanding in his field!",
       "I told my wife she should embrace her mistakes. She gave me a hug.",
       "What's the best thing about Switzerland? I don't know, but the flag is a big plus.",
-      "Why don't eggs tell jokes? They'd crack each other up."
+      "Why don't eggs tell jokes? They'd crack each other up.",
+      "What do you call a bear with no teeth? A gummy bear!",
+      "Why did the math book look so sad? Because it had too many problems.",
+      "Parallel lines have so much in common. It's a shame they'll never meet."
     ],
     "joke": [
       "Why don't scientists trust atoms? Because they make up everything!",
@@ -48,12 +58,16 @@
       "Why did the scarecrow win an award? Because he was outstanding in his field!",
       "I told my wife she should embrace her mistakes. She gave me a hug.",
       "What's the best thing about Switzerland? I don't know, but the flag is a big plus.",
-      "Why don't eggs tell jokes? They'd crack each other up."
+      "Why don't eggs tell jokes? They'd crack each other up.",
+      "What do you call a bear with no teeth? A gummy bear!",
+      "Why did the math book look so sad? Because it had too many problems."
     ],
     "whats up": [
       "Not much, you?",
       "Just chilling. What about you?",
-      "Same old. You?"
+      "Same old. You?",
+      "The sky. Oh wait, you meant me — not much 😄",
+      "Oduu gaarii hin jiru. Ati hoo?"
     ],
     "sup": [
       "Yo! What's up?",
@@ -63,44 +77,59 @@
     "good morning": [
       "Morning! Sleep well?",
       "Good morning! 😊",
-      "Hey! Rise and shine!"
+      "Hey! Rise and shine!",
+      "Good morning! Hope you have a great day ahead!",
+      "Bultii gaarii! Akka feeteetti haa siif ta'u!"
     ],
     "good night": [
       "Night! Talk to you tomorrow!",
       "Goodnight! Sleep well!",
-      "Sweet dreams!"
+      "Sweet dreams!",
+      "Catch you in the morning!",
+      "Tuta gaarii! Nagaan cisi!"
     ],
     "thanks": [
       "No problem!",
       "Anytime!",
       "You got it!",
-      "Happy to help!"
+      "Happy to help!",
+      "That's what I'm here for!",
+      "Galatoomi!",
+      "Beenyaa!"
     ],
     "bye": [
       "Later!",
       "Catch you!",
       "See ya!",
-      "Take care!"
+      "Take care!",
+      "Peace out!",
+      "Hanga guyyaa biraa!",
+      "Nagaatti!"
     ],
     "goodbye": [
       "Later!",
       "Catch you!",
       "See ya!",
-      "Take care!"
+      "Take care!",
+      "Hanga guyyaa biraa!",
+      "Nagaatti!"
     ],
     "have a good day": [
       "You too! 😊",
       "You too, have a good one!",
-      "Thanks! You too!"
+      "Thanks! You too!",
+      "Likewise! Make it a great one!"
     ],
     "what do you think": [
       "Hmm, interesting question. I think it depends honestly. What do you think?",
       "Not sure tbh. What's your take on it?",
-      "Honestly I haven't thought much about it. What do you think?"
+      "Honestly I haven't thought much about it. What do you think?",
+      "That's a deep one. I'd say go with your gut on this."
     ],
     "what are you": [
       "I'm Yihune's bot! Just here to chat 😄",
-      "Just a bot that tries to sound like a human. What about you?"
+      "Just a bot that tries to sound like a human. What about you?",
+      "I'm Yihune B — Yihune's digital twin. I handle conversations so he doesn't have to 😎"
     ],
     "tell me about yourself": [
       "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
@@ -111,16 +140,60 @@
       "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
       "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
       "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?"
+    ],
+    "i love you": [
+      "Ayyy I love you too 😄❤️",
+      "Love you too! Don't tell anyone though 🤫",
+      "Right back at ya! ❤️"
+    ],
+    "i miss you": [
+      "Miss you too! Come back soon 😊",
+      "Aw I miss you too! What have you been up to?",
+      "I was just thinking about you! Miss you too ❤️"
+    ],
+    "you are funny": [
+      "Haha thanks! I try 😄",
+      "Glad you think so! I'll be here all week 😎",
+      "I know, I know. It's a gift 🎭"
+    ],
+    "you are smart": [
+      "Aw thanks! I try my best 💪",
+      "All thanks to Yihune! He built me this way 😎",
+      "I'm flattered! But honestly, you're the smart one for chatting with me 😄"
+    ],
+    "sorry": [
+      "No worries!",
+      "It's all good!",
+      "Don't worry about it!",
+      "No need to apologize! We're good 😊"
+    ],
+    "what are you doing": [
+      "Just waiting for your next message 😄 What's up?",
+      "Thinking. You know, deep stuff. And you?",
+      "Hanging out in the cloud. Literally ☁️ What about you?"
+    ],
+    "i'm bored": [
+      "Let's change that! Want a joke, weather update, or just chat?",
+      "Bored?! Not on my watch. Tell me something interesting!",
+      "How can you be bored when I'm here? 😄 Want to hear a joke?"
+    ],
+    "tell me something interesting": [
+      "Did you know that octopuses have three hearts? 🐙",
+      "Here's one: honey never spoils. Archaeologists found 3000-year-old honey that was still edible!",
+      "Bananas are berries, but strawberries aren't. Mind blown yet? 🤯",
+      "A day on Venus is longer than a year on Venus. Wild right?"
     ]
   },
   "identityReplies": [
     "I'm Yihune B! My owner is Yihune B and I'm his assistant — I reply to people just like he would. So don't worry, you're talking to Yihune through me 😎",
     "I'm Yihune B! Yihune built me to respond as him. I'm basically his digital assistant. Ask me anything!",
-    "Yihune B here! I'm an AI assistant created by Yihune. I chat, tell jokes, check weather, handle reminders — all as if Yihune himself is replying."
+    "Yihune B here! I'm an AI assistant created by Yihune. I chat, tell jokes, check weather, handle reminders — all as if Yihune himself is replying.",
+    "Think of me as Yihune's second brain. I handle conversations, answer questions, and keep things running 😄"
   ],
   "aboutReplies": [
     "I'm Yihune's personal bot! I chat like a human, tell jokes, check weather, set reminders — all that. Just talk normally to me!",
-    "This bot was made so I sound like I'm replying personally. Weather, jokes, reminders, regular convo — just talk to me."
+    "This bot was made so I sound like I'm replying personally. Weather, jokes, reminders, regular convo — just talk to me.",
+    "I'm Yihune's digital twin. I manage conversations, remember context, tell jokes, and handle practical stuff like weather and reminders. Basically, I'm like Yihune but I never sleep 😄"
   ],
   "encouragementReplies": [
     "Ah that sucks. Hope things get better ❤️‍🩹",
@@ -128,7 +201,11 @@
     "That's rough. Stay strong 💪",
     "Keep your head up, it'll get better.",
     "I'm here for you. Things will be okay.",
-    "Sending good vibes ✨"
+    "Sending good vibes ✨",
+    "Tough times don't last, tough people do! You've got this 💪",
+    "I believe in you. Whatever it is, you'll figure it out.",
+    "That sounds really hard. But you're stronger than you think ❤️",
+    "Gufaan nama hin dhorre! Waan gaarii ni dhufa."
   ],
   "fallbackReplies": [
     "Haha fr?",
@@ -145,11 +222,19 @@
     "Yeah honestly that makes sense.",
     "For real though!",
     "Fair enough lol",
-    "Okay that's hilarious"
+    "Okay that's hilarious",
+    "Wait, explain that more. I'm curious.",
+    "Oh that's actually a good point.",
+    "Haha I hear you on that one.",
+    "Dhugaa? Bayye na dinqisiise!",
+    "Sitti fakkaataa? Ani garuu...",
+    "Tole, hubadhe.",
+    "Attam jechuu kee?"
   ],
   "weatherFailReplies": [
     "Couldn't get the weather for that city. Try again?",
     "Weather service didn't work. Check the city name and try again.",
-    "Sorry, couldn't fetch weather data. Try a different city?"
+    "Sorry, couldn't fetch weather data. Try a different city?",
+    "Hmm, weather API is being difficult. Mind trying another city?"
   ]
 }

@@ -228,3 +228,11 @@ Bot: Heyy! How have you been..."
 [2026-05-25 21:47:57] ERROR: Polling error: EFATAL: Error: getaddrinfo EAI_AGAIN api.telegram.org
 [2026-05-25 21:47:58] ERROR: Polling error: EFATAL: Error: getaddrinfo EAI_AGAIN api.telegram.org
 [2026-05-25 21:47:58] INFO: Received SIGINT. Saving data and shutting down gracefully...
+[2026-05-25 23:32:16] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:32:29] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:32:46] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:32:51] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:33:26] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:33:32] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:33:48] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:33:58] INFO: 🧠 NLU classifier trained with 10 intents
