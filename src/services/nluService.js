@@ -55,9 +55,12 @@ const trainingData = {
     "who are you", "what is your name", "your name", "tell me about yourself",
     "about yourself", "what are you", "describe yourself", "introduce yourself",
     "who made you", "who created you", "what can you do", "your purpose",
+    "what services do you offer", "services", "your services",
+    "what technologies", "what tech stack", "skills", "technical skills",
     "atu eenyu", "maqaan kee eenyu", "waa'ee keeti himi",
     "maal akka taate himi", "eenyutu si hojjate",
-    "maal gochuu dandetta",
+    "maal gochuu dandetta", "tajaajila", "dandeettii",
+    "teknoolojii", "maal teknoolojii fayyadamta",
   ],
   smalltalk: [
     "i like", "i love", "i hate", "what do you think", "how are you doing",

@@ -240,6 +240,38 @@
         "Ani Yihune B bakka bu'aa — inni developer software fi system architect dha. Ani waa'ee hojiilee isaa, dandeettii, tajaajila, ykn rakkinoota teknikaa siin himuu danda'a. Bakka bu'aa teknikaa sa'aatii 24/7 isa fakkaadhu!"
       ]
     },
+    "what can you do": {
+      "english": [
+        "I represent Yihune B's services and expertise. Here's what Yihune B can help you with:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nWhich one are you interested in?"
+      ],
+      "oromo": [
+        "Ani tajaajila fi dandeettii Yihune B bakka bu'aa. Yihune B maal si gargaaruu danda'a:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nKamirratti fedhii qabda?"
+      ]
+    },
+    "services": {
+      "english": [
+        "I represent Yihune B's services and expertise. Here's what Yihune B can help you with:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nWhich one are you interested in?"
+      ],
+      "oromo": [
+        "Ani tajaajila fi dandeettii Yihune B bakka bu'aa. Yihune B maal si gargaaruu danda'a:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nKamirratti fedhii qabda?"
+      ]
+    },
+    "skills": {
+      "english": [
+        "Yihune B works with a modern tech stack:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Other:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nHe builds intelligent, secure, scalable, and impactful digital systems for the future. What would you like to know more about?"
+      ],
+      "oromo": [
+        "Yihune B teknoolojii ammayyaa fayyadama:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Kan biroo:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nInni sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara. Waa'ee maalii beekuu feenyee?"
+      ]
+    },
+    "tech stack": {
+      "english": [
+        "Yihune B works with a modern tech stack:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Other:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nHe builds intelligent, secure, scalable, and impactful digital systems for the future. What would you like to know more about?"
+      ],
+      "oromo": [
+        "Yihune B teknoolojii ammayyaa fayyadama:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Kan biroo:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nInni sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara. Waa'ee maalii beekuu feenyee?"
+      ]
+    },
     "i love you": {
       "english": [
         "Ayyy I love you too 😄❤️",
