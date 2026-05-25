@@ -24,6 +24,7 @@ require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const fs = require("fs");
 const path = require("path");
+const http = require("http");
 const axios = require("axios");
 const natural = require("natural");
 const Sentiment = require("sentiment");
@@ -927,6 +928,17 @@ bot.on("polling_error", (err) => {
   } else {
     logger.error(`Polling error: ${err.message}`);
   }
+});
+
+// ─── Health-check HTTP Server (for Render/Heroku port binding) ─────────────
+const PORT = process.env.PORT || 3000;
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({ status: "ok", uptime: process.uptime() }));
+});
+server.listen(PORT, "0.0.0.0", () => {
+  logger.info(`🌐 Health-check server listening on port ${PORT}`);
+  console.log(`🌐 Health-check server listening on port ${PORT}`);
 });
 
 logger.info("🤖 Bot is now running and listening for messages...");
