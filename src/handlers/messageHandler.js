@@ -44,31 +44,19 @@ async function handleMessage(msg, bot, userList) {
   }
 
   if (!hasSelectedLanguage(userId)) {
-    if (text === "/start") {
-      try {
-        await bot.sendMessage(
-          chatId,
-          "🌐 *Language Selection / Filannoo Afaanii*\n\nPlease select your preferred language / Afaan kee filadhu:",
-          {
-            parse_mode: "Markdown",
-            reply_markup: languageSelectionKeyboard(),
-          }
-        );
-      } catch (err) {
-        logger.error(`Language prompt error: ${err.message}`);
-      }
-      return;
-    }
+    const intro =
+      "👋 *Hello / Akkam jirtu*" +
+      "\n\nI am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
+      "\n\nAni asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+      "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
+      "\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
+      "\n\n🌐 *Please select your language / Afaan kee filadhu:*";
 
     try {
-      await bot.sendMessage(
-        chatId,
-        "🌐 *Language Selection / Filannoo Afaanii*\n\nPlease select your preferred language to continue.\n\nAfaan kee filadhuu itti fufuuf.",
-        {
-          parse_mode: "Markdown",
-          reply_markup: languageSelectionKeyboard(),
-        }
-      );
+      await bot.sendMessage(chatId, intro, {
+        parse_mode: "Markdown",
+        reply_markup: languageSelectionKeyboard(),
+      });
     } catch (err) {
       logger.error(`Language prompt error: ${err.message}`);
     }

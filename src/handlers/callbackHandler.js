@@ -35,7 +35,17 @@ async function handleCallback(callbackQuery, bot) {
     trackLanguageSelection(userId, userName, "english");
     try {
       await bot.editMessageText(
-        "✅ Language set to English 🇺🇸\n\nHello! How can I help you today?",
+        "✅ Language set to English 🇺🇸" +
+        "\n\nHello 👋 I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
+        "\n\n*About Yihune B:*" +
+        "\n• Artificial Intelligence systems" +
+        "\n• Cybersecurity & secure applications" +
+        "\n• Digital identity & verification systems" +
+        "\n• Full-stack web development" +
+        "\n• Backend architecture & API development" +
+        "\n• Cloud-based applications & automation" +
+        "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
+        "\n\nHow can I help you today? 😊",
         {
           chat_id: chatId,
           message_id: msg.message_id,
@@ -56,7 +66,17 @@ async function handleCallback(callbackQuery, bot) {
     trackLanguageSelection(userId, userName, "oromo");
     try {
       await bot.editMessageText(
-        "✅ Afaan Oromoo filatamee! 🇪🇹\n\nAkkam jirtu! Har'a maal keessatti si gargaaruu danda'a?",
+        "✅ Afaan Oromoo filatamee! 🇪🇹" +
+        "\n\nAkkam jirtu 👋 Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+        "\n\n*Waa'ee Yihune B:*" +
+        "\n• Sirna Artificial Intelligence" +
+        "\n• Cybersecurity fi application nageenya qaban" +
+        "\n• Digital identity fi verification system" +
+        "\n• Full-stack web development" +
+        "\n• Backend architecture fi API development" +
+        "\n• Cloud-based application fi automation" +
+        "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
+        "\n\nHar'a maal keessatti si gargaaruu danda'a? 😊",
         {
           chat_id: chatId,
           message_id: msg.message_id,
@@ -72,15 +92,18 @@ async function handleCallback(callbackQuery, bot) {
   }
 
   if (!hasSelectedLanguage(userId)) {
+    const intro =
+      "👋 *Hello / Akkam jirtu*" +
+      "\n\nI am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
+      "\n\nAni asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+      "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
+      "\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
+      "\n\n🌐 *Please select your language / Afaan kee filadhu:*";
     try {
-      await bot.sendMessage(
-        chatId,
-        "🌐 *Language Selection / Filannoo Afaanii*\n\nPlease select your preferred language to continue.\n\nAfaan kee filadhuu itti fufuuf.",
-        {
-          parse_mode: "Markdown",
-          reply_markup: languageSelectionKeyboard(),
-        }
-      );
+      await bot.sendMessage(chatId, intro, {
+        parse_mode: "Markdown",
+        reply_markup: languageSelectionKeyboard(),
+      });
     } catch (err) {
       logger.error(`Language prompt error: ${err.message}`);
     }
