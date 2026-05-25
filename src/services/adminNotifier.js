@@ -11,16 +11,15 @@ function isAdmin(userId) {
 }
 
 function esc(text) {
-  return String(text).replace(/_/g, "\\_").replace(/\*/g, "\\*").replace(/`/g, "\\`").replace(/\[/g, "\\[").replace(/~/g, "\\~");
+  return String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-async function sendToAdmin(message, parseMode) {
+async function sendToAdmin(message) {
   const adminId = process.env.ADMIN_CHAT_ID;
   if (!adminId || !bot) return;
 
   try {
-    const opts = parseMode ? { parse_mode: parseMode } : {};
-    await bot.sendMessage(parseInt(adminId, 10), message, opts);
+    await bot.sendMessage(parseInt(adminId, 10), message, { parse_mode: "HTML" });
   } catch (err) {
     logger.error(`Admin notification send error: ${err.message}`);
   }
@@ -28,24 +27,24 @@ async function sendToAdmin(message, parseMode) {
 
 async function notifyNewUser(userId, userName, username, language) {
   const msg =
-    `🆕 *NEW USER JOINED*\n\n` +
-    `👤 ID: \`${userId}\`\n` +
+    `<b>🆕 NEW USER JOINED</b>\n\n` +
+    `👤 ID: <code>${userId}</code>\n` +
     `👤 Name: ${esc(userName)}\n` +
     `📛 Username: @${esc(username)}\n` +
     `🌐 Telegram Lang: ${esc(language)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 async function notifyLanguageSelection(userId, userName, language) {
   const langDisplay = language === "oromo" ? "Afaan Oromoo 🇪🇹" : "English 🇺🇸";
   const msg =
-    `🌐 *LANGUAGE SELECTED*\n\n` +
-    `👤 ID: \`${userId}\`\n` +
+    `<b>🌐 LANGUAGE SELECTED</b>\n\n` +
+    `👤 ID: <code>${userId}</code>\n` +
     `👤 Name: ${esc(userName)}\n` +
     `🗣 Language: ${langDisplay}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 async function notifyUserAction(userId, userName, username, text, type, language) {
@@ -53,8 +52,8 @@ async function notifyUserAction(userId, userName, username, text, type, language
   const langDisplay = language || "unknown";
 
   const msg =
-    `📡 *ACTION LOG*\n\n` +
-    `👤 ID: \`${userId}\`\n` +
+    `<b>📡 ACTION LOG</b>\n\n` +
+    `👤 ID: <code>${userId}</code>\n` +
     `👤 Name: ${esc(userName)}\n` +
     `📛 Username: @${esc(username)}\n` +
     `💬 Message: "${preview}"\n` +
@@ -62,59 +61,59 @@ async function notifyUserAction(userId, userName, username, text, type, language
     `🌐 Language: ${esc(langDisplay)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}\n` +
     `━━━━━━━━━━━━━━`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 async function notifyCommand(userId, userName, username, command, args) {
   const msg =
-    `⌨️ *COMMAND EXECUTED*\n\n` +
-    `👤 ID: \`${userId}\`\n` +
+    `<b>⌨️ COMMAND EXECUTED</b>\n\n` +
+    `👤 ID: <code>${userId}</code>\n` +
     `👤 Name: ${esc(userName)}\n` +
     `📛 Username: @${esc(username)}\n` +
     `🔧 Command: ${command}\n` +
     `📝 Args: ${esc(args)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 async function notifyError(source, userId, message) {
   const msg =
-    `🚨 *ERROR*\n\n` +
+    `<b>🚨 ERROR</b>\n\n` +
     `📁 Source: ${source}\n` +
-    `👤 User: \`${userId || "system"}\`\n` +
+    `👤 User: <code>${userId || "system"}</code>\n` +
     `❌ Message: ${esc(message)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 async function notifySecurity(userId, userName, reason) {
   const msg =
-    `🔒 *SECURITY ALERT*\n\n` +
-    `👤 ID: \`${userId}\`\n` +
+    `<b>🔒 SECURITY ALERT</b>\n\n` +
+    `👤 ID: <code>${userId}</code>\n` +
     `👤 Name: ${esc(userName)}\n` +
     `⚠️ Reason: ${esc(reason)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 async function notifyBotReply(userId, userName, userText, botReply) {
   const msg =
-    `💬 *BOT REPLY*\n\n` +
-    `👤 ID: \`${userId}\`\n` +
+    `<b>💬 BOT REPLY</b>\n\n` +
+    `👤 ID: <code>${userId}</code>\n` +
     `👤 Name: ${esc(userName)}\n` +
     `📝 User said: "${esc(userText).substring(0, 200)}"\n` +
     `🤖 Bot replied: "${esc(botReply).substring(0, 500)}"\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 async function notifySystem(event, details) {
   const msg =
-    `⚙️ *SYSTEM EVENT*\n\n` +
+    `<b>⚙️ SYSTEM EVENT</b>\n\n` +
     `📌 Event: ${event}\n` +
     `📋 Details: ${esc(details)}\n` +
     `⏰ Time: ${new Date().toLocaleString()}`;
-  await sendToAdmin(msg, "Markdown");
+  await sendToAdmin(msg);
 }
 
 module.exports = {
