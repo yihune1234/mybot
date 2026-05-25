@@ -1,0 +1,22 @@
+{
+  "name": "mybot",
+  "version": "2.0.0",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["telegram", "bot", "node-telegram-bot-api", "conversational"],
+  "author": "",
+  "license": "ISC",
+  "description": "Advanced human-like Telegram bot with memory, NLU, weather, reminders, admin controls, and more",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.64.0",
+    "dotenv": "^16.4.5",
+    "axios": "^1.6.7",
+    "natural": "^6.10.4",
+    "sentiment": "^5.0.2",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  }
+}
