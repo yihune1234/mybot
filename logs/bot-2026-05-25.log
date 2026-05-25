@@ -236,3 +236,15 @@ Bot: Heyy! How have you been..."
 [2026-05-25 23:33:32] INFO: 🧠 NLU classifier trained with 10 intents
 [2026-05-25 23:33:48] INFO: 🧠 NLU classifier trained with 10 intents
 [2026-05-25 23:33:58] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:38:49] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:38:49] INFO: 🤖 Bot starting up...
+[2026-05-25 23:38:49] INFO: 🤖 Bot is now running and listening for messages...
+[2026-05-25 23:38:49] INFO: 🌐 Health-check server listening on port 3000
+[2026-05-25 23:38:50] ERROR: Polling error: EFATAL: AggregateError
+[2026-05-25 23:38:50] ERROR: Polling error: EFATAL: AggregateError
+[2026-05-25 23:38:51] ERROR: Polling error: EFATAL: AggregateError
+[2026-05-25 23:38:51] ERROR: Polling error: EFATAL: AggregateError
+[2026-05-25 23:38:52] ERROR: Polling error: EFATAL: AggregateError
+[2026-05-25 23:38:52] ERROR: Polling error: EFATAL: AggregateError
+[2026-05-25 23:38:53] ERROR: Polling error: EFATAL: AggregateError
+[2026-05-25 23:38:53] INFO: Received SIGINT. Saving data and shutting down gracefully...
