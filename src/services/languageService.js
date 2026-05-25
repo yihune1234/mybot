@@ -31,7 +31,7 @@ const OROMO_INDICATORS = [
   "keessa", "keessatti", "irratti", "irrattis",
   "ammoo", "immoo", "garuu", "hata'u malee",
   "kanaafuu", "sanaafuu", "kanaan",
-  "waa", "waan", "waantokko",
+  "waa", "waan", "waantokto",
   "hin", "nan", "si", "isin", "nu", "keenya", "keessan",
   "kophe", "kophee", "kophaa",
   "gammadaa", "gammadee", "gammachuu",
@@ -67,31 +67,41 @@ function detectLanguage(text) {
 
   const lower = text.toLowerCase().trim();
   const words = lower.split(/\s+/).filter(Boolean);
-
   if (words.length === 0) return "unknown";
 
-  let oromoScore = 0;
-  let englishScore = 0;
+  const oromoMatches = new Set();
+  const englishMatches = new Set();
 
   for (const word of words) {
     const clean = word.replace(/[^a-z]/g, "");
-    if (OROMO_INDICATORS.includes(clean)) oromoScore += 3;
-    if (ENGLISH_INDICATORS.includes(clean)) englishScore += 1;
+    if (OROMO_INDICATORS.includes(clean)) oromoMatches.add(clean);
+    if (ENGLISH_INDICATORS.includes(clean)) englishMatches.add(clean);
   }
 
   for (const indicator of OROMO_INDICATORS) {
-    if (lower.includes(indicator)) oromoScore += 2;
+    if (lower.includes(indicator) && indicator.length > 3) {
+      oromoMatches.add(indicator);
+    }
   }
 
+  const oromoWordCount = oromoMatches.size;
+  const englishWordCount = englishMatches.size;
+
   const oromoCharScore = countOromoCharPatterns(lower, words);
-  oromoScore += oromoCharScore;
 
-  if (/,?|\.|!|\?/.test(lower)) englishScore += 0.5;
+  const effectiveOromo = oromoWordCount + (oromoCharScore > 2 ? 1 : 0);
+  const effectiveEnglish = englishWordCount;
 
-  if (oromoScore > englishScore && oromoScore >= 2) return "oromo";
-  if (englishScore > oromoScore && englishScore >= 2) return "english";
+  if (oromoWordCount > 0 && englishWordCount > 0) {
+    const total = oromoWordCount + englishWordCount;
+    const oromoRatio = oromoWordCount / total;
+    if (oromoRatio > 0.15 && oromoRatio < 0.85) return "mixed";
+  }
 
-  if (oromoScore > 0 && englishScore > 0) return "mixed";
+  if (effectiveOromo > effectiveEnglish && effectiveOromo >= 1) return "oromo";
+  if (effectiveEnglish > effectiveOromo && effectiveEnglish >= 1) return "english";
+
+  if (oromoCharScore >= 3) return "oromo";
   return "english";
 }
 
@@ -99,10 +109,10 @@ function countOromoCharPatterns(text, words) {
   let score = 0;
 
   const xCount = (text.match(/x/g) || []).length;
-  if (xCount > 1) score += Math.min(xCount, 4);
+  if (xCount > 0) score += Math.min(xCount, 3);
 
   const qCount = (text.match(/q/g) || []).length;
-  if (qCount > 1) score += Math.min(qCount, 3);
+  if (qCount > 0) score += Math.min(qCount, 2);
 
   const dhCount = (text.match(/dh/g) || []).length;
   if (dhCount > 0) score += dhCount * 2;
@@ -110,26 +120,18 @@ function countOromoCharPatterns(text, words) {
   const chCount = (text.match(/ch/g) || []).length;
   if (chCount > 0) score += chCount;
 
-  const shCount = (text.match(/sh/g) || []).length;
-  if (shCount > 0) score += shCount;
-
   const nyCount = (text.match(/ny/g) || []).length;
   if (nyCount > 0) score += nyCount * 2;
-
-  const phCount = (text.match(/ph/g) || []).length;
-  if (phCount > 0) score += phCount;
 
   let vowelEndCount = 0;
   for (const word of words) {
     const clean = word.replace(/[^a-z]/g, "");
     if (clean.length > 2 && /[aeiou]$/i.test(clean)) {
       const lastTwo = clean.slice(-2);
-      if (["aa", "ii", "uu", "ee", "oo"].includes(lastTwo)) {
-        vowelEndCount++;
-      }
+      if (["aa", "ii", "uu", "ee", "oo"].includes(lastTwo)) vowelEndCount++;
     }
   }
-  if (vowelEndCount > words.length * 0.3) score += Math.min(vowelEndCount, 5);
+  if (vowelEndCount > words.length * 0.3) score += Math.min(vowelEndCount, 3);
 
   return score;
 }
