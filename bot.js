@@ -46,12 +46,36 @@ bot.on("callback_query", async (callbackQuery) => {
   }
 });
 
+let pollingRetries = 0;
+const MAX_POLLING_RETRIES = 5;
+
 bot.on("polling_error", (err) => {
-  if (err.message && err.message.includes("409")) {
-    logger.warn("409 Conflict – another bot instance is running. Killing duplicate...");
-  } else {
-    logger.error(`Polling error: ${err.message}`);
+  const msg = typeof err.message === "string" ? err.message : String(err.message);
+
+  if (msg.includes("409")) {
+    logger.warn("409 Conflict – another bot instance is running.");
+    return;
   }
+
+  if (msg.includes("EFATAL")) {
+    pollingRetries++;
+    logger.error(`Polling EFATAL (attempt ${pollingRetries}/${MAX_POLLING_RETRIES}): ${msg}`);
+
+    if (pollingRetries <= MAX_POLLING_RETRIES) {
+      const delay = Math.min(pollingRetries * 5000, 30000);
+      logger.info(`🔁 Restarting polling in ${delay / 1000}s...`);
+      setTimeout(() => {
+        bot.startPolling().catch((e) => {
+          logger.error(`Polling restart failed: ${e.message}`);
+        });
+      }, delay);
+    } else {
+      logger.error(`❌ Max polling retries reached. Bot cannot connect to Telegram.`);
+    }
+    return;
+  }
+
+  logger.warn(`Polling warning: ${msg}`);
 });
 
 function gracefulShutdown(signal) {
@@ -67,7 +91,8 @@ function gracefulShutdown(signal) {
 process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
 process.on("unhandledRejection", (reason) => {
-  logger.error(`Unhandled rejection: ${reason}`);
+  const message = reason instanceof Error ? reason.stack : String(reason);
+  logger.error(`Unhandled rejection: ${message}`);
 });
 
 const server = http.createServer((req, res) => {

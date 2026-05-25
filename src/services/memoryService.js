@@ -6,7 +6,18 @@ const {
   MEMORY_SUMMARY_THRESHOLD,
 } = require("../utils/constants");
 
-let memories = loadJSON(MEMORY_FILE, {});
+let memories = migrateData(loadJSON(MEMORY_FILE, {}));
+
+function migrateData(raw) {
+  for (const [userId, data] of Object.entries(raw)) {
+    if (Array.isArray(data)) {
+      raw[userId] = { messages: data, summary: null };
+    } else if (data && !data.messages) {
+      raw[userId] = { messages: [], summary: null };
+    }
+  }
+  return raw;
+}
 
 function addMemory(userId, role, text) {
   if (!memories[userId]) {

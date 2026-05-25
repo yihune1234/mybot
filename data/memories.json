@@ -1,172 +1,187 @@
 {
-  "746360079": [
-    {
-      "role": "user",
-      "text": "/start",
-      "timestamp": 1779712630246
-    },
-    {
-      "role": "bot",
-      "text": "Hi! This bot replies as me – just talk normally.",
-      "timestamp": 1779712630808
-    }
-  ],
-  "5999795900": [
-    {
-      "role": "user",
-      "text": "tw gobez",
-      "timestamp": 1779709994496
-    },
-    {
-      "role": "bot",
-      "text": "Fair enough!",
-      "timestamp": 1779709994646
-    },
-    {
-      "role": "user",
-      "text": "you are mindless bot",
-      "timestamp": 1779710021046
-    },
-    {
-      "role": "bot",
-      "text": "That sounds tough. Remember, tough times don't last, but tough people do! 🌟",
-      "timestamp": 1779710021216
-    },
-    {
-      "role": "user",
-      "text": "is stupd interesting ? yasazinal wolahe",
-      "timestamp": 1779710144225
-    },
-    {
-      "role": "bot",
-      "text": "That's interesting! Tell me more.",
-      "timestamp": 1779710144377
-    },
-    {
-      "role": "user",
-      "text": "tell me yourself",
-      "timestamp": 1779710285672
-    },
-    {
-      "role": "bot",
-      "text": "Here's what I remember:\nYou: you are mindless bot\nBot: That sounds tough. Remember, tough times don't last, but tough people do! 🌟\nYou: is stupd interesting ? yasazinal wolahe\nBot: That's interesting! Tell me more.\nYou: tell me yourself",
-      "timestamp": 1779710285831
-    }
-  ],
-  "7458921957": [
-    {
-      "role": "user",
-      "text": "tell me your self",
-      "timestamp": 1779711192404
-    },
-    {
-      "role": "bot",
-      "text": "Right??",
-      "timestamp": 1779711192647
-    },
-    {
-      "role": "user",
-      "text": "tell me about yourself",
-      "timestamp": 1779711202048
-    },
-    {
-      "role": "bot",
-      "text": "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?",
-      "timestamp": 1779711202205
-    },
-    {
-      "role": "user",
-      "text": "Hi",
-      "timestamp": 1779711509420
-    },
-    {
-      "role": "bot",
-      "text": "Interesting. Tell me more.",
-      "timestamp": 1779711509888
-    },
-    {
-      "role": "user",
-      "text": "Hey",
-      "timestamp": 1779711585450
-    },
-    {
-      "role": "bot",
-      "text": "Right??",
-      "timestamp": 1779711585646
-    },
-    {
-      "role": "user",
-      "text": "Hi",
-      "timestamp": 1779711588796
-    },
-    {
-      "role": "bot",
-      "text": "Fair enough lol",
-      "timestamp": 1779711588959
-    }
-  ],
-  "5201342445": [
-    {
-      "role": "user",
-      "text": "I am fine",
-      "timestamp": 1779710349923
-    },
-    {
-      "role": "bot",
-      "text": "Oh wow, that's something!",
-      "timestamp": 1779710350069
-    },
-    {
-      "role": "user",
-      "text": "Tell me about your self",
-      "timestamp": 1779710366254
-    },
-    {
-      "role": "bot",
-      "text": "Here's what I remember:\nYou: Hi\nBot: Hey! Long time no talk – how are you?\nYou: I am fine\nBot: Oh wow, that's something!\nYou: Tell me about your self",
-      "timestamp": 1779710366392
-    },
-    {
-      "role": "user",
-      "text": "Who is you",
-      "timestamp": 1779710390373
-    },
-    {
-      "role": "bot",
-      "text": "No way! That's wild.",
-      "timestamp": 1779710390607
-    },
-    {
-      "role": "user",
-      "text": "Hey",
-      "timestamp": 1779711626010
-    },
-    {
-      "role": "bot",
-      "text": "Hmm never thought of it that way.",
-      "timestamp": 1779711626169
-    },
-    {
-      "role": "user",
-      "text": "Tell me about yourself",
-      "timestamp": 1779711639138
-    },
-    {
-      "role": "bot",
-      "text": "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
-      "timestamp": 1779711639298
-    }
-  ],
-  "7859899103": [
-    {
-      "role": "user",
-      "text": "tell me about yourself",
-      "timestamp": 1779711828871
-    },
-    {
-      "role": "bot",
-      "text": "Bealu, my name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
-      "timestamp": 1779711829024
-    }
-  ]
+  "746360079": {
+    "messages": [
+      {
+        "role": "user",
+        "text": "/start",
+        "timestamp": 1779712630246
+      },
+      {
+        "role": "bot",
+        "text": "Hi! This bot replies as me – just talk normally.",
+        "timestamp": 1779712630808
+      }
+    ],
+    "summary": null
+  },
+  "5999795900": {
+    "messages": [
+      {
+        "role": "user",
+        "text": "tw gobez",
+        "timestamp": 1779709994496
+      },
+      {
+        "role": "bot",
+        "text": "Fair enough!",
+        "timestamp": 1779709994646
+      },
+      {
+        "role": "user",
+        "text": "you are mindless bot",
+        "timestamp": 1779710021046
+      },
+      {
+        "role": "bot",
+        "text": "That sounds tough. Remember, tough times don't last, but tough people do! 🌟",
+        "timestamp": 1779710021216
+      },
+      {
+        "role": "user",
+        "text": "is stupd interesting ? yasazinal wolahe",
+        "timestamp": 1779710144225
+      },
+      {
+        "role": "bot",
+        "text": "That's interesting! Tell me more.",
+        "timestamp": 1779710144377
+      },
+      {
+        "role": "user",
+        "text": "tell me yourself",
+        "timestamp": 1779710285672
+      },
+      {
+        "role": "bot",
+        "text": "Here's what I remember:\nYou: you are mindless bot\nBot: That sounds tough. Remember, tough times don't last, but tough people do! 🌟\nYou: is stupd interesting ? yasazinal wolahe\nBot: That's interesting! Tell me more.\nYou: tell me yourself",
+        "timestamp": 1779710285831
+      }
+    ],
+    "summary": null
+  },
+  "7458921957": {
+    "messages": [
+      {
+        "role": "user",
+        "text": "tell me your self",
+        "timestamp": 1779711192404
+      },
+      {
+        "role": "bot",
+        "text": "Right??",
+        "timestamp": 1779711192647
+      },
+      {
+        "role": "user",
+        "text": "tell me about yourself",
+        "timestamp": 1779711202048
+      },
+      {
+        "role": "bot",
+        "text": "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?",
+        "timestamp": 1779711202205
+      },
+      {
+        "role": "user",
+        "text": "Hi",
+        "timestamp": 1779711509420
+      },
+      {
+        "role": "bot",
+        "text": "Interesting. Tell me more.",
+        "timestamp": 1779711509888
+      },
+      {
+        "role": "user",
+        "text": "Hey",
+        "timestamp": 1779711585450
+      },
+      {
+        "role": "bot",
+        "text": "Right??",
+        "timestamp": 1779711585646
+      },
+      {
+        "role": "user",
+        "text": "Hi",
+        "timestamp": 1779711588796
+      },
+      {
+        "role": "bot",
+        "text": "Fair enough lol",
+        "timestamp": 1779711588959
+      }
+    ],
+    "summary": null
+  },
+  "5201342445": {
+    "messages": [
+      {
+        "role": "user",
+        "text": "I am fine",
+        "timestamp": 1779710349923
+      },
+      {
+        "role": "bot",
+        "text": "Oh wow, that's something!",
+        "timestamp": 1779710350069
+      },
+      {
+        "role": "user",
+        "text": "Tell me about your self",
+        "timestamp": 1779710366254
+      },
+      {
+        "role": "bot",
+        "text": "Here's what I remember:\nYou: Hi\nBot: Hey! Long time no talk – how are you?\nYou: I am fine\nBot: Oh wow, that's something!\nYou: Tell me about your self",
+        "timestamp": 1779710366392
+      },
+      {
+        "role": "user",
+        "text": "Who is you",
+        "timestamp": 1779710390373
+      },
+      {
+        "role": "bot",
+        "text": "No way! That's wild.",
+        "timestamp": 1779710390607
+      },
+      {
+        "role": "user",
+        "text": "Hey",
+        "timestamp": 1779711626010
+      },
+      {
+        "role": "bot",
+        "text": "Hmm never thought of it that way.",
+        "timestamp": 1779711626169
+      },
+      {
+        "role": "user",
+        "text": "Tell me about yourself",
+        "timestamp": 1779711639138
+      },
+      {
+        "role": "bot",
+        "text": "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
+        "timestamp": 1779711639298
+      }
+    ],
+    "summary": null
+  },
+  "7859899103": {
+    "messages": [
+      {
+        "role": "user",
+        "text": "tell me about yourself",
+        "timestamp": 1779711828871
+      },
+      {
+        "role": "bot",
+        "text": "Bealu, my name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
+        "timestamp": 1779711829024
+      }
+    ],
+    "summary": null
+  }
 }

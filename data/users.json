@@ -33,5 +33,10 @@
     "id": 42,
     "firstName": "Test",
     "username": "tester"
+  },
+  {
+    "id": 777,
+    "firstName": "Test",
+    "username": "tester"
   }
 ]

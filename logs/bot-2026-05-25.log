@@ -248,3 +248,59 @@ Bot: Heyy! How have you been..."
 [2026-05-25 23:38:52] ERROR: Polling error: EFATAL: AggregateError
 [2026-05-25 23:38:53] ERROR: Polling error: EFATAL: AggregateError
 [2026-05-25 23:38:53] INFO: Received SIGINT. Saving data and shutting down gracefully...
+[2026-05-25 23:42:23] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:43:45] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:44:32] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:45:15] INFO: 🧠 NLU classifier trained with 10 intents
+[2026-05-25 23:45:15] INFO: 🤖 Bot starting up...
+[2026-05-25 23:45:15] INFO: 🤖 Bot is now running and listening for messages...
+[2026-05-25 23:45:15] INFO: 🌐 Health-check server listening on port 3000
+[2026-05-25 23:45:15] ERROR: Polling EFATAL (attempt 1/5): EFATAL: AggregateError
+[2026-05-25 23:45:15] INFO: 🔁 Restarting polling in 5s...
+[2026-05-25 23:45:20] ERROR: Polling EFATAL (attempt 2/5): EFATAL: AggregateError
+[2026-05-25 23:45:20] INFO: 🔁 Restarting polling in 10s...
+[2026-05-25 23:45:21] ERROR: Polling EFATAL (attempt 3/5): EFATAL: AggregateError
+[2026-05-25 23:45:21] INFO: 🔁 Restarting polling in 15s...
+[2026-05-25 23:45:21] ERROR: Polling EFATAL (attempt 4/5): EFATAL: AggregateError
+[2026-05-25 23:45:21] INFO: 🔁 Restarting polling in 20s...
+[2026-05-25 23:45:21] ERROR: Polling EFATAL (attempt 5/5): EFATAL: AggregateError
+[2026-05-25 23:45:21] INFO: 🔁 Restarting polling in 25s...
+[2026-05-25 23:45:22] ERROR: Polling EFATAL (attempt 6/5): EFATAL: AggregateError
+[2026-05-25 23:45:22] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:22] ERROR: Polling EFATAL (attempt 7/5): EFATAL: AggregateError
+[2026-05-25 23:45:22] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:22] ERROR: Polling EFATAL (attempt 8/5): EFATAL: AggregateError
+[2026-05-25 23:45:22] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:22] ERROR: Polling EFATAL (attempt 9/5): EFATAL: AggregateError
+[2026-05-25 23:45:22] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:23] ERROR: Polling EFATAL (attempt 10/5): EFATAL: AggregateError
+[2026-05-25 23:45:23] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:23] ERROR: Polling EFATAL (attempt 11/5): EFATAL: AggregateError
+[2026-05-25 23:45:23] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:23] ERROR: Polling EFATAL (attempt 12/5): EFATAL: AggregateError
+[2026-05-25 23:45:23] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:24] ERROR: Polling EFATAL (attempt 13/5): EFATAL: AggregateError
+[2026-05-25 23:45:24] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:24] ERROR: Polling EFATAL (attempt 14/5): EFATAL: AggregateError
+[2026-05-25 23:45:24] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:24] ERROR: Polling EFATAL (attempt 15/5): EFATAL: AggregateError
+[2026-05-25 23:45:24] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:24] ERROR: Polling EFATAL (attempt 16/5): EFATAL: AggregateError
+[2026-05-25 23:45:24] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:25] ERROR: Polling EFATAL (attempt 17/5): EFATAL: AggregateError
+[2026-05-25 23:45:25] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:25] ERROR: Polling EFATAL (attempt 18/5): EFATAL: AggregateError
+[2026-05-25 23:45:25] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:26] ERROR: Polling EFATAL (attempt 19/5): EFATAL: AggregateError
+[2026-05-25 23:45:26] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:26] ERROR: Polling EFATAL (attempt 20/5): EFATAL: AggregateError
+[2026-05-25 23:45:26] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:27] ERROR: Polling EFATAL (attempt 21/5): EFATAL: AggregateError
+[2026-05-25 23:45:27] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:28] ERROR: Polling EFATAL (attempt 22/5): EFATAL: AggregateError
+[2026-05-25 23:45:28] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:28] ERROR: Polling EFATAL (attempt 23/5): EFATAL: AggregateError
+[2026-05-25 23:45:28] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:29] ERROR: Polling EFATAL (attempt 24/5): EFATAL: AggregateError
+[2026-05-25 23:45:29] ERROR: ❌ Max polling retries reached. Bot cannot connect to Telegram.
+[2026-05-25 23:45:29] INFO: Received SIGINT. Saving data and shutting down gracefully...
