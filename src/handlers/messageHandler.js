@@ -46,23 +46,10 @@ async function handleMessage(msg, bot, userList) {
   if (!hasSelectedLanguage(userId)) {
     const userLang = detectLanguage(text);
     const engFirst = userLang === "english" || userLang === "unknown";
-    const intro = engFirst
-      ? "Hello 👋 I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
-        "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
-        "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
-        "\n\n━━━━━━━━━━━━━━━━━━━" +
-        "\n\nAkkam jirtu 👋 Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
-        "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
-        "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications."
-      : "Akkam jirtu 👋 Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
-        "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
-        "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
-        "\n\n━━━━━━━━━━━━━━━━━━━" +
-        "\n\nHello 👋 I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
-        "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
-        "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications.";
-    const full = intro + "\n\n━━━━━━━━━━━━━━━━━━━" +
-      "\n\n🌐 *Please select your language / Afaan kee filadhu:*";
+    const en = "Hello 👋 I am *Yihune B* — a software developer, system builder, and innovation-focused creator.\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future.\nSpecialties: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
+    const om = "Akkam jirtu 👋 Ani *Yihune B* ti — developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate.\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara.\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
+    const intro = engFirst ? en + "\n\n━━━━━━━━━━━━━━\n\n" + om : om + "\n\n━━━━━━━━━━━━━━\n\n" + en;
+    const full = intro + "\n\n━━━━━━━━━━━━━━\n\n🌐 *Please select your language / Afaan kee filadhu:*";
 
     try {
       await bot.sendMessage(chatId, full, {
