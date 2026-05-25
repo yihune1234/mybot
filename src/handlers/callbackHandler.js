@@ -95,7 +95,8 @@ async function handleCallback(callbackQuery, bot) {
     const en = "Hello 👋 I am *Yihune B* — a software developer, system builder, and innovation-focused creator.\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future.\nSpecialties: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
     const om = "Akkam jirtu 👋 Ani *Yihune B* ti — developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate.\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara.\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
     const intro = en + "\n\n━━━━━━━━━━━━━━\n\n" + om;
-    const full = intro + "\n\n━━━━━━━━━━━━━━\n\n🌐 *Please select your language / Afaan kee filadhu:*";
+    const full = intro + "\n\n━━━━━━━━━━━━━━\n\n🌐 *Please select your language / Afaan kee filadhu:*" +
+      "\n\n📬 *Contact Yihune B* — Use the buttons below to reach out.";
     try {
       await bot.sendMessage(chatId, full, {
         parse_mode: "Markdown",

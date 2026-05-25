@@ -19,6 +19,17 @@ function languageSelectionKeyboard() {
         { text: "English 🇺🇸", callback_data: "lang_en" },
         { text: "Afaan Oromoo 🇪🇹", callback_data: "lang_om" },
       ],
+      [
+        { text: "🌐 Portfolio", url: "https://myportfolio-1-01m7.onrender.com/" },
+        { text: "💻 GitHub", url: "https://github.com/yihune1234" },
+      ],
+      [
+        { text: "🔗 LinkedIn", url: "https://www.linkedin.com/in/yihune-belay-30b0a4383" },
+        { text: "📱 Telegram", url: "https://t.me/Y13bel" },
+      ],
+      [
+        { text: "✉️ Email", url: "mailto:yihunebelay859@gmail.com" },
+      ],
     ],
   };
 }
@@ -49,7 +60,9 @@ async function handleMessage(msg, bot, userList) {
     const en = "Hello 👋 I am *Yihune B* — a software developer, system builder, and innovation-focused creator.\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future.\nSpecialties: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
     const om = "Akkam jirtu 👋 Ani *Yihune B* ti — developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate.\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara.\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
     const intro = engFirst ? en + "\n\n━━━━━━━━━━━━━━\n\n" + om : om + "\n\n━━━━━━━━━━━━━━\n\n" + en;
-    const full = intro + "\n\n━━━━━━━━━━━━━━\n\n🌐 *Please select your language / Afaan kee filadhu:*";
+    const full = intro + "\n\n━━━━━━━━━━━━━━\n\n🌐 *Please select your language / Afaan kee filadhu:*" +
+      "\n\n📬 *Contact Yihune B* / *Yihune B quunnamuu*" +
+      "\nUse the buttons below to reach out / Bakka jala jirtu fayyadami.";
 
     try {
       await bot.sendMessage(chatId, full, {
