@@ -12,7 +12,7 @@
     "hello_oromo": "Akkam jirtu! Har'a maal keessatti isin gargaaruu danda'a?"
   },
   "commands": {
-    "start": "Hi! This bot replies as me – just talk normally.\n\nUse /help to see what I can do!",
+    "start": "Hello 👋 I am the official AI assistant and digital portfolio of Yihune B — a software developer and system builder.\n\nI can help you with:\n• Understanding Yihune's skills and services\n• Technical guidance and advice\n• Weather updates, jokes, reminders, and more\n\nUse /help to see what I can do!",
     "help": "🤖 *Help Menu*\nSelect an option below:",
     "help_about": "About",
     "help_stats": "Stats",

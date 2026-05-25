@@ -9,10 +9,23 @@ const { languageSelectionKeyboard } = require("./messageHandler");
 const { trackLanguageSelection, trackError } = require("../services/eventTracker");
 
 async function handleCallback(callbackQuery, bot) {
+  if (!callbackQuery || !callbackQuery.from) {
+    logger.error(`Invalid callback query: ${JSON.stringify(callbackQuery)}`);
+    return;
+  }
+
   const msg = callbackQuery.message;
+  if (!msg) {
+    logger.error(`Callback ${callbackQuery.id} has no message`);
+    try {
+      await bot.answerCallbackQuery(callbackQuery.id, { text: "Something went wrong. Please try again." });
+    } catch (_) {}
+    return;
+  }
+
   const chatId = msg.chat.id;
   const userId = callbackQuery.from.id;
-  const data = callbackQuery.data;
+  const data = callbackQuery.data || "";
 
   await bot.answerCallbackQuery(callbackQuery.id);
 

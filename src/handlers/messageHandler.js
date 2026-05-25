@@ -9,7 +9,7 @@ const { detectLanguage } = require("../services/languageService");
 const { t, getLangCode } = require("../services/i18nService");
 const { handleCommand } = require("./commandHandler");
 const { handleAdminCommand } = require("./adminCommandHandler");
-const { trackMessage, trackLanguageSelection, trackError } = require("../services/eventTracker");
+const { trackMessage, trackLanguageSelection, trackError, trackBotReply } = require("../services/eventTracker");
 const { SENTIMENT_ENCOURAGE_THRESHOLD, SENTIMENT_LOG_THRESHOLD, PERSONALIZE_CHANCE } = require("../utils/constants");
 
 function languageSelectionKeyboard() {
@@ -163,6 +163,7 @@ async function handleMessage(msg, bot, userList) {
     try {
       await bot.sendMessage(chatId, finalReply, { parse_mode: "Markdown" });
       addMemory(userId, "bot", finalReply);
+      trackBotReply(userId, firstName, text, finalReply);
       logger.info(`🤖 Replied to ${userId}: "${finalReply.substring(0, 60)}..."`);
     } catch (err) {
       logger.error(`Send reply error: ${err.message}`);

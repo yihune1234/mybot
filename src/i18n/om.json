@@ -12,7 +12,7 @@
     "hello_oromo": "Akkam jirtu! Har'a maal keessatti si gargaaruu danda'a?"
   },
   "commands": {
-    "start": "Akkam! Botiin kun akka Yihune deebisa — akkuma barbaaddetti haasa'i.\n\n/help fayyadami waan nan danda'u argachuuf!",
+    "start": "Akkam jirtu 👋 Ani asistan AI fi poortfolioo dijitaalii Yihune B ti — inni developer software fi ijaarsa sirnaa dha.\n\nAni si gargaaruu danda'a:\n• Dandeettii fi tajaajila Yihune hubachuu\n• Qajeelfama teknikaa fi gorsa\n• Haala qilleensaa, kolfa, yaadachiisaa fi kan biraa\n\n/help fayyadami waan nan danda'u argachuuf!",
     "help": "🤖 *Gargaarsa*\nFilannoo gadii irraa filadhu:",
     "help_about": "Waa'ee",
     "help_stats": "Itti Gaafii",

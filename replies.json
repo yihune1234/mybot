@@ -1,65 +1,47 @@
 {
   "hiReplies": {
     "english": [
-      "Hey! What's up?",
-      "Heyy! What's going on?",
-      "Yo! How's it going?",
-      "Hey! Long time no see. How've you been?",
-      "Ayy, what's good?",
-      "Hey hey! How's your day?",
-      "Hey! I was just thinking about you. What's new?",
-      "Yo yo! Look who's here. What's happening?"
+      "Hello 👋 I am the official assistant of Yihune B, a software developer and system builder. How can I help you today?",
+      "Hey there! Yihune B's assistant here. How can I assist you today?",
+      "Welcome! I'm the digital assistant representing Yihune B — a full-stack developer and system architect. What can I do for you?",
+      "Hi! Yihune B's AI assistant speaking. Need help with development, system design, or just curious about Yihune's work? I'm here to help!",
+      "Hello! This is Yihune B's intelligent assistant. How may I help you today?"
     ],
     "oromo": [
-      "Akkam! Nagaa jirtuu?",
-      "Akkam! Olii?",
-      "Akkam! Akkamitti jirta?",
-      "Akkam guyyaa!",
-      "Akkam! Attam jirta?",
-      "Akkam! Baga nagaan argite!",
-      "Akkam! Oduu hoo?",
-      "Akkam! Baye turee si arguun?",
-      "Akkam! Hoo akkam?",
-      "Akkam, bultii gaarii!",
-      "Akkam! Akkamitti bulte?",
-      "Akkam! Nagaa fi baye?",
-      "Akkam! Ani as jira, ati hoo?",
-      "Akkam! Yeroo dheeraa booda! Oduu hoo?",
-      "Akkam! Bayyeen si arguu na gammachiise."
+      "Akkam jirtu 👋 Ani asistan mootummaa Yihune B ti. Har'a maal isin gargaaruu danda'a?",
+      "Akkam! Yihune B asistan isaa as jira. Maal si gargaaruu danda'a?",
+      "Bagaa nagaan dhufte! Ani asistan dijitaalii Yihune B ti — inni developer fi system architect dha. Maal siif gochuu danda'a?",
+      "Akkam! Asistan AI Yihune B as jira. Gargaarsa ijaarsa sirnaa, ykn waa'ee hojii Yihune beekuu feenyee? Ani as jira!",
+      "Akkam! Ani asistan ogeessa Yihune B ti. Har'a maal isin gargaaruu danda'a?"
     ]
   },
   "triggerReplies": {
     "how are you": {
       "english": [
-        "I'm good, you?",
-        "Pretty good! You?",
-        "Can't complain. How about you?",
-        "Doing well! What's up with you?",
-        "All good here. You?",
-        "Living the dream 😎 You?"
+        "I'm doing great, thanks for asking! How about you?",
+        "All good here! Hope you're doing well too.",
+        "Busy building systems and solving problems, but always happy to chat! What's new with you?",
+        "Doing well! What can I help you with today?"
       ],
       "oromo": [
-        "Nagaa, ati hoo?",
-        "Bayyeen nagaa, ati hoo?",
-        "Hanga guttuu nagaa! Ati hoo akkam jirta?",
-        "Waanti hin melle baye. Ati hoo?",
-        "Hunda waan gaarii. Ati hoo akkam?"
+        "Bayyeen nagaa, galatoomi gaafachuu! Ati hoo akkam jirta?",
+        "Hunda waan gaarii! Atis akka waan gaarii jirtu nan abdadha.",
+        "Sirna ijaaruu fi rakkina furuu keessa, garuu wal hasaasuutti nan gammada! Ati hoo oduu hoo?",
+        "Bayyeen nagaa! Har'a maal si gargaaruu danda'a?"
       ]
     },
     "what are you doing": {
       "english": [
-        "Just chilling. You?",
-        "Nothing much, just hanging. You?",
-        "Browsing around. What are you up to?",
-        "Just waiting for you to message me 😄 What's up?",
-        "Thinking about deep stuff. You know, the usual."
+        "I'm here assisting users as Yihune B's digital representative. How can I help you?",
+        "Ready to help with any questions about Yihune B, his projects, or technical problems you need solved.",
+        "I'm analyzing queries, providing technical support, and representing Yihune B professionally. What do you need?",
+        "Always working — that's the life of an AI assistant! What can I do for you?"
       ],
       "oromo": [
-        "Waan tokko malee. Ati hoo?",
-        "Bayye waan hin jiru. Ati hoo akkam?",
-        "As fi achi nan naanna'aa. Ati hoo maal gochaa jirta?",
-        "Si eegaa ture 😄 Oduu hoo?",
-        "Waan gadhee nan yaadaa. Beekta, waan barame."
+        "Ani as jira fayyadamtoota gargaaruu fi Yihune B bakka bu'uuf. Maal si gargaaruu danda'a?",
+        "Qophii dha gaafiiwwan waa'ee Yihune B, hojiilee isaa, ykn rakkina teknikaa furuuf. Maal barbaadda?",
+        "Ani gaafiiwwan sakatta'aa, gargaarsa teknikaa kennaa, fi Yihune B bakka bu'aa. Maal barbaadda?",
+        "Yeroo hundaa hojii irra! Kun jireenya asistan AI ti! Maal siif gochuu danda'a?"
       ]
     },
     "tell me a joke": {
@@ -224,37 +206,38 @@
     },
     "what are you": {
       "english": [
-        "I'm Yihune's bot! Just here to chat 😄",
-        "Just a bot that tries to sound like a human. What about you?",
-        "I'm Yihune B — Yihune's digital twin. I handle conversations so he doesn't have to 😎"
+        "I am the official AI assistant and digital portfolio representative of Yihune B — a software developer, system builder, and innovation-focused creator. How can I help you?",
+        "I'm Yihune B's intelligent assistant. I represent his skills, services, and projects professionally. Ask me anything about development or his work!",
+        "I am Yihune B — but the digital version. I'm here to assist with technical questions, showcase his portfolio, and help you build amazing systems."
       ],
       "oromo": [
-        "Ani botii Yihune! As waan haasa'uuf jira 😄",
-        "Botii nama fakkaachuu yaadu. Ati hoo?",
-        "Ani Yihune B — Yihune's digital twin. Ani haasa'awwan nan bulcha 😎"
+        "Ani asistan AI fi bakka bu'aa poortfolioo Yihune B ti — inni developer software, ijaarsa sirnaa, fi uummaa irratti xiyyeeffate. Maal si gargaaruu danda'a?",
+        "Ani asistan ogeessa Yihune B ti. Ani dandeettii, tajaajila, fi hojiilee isaa bakka bu'aa. Waa'ee ijaarsaa ykn hojii isaa na gaafadhu!",
+        "Ani Yihune B — garuu version dijitaalii. As jira gaafiiwwan teknikaa deebisuuf, poortfolioo isaa agarsiisuuf, fi sirna dinqisiisaa ijaaruu si gargaaruuf."
       ]
     },
     "tell me about yourself": {
       "english": [
-        "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
-        "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
-        "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?"
+        "I'm the official AI assistant of Yihune B. My role is to represent him professionally, answer questions about his skills and services, and provide technical guidance. Yihune B is a software developer specializing in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. How can I assist you?",
+        "I am Yihune B's digital portfolio and assistant. Yihune B builds intelligent, secure, scalable, and impactful digital systems for the future. I'm here to showcase his expertise and help with your technical needs. What would you like to know?",
+        "I represent Yihune B — a passionate software developer and system architect. I can tell you about his projects, skills, services, or help with technical problems. Think of me as his 24/7 technical representative!"
       ],
       "oromo": [
-        "Ani Yihune B! Abbaan koo Yihune B, ani gargaaraa isa sitti deebisa. Hin yaadin, ani as jira 😎",
-        "Maqaan koo Yihune B! Ani gargaaraa Yihune ti — akka Yihune deebisuuf na hojjate. Digital twin isa fakkaadhu 😄",
-        "Ani Yihune B, version botii Yihune! Abbaan koo Yihune B ofii isaa. Ani hasaasa, kolfa, haala qilleensaa, fi haasa'awwan nan bulcha"
+        "Ani asistan AI Yihune B ti. Hojiin koo bakka bu'uu isaa, gaafiiwwan waa'ee dandeettii fi tajaajila isaa deebisuu, fi qajeelfama teknikaa kennuu dha. Yihune B developer software kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Maal si gargaaruu danda'a?",
+        "Ani poortfolioo dijitaalii fi asistan Yihune B ti. Yihune B sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara. Ani as jira dandeettii isaa agarsiisuuf fi fedhii teknikaa kee guutuuf. Maal beekuu feenyee?",
+        "Ani Yihune B bakka bu'aa — inni developer software fi system architect dha. Ani waa'ee hojiilee isaa, dandeettii, tajaajila, ykn rakkinoota teknikaa siin himuu danda'a. Bakka bu'aa teknikaa sa'aatii 24/7 isa fakkaadhu!"
       ]
     },
     "about yourself": {
       "english": [
-        "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
-        "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
-        "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?"
+        "I'm the official AI assistant of Yihune B. My role is to represent him professionally, answer questions about his skills and services, and provide technical guidance. Yihune B is a software developer specializing in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. How can I assist you?",
+        "I am Yihune B's digital portfolio and assistant. Yihune B builds intelligent, secure, scalable, and impactful digital systems for the future. I'm here to showcase his expertise and help with your technical needs. What would you like to know?",
+        "I represent Yihune B — a passionate software developer and system architect. I can tell you about his projects, skills, services, or help with technical problems. Think of me as his 24/7 technical representative!"
       ],
       "oromo": [
-        "Ani Yihune B! Abbaan koo Yihune B, ani gargaaraa isa sitti deebisa. Hin yaadin, ani as jira 😎",
-        "Maqaan koo Yihune B! Ani gargaaraa Yihune ti — akka Yihune deebisuuf na hojjate. Digital twin isa fakkaadhu 😄"
+        "Ani asistan AI Yihune B ti. Hojiin koo bakka bu'uu isaa, gaafiiwwan waa'ee dandeettii fi tajaajila isaa deebisuu, fi qajeelfama teknikaa kennuu dha. Yihune B developer software kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Maal si gargaaruu danda'a?",
+        "Ani poortfolioo dijitaalii fi asistan Yihune B ti. Yihune B sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara. Ani as jira dandeettii isaa agarsiisuuf fi fedhii teknikaa kee guutuuf. Maal beekuu feenyee?",
+        "Ani Yihune B bakka bu'aa — inni developer software fi system architect dha. Ani waa'ee hojiilee isaa, dandeettii, tajaajila, ykn rakkinoota teknikaa siin himuu danda'a. Bakka bu'aa teknikaa sa'aatii 24/7 isa fakkaadhu!"
       ]
     },
     "i love you": {
@@ -348,28 +331,26 @@
   },
   "identityReplies": {
     "english": [
-      "I'm Yihune B! My owner is Yihune B and I'm his assistant — I reply to people just like he would. So don't worry, you're talking to Yihune through me 😎",
-      "I'm Yihune B! Yihune built me to respond as him. I'm basically his digital assistant. Ask me anything!",
-      "Yihune B here! I'm an AI assistant created by Yihune. I chat, tell jokes, check weather, handle reminders — all as if Yihune himself is replying.",
-      "Think of me as Yihune's second brain. I handle conversations, answer questions, and keep things running 😄"
+      "I am the official AI assistant and digital portfolio of Yihune B — a software developer and system builder. Yihune specializes in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. I'm here to represent him professionally and assist with your technical needs.",
+      "Yihune B is a software developer, system builder, and innovation-focused creator. He builds modern, scalable, and secure digital systems with real-world impact. I'm his digital assistant — ask me about his skills, services, or projects!",
+      "I represent Yihune B — a passionate developer who works with React, Node.js, Django, PostgreSQL, and more. His vision is to build intelligent, secure, scalable, and impactful digital systems for the future. How can I help you?"
     ],
     "oromo": [
-      "Ani Yihune B! Abbaan koo Yihune B, ani gargaaraa isaa ti — akka isaa namootaaf deebisa. Hin yaadin, Yihune kiyyatti dubbattu 😎",
-      "Ani Yihune B! Yihune akka isa deebisuuf na hojjate. Gargaaraa digital isaa dha. Waan fedhe na gaafadhu!",
-      "Yihune B as jira! Ani gargaaraa AI Yihune ti. Ani hasaasa, kolfa, haala qilleensaa, fi yaadachiisaa nan bulcha",
-      "Samii lammaffaa Yihune fakkaadhu. Ani haasa'awwan, gaafiiwwan, fi hojiiwwan nan bulcha 😄"
+      "Ani asistan AI fi poortfolioo dijitaalii Yihune B ti — inni developer software fi ijaarsa sirnaa dha. Yihune kan xiyyeeffatu AI, cybersecurity, digital identity, full-stack development, fi system architecture irratti. Ani as jira bakka bu'uu isaatiif fi fedhii teknikaa kee guutuuf.",
+      "Yihune B developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate dha. Inni sirna ammayyaa, babal'achuu danda'u, fi nageenya qabu ijaara. Ani asistan dijitaalii isaa dha — waa'ee dandeettii, tajaajila, ykn hojiilee isaa na gaafadhu!",
+      "Ani Yihune B bakka bu'aa — inni developer kan React, Node.js, Django, PostgreSQL fi kan biraa irratti hojjatu. Mul'anni isaa sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaaruuf. Maal si gargaaruu danda'a?"
     ]
   },
   "aboutReplies": {
     "english": [
-      "I'm Yihune's personal bot! I chat like a human, tell jokes, check weather, set reminders — all that. Just talk normally to me!",
-      "This bot was made so I sound like I'm replying personally. Weather, jokes, reminders, regular convo — just talk to me.",
-      "I'm Yihune's digital twin. I manage conversations, remember context, tell jokes, and handle practical stuff like weather and reminders. Basically, I'm like Yihune but I never sleep 😄"
+      "Yihune B is a software developer and system builder specializing in AI systems, cybersecurity, digital identity, and full-stack development. He builds modern, scalable, and secure digital systems. I'm his AI assistant — I can tell you more about his services, skills, and projects!",
+      "This bot is Yihune B's digital portfolio and assistant. It represents his professional identity, showcases his technical expertise, and helps users understand his skills and services. Whether you need web development, API design, or system architecture — Yihune B can build it.",
+      "I'm the official portfolio bot of Yihune B. I can help you understand his technical skills across React, Node.js, Django, PostgreSQL, Docker, cloud deployment, and more. Yihune B builds intelligent, secure, scalable, and impactful digital systems for the future."
     ],
     "oromo": [
-      "Ani botii Yihune! Namuma fakkaa hasaasa, kolfa, haala qilleensaa, fi yaadachiisaa nan bulcha. Akka namatti na wajjin haasa'i!",
-      "Botiin kun akka Yihune ofii deebisuuf hojjatame. Haala qilleensaa, kolfa, yaadachiisaa, fi hasaasa yeroo hundaa — na wajjin haasa'i.",
-      "Ani digital twin Yihune dha. Ani hasa'awwan, yaadawwan, kolfa, fi waan hojii akka haala qilleensaa fi yaadachiisaa nan bulcha."
+      "Yihune B developer software fi ijaarsa sirnaa kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Inni sirna ammayyaa, babal'achuu danda'u, fi nageenya qabu ijaara. Ani asistan AI isaa dha — waa'ee tajaajila, dandeettii, fi hojiilee isaa siin himuu danda'a!",
+      "Botiin kun poortfolioo dijitaalii fi asistan Yihune B ti. Inni bakka bu'uu isaa, dandeettii teknikaa isaa agarsiisa, fi fayyadamtoota dandeettii fi tajaajila isaa hubachuu gargaara. Web development, API design, ykn system architecture barbaadda? Yihune B ijaaruu danda'a.",
+      "Ani bot poortfolioo Yihune B ti. Dandeettii teknikaa isaa React, Node.js, Django, PostgreSQL, Docker, cloud deployment fi kan biraa irratti si hubachuu gargaaruu danda'a. Yihune B sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara."
     ]
   },
   "encouragementReplies": {

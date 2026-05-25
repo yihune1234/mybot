@@ -97,6 +97,17 @@ async function notifySecurity(userId, userName, reason) {
   await sendToAdmin(msg, "Markdown");
 }
 
+async function notifyBotReply(userId, userName, userText, botReply) {
+  const msg =
+    `💬 *BOT REPLY*\n\n` +
+    `👤 ID: \`${userId}\`\n` +
+    `👤 Name: ${esc(userName)}\n` +
+    `📝 User said: "${esc(userText).substring(0, 200)}"\n` +
+    `🤖 Bot replied: "${esc(botReply).substring(0, 500)}"\n` +
+    `⏰ Time: ${new Date().toLocaleString()}`;
+  await sendToAdmin(msg, "Markdown");
+}
+
 async function notifySystem(event, details) {
   const msg =
     `⚙️ *SYSTEM EVENT*\n\n` +
@@ -114,6 +125,7 @@ module.exports = {
   notifyLanguageSelection,
   notifyUserAction,
   notifyCommand,
+  notifyBotReply,
   notifyError,
   notifySecurity,
   notifySystem,

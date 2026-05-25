@@ -47,6 +47,10 @@ function trackLanguageSelection(userId, userName, language) {
   notifyLanguageSelection(userId, userName, language);
 }
 
+function trackBotReply(userId, userName, userText, botReply) {
+  notifyBotReply(userId, userName, userText, botReply);
+}
+
 function trackError(source, userId, errMessage) {
   errorCount++;
   logError(source, errMessage, null);
@@ -72,6 +76,7 @@ function getStats() {
 module.exports = {
   trackMessage,
   trackLanguageSelection,
+  trackBotReply,
   trackError,
   trackSystemEvent,
   getStats,

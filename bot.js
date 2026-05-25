@@ -69,6 +69,12 @@ bot.on("callback_query", async (callbackQuery) => {
   } catch (err) {
     logger.error(`Unhandled error in callback handler: ${err.message}`);
     trackError("callbackHandler", callbackQuery.from?.id, err.message);
+    try {
+      await bot.answerCallbackQuery(callbackQuery.id, { text: "Something went wrong. Please try again." });
+      if (callbackQuery.message) {
+        await bot.sendMessage(callbackQuery.message.chat.id, "❌ Sorry, something went wrong. Please try again.");
+      }
+    } catch (_) {}
   }
 });
 
