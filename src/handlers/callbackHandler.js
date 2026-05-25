@@ -35,17 +35,19 @@ async function handleCallback(callbackQuery, bot) {
     trackLanguageSelection(userId, userName, "english");
     try {
       await bot.editMessageText(
-        "✅ Language set to English 🇺🇸" +
-        "\n\nHello 👋 I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
-        "\n\n*About Yihune B:*" +
-        "\n• Artificial Intelligence systems" +
-        "\n• Cybersecurity & secure applications" +
-        "\n• Digital identity & verification systems" +
-        "\n• Full-stack web development" +
-        "\n• Backend architecture & API development" +
-        "\n• Cloud-based applications & automation" +
+        "✅ *Language set to English* / *Afaan Ingilizii filatamee* 🇺🇸" +
+        "\n━━━━━━━━━━━━━━━━━━━" +
+        "\n\n👋 *ENGLISH*" +
+        "\nHello! I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
         "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
-        "\n\nHow can I help you today? 😊",
+        "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
+        "\n\n━━━━━━━━━━━━━━━━━━━" +
+        "\n\n👋 *AFAN OROMOO*" +
+        "\nAkkam jirtu! Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+        "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
+        "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
+        "\n\n━━━━━━━━━━━━━━━━━━━" +
+        "\n\nHow can I help you today? / Har'a maal keessatti si gargaaruu danda'a? 😊",
         {
           chat_id: chatId,
           message_id: msg.message_id,
@@ -66,17 +68,19 @@ async function handleCallback(callbackQuery, bot) {
     trackLanguageSelection(userId, userName, "oromo");
     try {
       await bot.editMessageText(
-        "✅ Afaan Oromoo filatamee! 🇪🇹" +
-        "\n\nAkkam jirtu 👋 Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
-        "\n\n*Waa'ee Yihune B:*" +
-        "\n• Sirna Artificial Intelligence" +
-        "\n• Cybersecurity fi application nageenya qaban" +
-        "\n• Digital identity fi verification system" +
-        "\n• Full-stack web development" +
-        "\n• Backend architecture fi API development" +
-        "\n• Cloud-based application fi automation" +
+        "✅ *Afaan Oromoo filatamee* / *Language set to Afaan Oromoo* 🇪🇹" +
+        "\n━━━━━━━━━━━━━━━━━━━" +
+        "\n\n👋 *AFAN OROMOO*" +
+        "\nAkkam jirtu! Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
         "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
-        "\n\nHar'a maal keessatti si gargaaruu danda'a? 😊",
+        "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
+        "\n\n━━━━━━━━━━━━━━━━━━━" +
+        "\n\n👋 *ENGLISH*" +
+        "\nHello! I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
+        "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
+        "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
+        "\n\n━━━━━━━━━━━━━━━━━━━" +
+        "\n\nHar'a maal keessatti si gargaaruu danda'a? / How can I help you today? 😊",
         {
           chat_id: chatId,
           message_id: msg.message_id,
@@ -93,11 +97,17 @@ async function handleCallback(callbackQuery, bot) {
 
   if (!hasSelectedLanguage(userId)) {
     const intro =
-      "👋 *Hello / Akkam jirtu*" +
-      "\n\nI am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
-      "\n\nAni asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+      "━━━━━━━━━━━━━━━━━━━" +
+      "\n\n👋 *ENGLISH*" +
+      "\nHello! I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
       "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
-      "\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
+      "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
+      "\n\n━━━━━━━━━━━━━━━━━━━" +
+      "\n\n👋 *AFAN OROMOO*" +
+      "\nAkkam jirtu! Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+      "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
+      "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
+      "\n\n━━━━━━━━━━━━━━━━━━━" +
       "\n\n🌐 *Please select your language / Afaan kee filadhu:*";
     try {
       await bot.sendMessage(chatId, intro, {
