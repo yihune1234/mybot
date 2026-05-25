@@ -6,7 +6,7 @@ const { addMemory, clearMemory, getContext } = require("../services/memoryServic
 const { t, getLangCode } = require("../services/i18nService");
 const { helpKeyboard, jokeKeyboard } = require("./commandHandler");
 const { languageSelectionKeyboard } = require("./messageHandler");
-const { trackLanguageSelection, trackError } = require("../services/eventTracker");
+const { trackLanguageSelection, trackError, trackBotReply } = require("../services/eventTracker");
 
 async function handleCallback(callbackQuery, bot) {
   if (!callbackQuery || !callbackQuery.from) {
@@ -42,6 +42,7 @@ async function handleCallback(callbackQuery, bot) {
           parse_mode: "Markdown",
         }
       );
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "/language", "Language set to English");
       logger.info(`🌐 User ${userId} selected English`);
     } catch (err) {
       logger.error(`Language selection error: ${err.message}`);
@@ -62,6 +63,7 @@ async function handleCallback(callbackQuery, bot) {
           parse_mode: "Markdown",
         }
       );
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "/language", "Language set to Afaan Oromoo");
       logger.info(`🌐 User ${userId} selected Afaan Oromoo`);
     } catch (err) {
       logger.error(`Language selection error: ${err.message}`);
@@ -95,6 +97,7 @@ async function handleCallback(callbackQuery, bot) {
     try {
       await bot.sendMessage(chatId, about);
       addMemory(userId, "bot", about);
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_about", about);
       logger.info(`🤖 Showed About to user ${userId}`);
     } catch (err) {
       logger.error(`Callback about error: ${err.message}`);
@@ -113,7 +116,10 @@ async function handleCallback(callbackQuery, bot) {
     const reply = lang === "oromo"
       ? `📊 *Itti Gaafii kee*\n📅 Yeroo dura: ${formatDate(userStat.firstSeen)}\n💬 Ergaa: ${userStat.messageCount}\n🌐 Afaan: ${userStat.language || "unknown"}\n🧠 Yaadannoo: ${memoryCount}`
       : `📊 *Your Stats*\n📅 First seen: ${formatDate(userStat.firstSeen)}\n💬 Messages: ${userStat.messageCount}\n🌐 Language: ${userStat.language || "unknown"}\n🧠 Memory: ${memoryCount}`;
-    try { await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" }); } catch (err) {
+    try {
+      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_stats", reply);
+    } catch (err) {
       logger.error(`Callback stats error: ${err.message}`);
     }
     return;
@@ -129,6 +135,7 @@ async function handleCallback(callbackQuery, bot) {
           : undefined,
       });
       addMemory(userId, "bot", joke);
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_joke", joke);
     } catch (err) {
       logger.error(`Callback joke error: ${err.message}`);
     }
@@ -142,6 +149,7 @@ async function handleCallback(callbackQuery, bot) {
         ? "🧹 Yaadannoo qulqulleffame!"
         : "🧹 Memory cleared!";
       await bot.sendMessage(chatId, msg);
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_forget", msg);
       logger.info(`🧹 User ${userId} cleared memory via /help button.`);
     } catch (err) {
       logger.error(`Callback forget error: ${err.message}`);
@@ -162,6 +170,7 @@ async function handleCallback(callbackQuery, bot) {
         reply_markup: jokeKeyboard(page, jokes.length, lang),
       });
       addMemory(userId, "bot", joke);
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", `joke_page_${page}`, joke);
     } catch (err) {
       logger.error(`Joke page callback error: ${err.message}`);
     }
@@ -183,6 +192,7 @@ async function handleCallback(callbackQuery, bot) {
         message_id: msg.message_id,
         parse_mode: "Markdown",
       });
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "lang_switch", confirmMsg);
       logger.info(`🌐 User ${userId} switched language to ${newLang}`);
     } catch (err) {
       logger.error(`Language switch error: ${err.message}`);

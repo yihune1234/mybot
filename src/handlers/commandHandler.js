@@ -3,10 +3,11 @@ const { randomPick, formatDate } = require("../utils/helpers");
 const { getReplies, pickLocalizedReply } = require("../services/replyService");
 const { getWeather, formatWeather } = require("../services/weatherService");
 const { setReminder } = require("../services/reminderService");
-const { getUserStats, findUser, getGlobalStats, getAllUsers, getStats, getUserLanguage, setUserLanguage, hasSelectedLanguage } = require("../services/userService");
+const { getUserStats, findUser, getGlobalStats, getAllUsers, getStats, getUserLanguage, setUserLanguage, hasSelectedLanguage, getUserById } = require("../services/userService");
 const { getContext, clearMemory } = require("../services/memoryService");
 const { retrainClassifier } = require("../services/nluService");
 const { t, getLangCode } = require("../services/i18nService");
+const { trackBotReply } = require("../services/eventTracker");
 const { REMINDER_MAX_MS } = require("../utils/constants");
 
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID
@@ -35,14 +36,12 @@ async function handleLanguageCommand(chatId, userId, bot, lang) {
   const emoji = userLang === "oromo" ? "🇪🇹" : "🇺🇸";
 
   try {
-    await bot.sendMessage(
-      chatId,
-      t("language_command.title", lc, { language: langName, emoji }),
-      {
-        parse_mode: "Markdown",
-        reply_markup: languageSwitchKeyboard(lang),
-      }
-    );
+    const reply = t("language_command.title", lc, { language: langName, emoji });
+    await bot.sendMessage(chatId, reply, {
+      parse_mode: "Markdown",
+      reply_markup: languageSwitchKeyboard(lang),
+    });
+    trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", "/language", reply);
   } catch (err) {
     logger.error(`/language error: ${err.message}`);
   }
@@ -65,7 +64,9 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
 
   if (text === "/start") {
     try {
-      await bot.sendMessage(chatId, t("commands.start", lc));
+      const reply = t("commands.start", lc);
+      await bot.sendMessage(chatId, reply);
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
     } catch (err) {
       logger.error(`/start error: ${err.message}`);
     }
@@ -94,7 +95,9 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
   if (text === "/forget") {
     clearMemory(userId);
     try {
-      await bot.sendMessage(chatId, t("commands.forget_done", lc));
+      const reply = t("commands.forget_done", lc);
+      await bot.sendMessage(chatId, reply);
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
       logger.info(`🧹 User ${userId} cleared their memory.`);
     } catch (err) {
       logger.error(`/forget error: ${err.message}`);
@@ -121,7 +124,10 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
       `${msgsLabel}: ${userStat.messageCount}\n` +
       `${langLabel}: ${userStat.language || "unknown"}\n` +
       `${memLabel}: ${memoryCount} ${lang === "oromo" ? "ergaa" : "messages"}`;
-    try { await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" }); } catch (err) {
+    try {
+      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
+    } catch (err) {
       logger.error(`/stats error: ${err.message}`);
     }
     return true;
@@ -132,10 +138,9 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
     try {
       const sentMsg = await bot.sendMessage(chatId, t("commands.ping_response", lc));
       const elapsed = Date.now() - start;
-      await bot.editMessageText(
-        `${t("commands.ping_response", lc)}\n⏱ ${t("commands.ping_time", lc)}: ${elapsed}ms`,
-        { chat_id: chatId, message_id: sentMsg.message_id }
-      );
+      const reply = `${t("commands.ping_response", lc)}\n⏱ ${t("commands.ping_time", lc)}: ${elapsed}ms`;
+      await bot.editMessageText(reply, { chat_id: chatId, message_id: sentMsg.message_id });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
     } catch (err) {
       logger.error(`/ping error: ${err.message}`);
     }
@@ -156,10 +161,12 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
 
   if (text === "/help") {
     try {
-      await bot.sendMessage(chatId, t("commands.help", lc), {
+      const reply = t("commands.help", lc);
+      await bot.sendMessage(chatId, reply, {
         parse_mode: "Markdown",
         reply_markup: helpKeyboard(lang),
       });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
     } catch (err) {
       logger.error(`/help error: ${err.message}`);
     }
@@ -205,7 +212,9 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
   if (text.startsWith("/weather ")) {
     const city = text.slice(9).trim();
     if (!city) {
-      try { await bot.sendMessage(chatId, t("commands.weather_usage", lc)); } catch (e) {}
+      const reply = t("commands.weather_usage", lc);
+      try { await bot.sendMessage(chatId, reply); } catch (e) {}
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
       return true;
     }
     try {
@@ -213,9 +222,12 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
       if (!weather) {
         const failReply = pickLocalizedReply("weatherFailReplies", lang) || t("errors.weather_fetch", lc);
         await bot.sendMessage(chatId, failReply);
+        trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, failReply);
         return true;
       }
-      await bot.sendMessage(chatId, formatWeather(weather), { parse_mode: "Markdown" });
+      const reply = formatWeather(weather);
+      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
     } catch (err) {
       logger.error(`/weather error: ${err.message}`);
       try { await bot.sendMessage(chatId, t("commands.weather_unavailable", lc)); } catch (e) {}
