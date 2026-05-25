@@ -31,6 +31,17 @@ const PUBLIC_URL = process.env.PUBLIC_URL || null;
 const useWebhook = !!PUBLIC_URL;
 const bot = useWebhook ? new TelegramBot(TOKEN) : new TelegramBot(TOKEN, { polling: true });
 
+bot.setMyCommands([
+  { command: "start", description: "Start the bot" },
+  { command: "help", description: "Show help menu" },
+  { command: "language", description: "Change language" },
+  { command: "weather", description: "Get weather for a city" },
+  { command: "remind", description: "Set a reminder" },
+  { command: "stats", description: "View your stats" },
+  { command: "forget", description: "Clear my memory" },
+  { command: "ping", description: "Check bot latency" },
+]).catch((err) => logger.warn(`Failed to set bot commands: ${err.message}`));
+
 initNotifier(bot);
 
 bot.on("message", async (msg) => {
@@ -53,7 +64,7 @@ bot.on("callback_query", async (callbackQuery) => {
 
   try {
     const { trackUser } = require("./src/services/userService");
-    trackUser(callbackQuery.from);
+    trackUser(callbackQuery);
     await handleCallback(callbackQuery, bot);
   } catch (err) {
     logger.error(`Unhandled error in callback handler: ${err.message}`);
