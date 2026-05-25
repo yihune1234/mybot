@@ -1,4 +1,16 @@
 {
+  "746360079": [
+    {
+      "role": "user",
+      "text": "/start",
+      "timestamp": 1779712630246
+    },
+    {
+      "role": "bot",
+      "text": "Hi! This bot replies as me – just talk normally.",
+      "timestamp": 1779712630808
+    }
+  ],
   "5999795900": [
     {
       "role": "user",

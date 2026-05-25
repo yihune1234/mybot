@@ -1,6 +1,5 @@
 /**
- * Advanced Telegram Bot – Enhanced Human-like Personal Reply Bot
- *
+ 
  * Features:
  *   1. Conversation Memory (context awareness)
  *   2. User Profiles & Stats
@@ -200,6 +199,8 @@ const trainingData = {
   greeting: [
     "hello", "hi", "hey", "good morning", "good evening", "howdy", "what's up",
     "sup", "yo", "greetings", "how are you", "how do you do", "nice to meet you",
+    "akkam", "akkam?", "asham", "nagaa", "baga", "bultii", "attam", "attam?",
+    "nagaa?", "nagaa gaafachuu", "bultii gaarii", "haa", "tole", "akkam nagaa?",
   ],
   goodbye: [
     "bye", "goodbye", "see you", "later", "catch you", "talk to you later",
