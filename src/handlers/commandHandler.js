@@ -3,9 +3,10 @@ const { randomPick, formatDate } = require("../utils/helpers");
 const { getReplies, pickLocalizedReply } = require("../services/replyService");
 const { getWeather, formatWeather } = require("../services/weatherService");
 const { setReminder } = require("../services/reminderService");
-const { getUserStats, findUser, getGlobalStats, getAllUsers, getStats } = require("../services/userService");
+const { getUserStats, findUser, getGlobalStats, getAllUsers, getStats, getUserLanguage, setUserLanguage, hasSelectedLanguage } = require("../services/userService");
 const { getContext, clearMemory } = require("../services/memoryService");
 const { retrainClassifier } = require("../services/nluService");
+const { t, getLangCode } = require("../services/i18nService");
 const { REMINDER_MAX_MS } = require("../utils/constants");
 
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID
@@ -17,14 +18,54 @@ function isAdmin(userId) {
 }
 
 async function handleCommand(text, chatId, userId, bot, userList, lang = "english") {
-  const replies = getReplies();
+  if (text === "/language" || text === "/language@mybot_bot") {
+    return handleLanguageCommand(chatId, userId, bot, lang);
+  }
+
+  const handled = await handleRegularCommand(text, chatId, userId, bot, userList, lang);
+  if (handled) return true;
+
+  return false;
+}
+
+async function handleLanguageCommand(chatId, userId, bot, lang) {
+  const userLang = getUserLanguage(userId) || "english";
+  const lc = getLangCode(userLang);
+  const langName = userLang === "oromo" ? "Afaan Oromoo" : "English";
+  const emoji = userLang === "oromo" ? "🇪🇹" : "🇺🇸";
+
+  try {
+    await bot.sendMessage(
+      chatId,
+      t("language_command.title", lc, { language: langName, emoji }),
+      {
+        parse_mode: "Markdown",
+        reply_markup: languageSwitchKeyboard(lang),
+      }
+    );
+  } catch (err) {
+    logger.error(`/language error: ${err.message}`);
+  }
+  return true;
+}
+
+function languageSwitchKeyboard(lang = "english") {
+  return {
+    inline_keyboard: [
+      [
+        { text: "English 🇺🇸", callback_data: "lang_switch_english" },
+        { text: "Afaan Oromoo 🇪🇹", callback_data: "lang_switch_oromo" },
+      ],
+    ],
+  };
+}
+
+async function handleRegularCommand(text, chatId, userId, bot, userList, lang = "english") {
+  const lc = getLangCode(lang);
 
   if (text === "/start") {
     try {
-      const msg = lang === "oromo"
-        ? "Akkam! Botiin kun akka Yihune deebisa — akkuma barbaaddetti haasa'i.\n\n/help fayyadami waan nan danda'u argachuuf!"
-        : "Hi! This bot replies as me – just talk normally.\n\nUse /help to see what I can do!";
-      await bot.sendMessage(chatId, msg);
+      await bot.sendMessage(chatId, t("commands.start", lc));
     } catch (err) {
       logger.error(`/start error: ${err.message}`);
     }
@@ -33,8 +74,7 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
 
   if (text === "/reload") {
     if (!isAdmin(userId)) {
-      const msg = lang === "oromo" ? "⛔ Admin qofatu config saqachuu danda'a." : "⛔ Only the admin can reload the config.";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("admin.not_admin", lc)); } catch (e) {}
       return true;
     }
     try {
@@ -42,14 +82,11 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
       const { REPLIES_FILE } = require("../utils/constants");
       reloadReplies(REPLIES_FILE);
       retrainClassifier();
-      const msg = lang === "oromo"
-        ? "🔄 Replies fooyya'ee fi classifier baruumsa godhame!"
-        : "🔄 Replies reloaded and classifier retrained successfully!";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("admin.reload_ok", lc)); } catch (e) {}
       logger.info(`🔄 Admin ${userId} reloaded config and retrained classifier.`);
     } catch (err) {
       logger.error(`/reload error: ${err.message}`);
-      try { await bot.sendMessage(chatId, `❌ Reload failed: ${err.message}`); } catch (e) {}
+      try { await bot.sendMessage(chatId, `${t("admin.reload_fail", lc)}: ${err.message}`); } catch (e) {}
     }
     return true;
   }
@@ -57,10 +94,7 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
   if (text === "/forget") {
     clearMemory(userId);
     try {
-      const msg = lang === "oromo"
-        ? "🧹 Yaadannoo qulqulleffame! Haasa'aa duraa irraanfadheera."
-        : "🧹 Memory cleared! I've forgotten our previous conversation.";
-      await bot.sendMessage(chatId, msg);
+      await bot.sendMessage(chatId, t("commands.forget_done", lc));
       logger.info(`🧹 User ${userId} cleared their memory.`);
     } catch (err) {
       logger.error(`/forget error: ${err.message}`);
@@ -71,18 +105,22 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
   if (text === "/stats") {
     const userStat = getUserStats(userId);
     if (!userStat) {
-      const msg = lang === "oromo"
-        ? "Amma sirr waa hin jiru. Jalqaba ergaa ergi!"
-        : "No stats found for you yet. Send a message first!";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.stats_no_data", lc)); } catch (e) {}
       return true;
     }
     const ctx = getContext(userId);
     const memoryCount = ctx ? ctx.messageCount : 0;
-    const reply = lang === "oromo"
-      ? `📊 *Itti Gaafii kee*\n📅 Yeroo dura: ${formatDate(userStat.firstSeen)}\n💬 Ergaa: ${userStat.messageCount}\n🌐 Afaan: ${userStat.language || "unknown"}\n🧠 Yaadannoo: ${memoryCount}`
-
-      : `📊 *Your Stats*\n📅 First seen: ${formatDate(userStat.firstSeen)}\n💬 Messages sent: ${userStat.messageCount}\n🌐 Language: ${userStat.language || "unknown"}\n🧠 Conversation memory: ${memoryCount} messages`;
+    const label = t("commands.stats_title", lc);
+    const firstSeenLabel = t("commands.stats_first_seen", lc);
+    const msgsLabel = t("commands.stats_messages", lc);
+    const langLabel = t("commands.stats_language", lc);
+    const memLabel = t("commands.stats_memory", lc);
+    const reply =
+      `${label}\n` +
+      `${firstSeenLabel}: ${formatDate(userStat.firstSeen)}\n` +
+      `${msgsLabel}: ${userStat.messageCount}\n` +
+      `${langLabel}: ${userStat.language || "unknown"}\n` +
+      `${memLabel}: ${memoryCount} ${lang === "oromo" ? "ergaa" : "messages"}`;
     try { await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" }); } catch (err) {
       logger.error(`/stats error: ${err.message}`);
     }
@@ -92,10 +130,10 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
   if (text === "/ping") {
     const start = Date.now();
     try {
-      const sentMsg = await bot.sendMessage(chatId, "Pong!");
+      const sentMsg = await bot.sendMessage(chatId, t("commands.ping_response", lc));
       const elapsed = Date.now() - start;
       await bot.editMessageText(
-        lang === "oromo" ? `Pong! 🏓\n⏱ Yeroo deebii: ${elapsed}ms` : `Pong! 🏓\n⏱ Response time: ${elapsed}ms`,
+        `${t("commands.ping_response", lc)}\n⏱ ${t("commands.ping_time", lc)}: ${elapsed}ms`,
         { chat_id: chatId, message_id: sentMsg.message_id }
       );
     } catch (err) {
@@ -107,7 +145,7 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
   if (text.startsWith("/echo ")) {
     const echoText = text.slice(6).trim();
     if (!echoText) {
-      try { await bot.sendMessage(chatId, "Usage: /echo <message>"); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.echo_usage", lc)); } catch (e) {}
       return true;
     }
     try { await bot.sendMessage(chatId, `🔊 ${echoText}`); } catch (err) {
@@ -118,10 +156,7 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
 
   if (text === "/help") {
     try {
-      const msg = lang === "oromo"
-        ? "🤖 *Gargaarsa*\nFilannoo gadii irraa filadhu:"
-        : "🤖 *Help Menu*\nSelect an option below:";
-      await bot.sendMessage(chatId, msg, {
+      await bot.sendMessage(chatId, t("commands.help", lc), {
         parse_mode: "Markdown",
         reply_markup: helpKeyboard(lang),
       });
@@ -134,20 +169,14 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
   if (text.startsWith("/remind ")) {
     const parts = text.slice(8).trim().split(/ (.+)/);
     if (parts.length < 2 || !parts[0] || !parts[1]) {
-      const msg = lang === "oromo"
-        ? "Fayyadama: /remind <yeroo> <ergaa>\nFakkeenya:\n/remind 10s aannan biti\n/remind 5min haadha bilbil"
-        : "Usage: /remind <time> <text>\nExamples:\n/remind 10s buy milk\n/remind 5min call mom\n/remind 1h take a break";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.remind_usage", lc)); } catch (e) {}
       return true;
     }
     const timeStr = parts[0].trim();
     const remindText = parts[1].trim();
     const match = timeStr.match(/^(\d+)(s|sec|seconds?|m|min|minutes?|h|hr|hours?)$/i);
     if (!match) {
-      const msg = lang === "oromo"
-        ? "Yeroo sirrii miti. Fayyadami: 10s, 5min, 1h"
-        : "Invalid time format. Use e.g. 10s, 5min, 1h";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.remind_invalid", lc)); } catch (e) {}
       return true;
     }
     const amount = parseInt(match[1], 10);
@@ -158,17 +187,14 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
     else if (unit.startsWith("h")) ms = amount * 3600000;
 
     if (ms > REMINDER_MAX_MS) {
-      const msg = lang === "oromo" ? "Yaadachiisaan sa'aatii 24 ol hin ta'u." : "Reminder max is 24 hours.";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.remind_max", lc)); } catch (e) {}
       return true;
     }
 
     const id = setReminder(userId, chatId, ms, remindText, bot);
     try {
-      const msg = lang === "oromo"
-        ? `✅ Yaadachiisaa qindaa'e! Sa'aatii ${timeStr} keessatti nan si yaadachiisa.\n📝 "${remindText}"`
-        : `✅ Reminder set! I'll remind you in ${timeStr}.\n📝 "${remindText}"`;
-      await bot.sendMessage(chatId, msg);
+      const msg = t("commands.remind_set", lc, { time: timeStr });
+      await bot.sendMessage(chatId, `${msg}\n📝 "${remindText}"`);
       logger.info(`Reminder #${id} set for user ${userId} in ${timeStr}: "${remindText}"`);
     } catch (err) {
       logger.error(`/remind error: ${err.message}`);
@@ -179,26 +205,20 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
   if (text.startsWith("/weather ")) {
     const city = text.slice(9).trim();
     if (!city) {
-      const msg = lang === "oromo"
-        ? "Fayyadama: /weather <maqaa magaalaa>"
-        : "Usage: /weather <city name>";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.weather_usage", lc)); } catch (e) {}
       return true;
     }
     try {
       const weather = await getWeather(city);
       if (!weather) {
-        const failReply = pickLocalizedReply("weatherFailReplies", lang) || "Couldn't fetch weather.";
+        const failReply = pickLocalizedReply("weatherFailReplies", lang) || t("errors.weather_fetch", lc);
         await bot.sendMessage(chatId, failReply);
         return true;
       }
       await bot.sendMessage(chatId, formatWeather(weather), { parse_mode: "Markdown" });
     } catch (err) {
       logger.error(`/weather error: ${err.message}`);
-      const msg = lang === "oromo"
-        ? "Dhiifama, tajaajilli qilleensaa amma hin jiru."
-        : "Sorry, weather service is unavailable right now.";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.weather_unavailable", lc)); } catch (e) {}
     }
     return true;
   }
@@ -211,21 +231,17 @@ async function handleCommand(text, chatId, userId, bot, userList, lang = "englis
 }
 
 async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
-  const replies = getReplies();
+  const lc = getLangCode(lang);
   const userList = getAllUsers();
-  const stats = getStats();
 
   if (text.startsWith("/broadcast ")) {
     const bcText = text.slice(11).trim();
     if (!bcText) {
-      try { await bot.sendMessage(chatId, "Usage: /broadcast <message>"); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("admin.broadcast_usage", lc)); } catch (e) {}
       return true;
     }
     try {
-      const sending = lang === "oromo"
-        ? `📤 ${userList.length} fayyadamtootatti ergaa...`
-        : `📤 Broadcasting to ${userList.length} users...`;
-      await bot.sendMessage(chatId, sending);
+      await bot.sendMessage(chatId, t("admin.broadcast_sending", lc, { count: userList.length }));
       let sent = 0;
       let failed = 0;
       for (const user of userList) {
@@ -238,10 +254,7 @@ async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
         }
         await new Promise((r) => setTimeout(r, 100));
       }
-      const done = lang === "oromo"
-        ? `✅ Broadcast xumurame!\n✓ Ergame: ${sent}\n✗ Dadhabe: ${failed}`
-        : `✅ Broadcast complete!\n✓ Sent: ${sent}\n✗ Failed: ${failed}`;
-      await bot.sendMessage(chatId, done);
+      await bot.sendMessage(chatId, t("admin.broadcast_done", lc, { sent, failed }));
       logger.info(`Admin broadcast: "${bcText}" -> sent ${sent}, failed ${failed}`);
     } catch (err) {
       logger.error(`/broadcast error: ${err.message}`);
@@ -253,7 +266,7 @@ async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
     const query = text.slice(9).trim().toLowerCase();
     const target = findUser(query);
     if (!target) {
-      try { await bot.sendMessage(chatId, "User not found."); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("admin.getuser_not_found", lc)); } catch (e) {}
       return true;
     }
     const reply =
@@ -270,10 +283,11 @@ async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
 
   if (text === "/statsall") {
     const globalStats = getGlobalStats();
-    const title = lang === "oromo"
-      ? `📊 *Itti Gaafii Guutuu*\n👥 Fayyadamtoota: ${globalStats.totalUsers}\n💬 Ergaa: ${globalStats.totalMessages}\n🏆 *5 firooma:*\n`
-      : `📊 *Global Stats*\n👥 Total users: ${globalStats.totalUsers}\n💬 Total messages: ${globalStats.totalMessages}\n🏆 *Top 5 users:*\n`;
-    const reply = title + globalStats.topUsers.join("\n");
+    const title = t("admin.statsall_title", lc);
+    const usersLine = `${t("admin.statsall_users", lc)}: ${globalStats.totalUsers}`;
+    const msgsLine = `${t("admin.statsall_messages", lc)}: ${globalStats.totalMessages}`;
+    const topLine = `${t("admin.statsall_top", lc)}`;
+    const reply = `${title}\n${usersLine}\n${msgsLine}\n${topLine}\n${globalStats.topUsers.join("\n")}`;
     try {
       await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
       logger.info("Admin requested /statsall");
@@ -287,31 +301,33 @@ async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
 }
 
 function helpKeyboard(lang = "english") {
+  const lc = getLangCode(lang);
   return {
     inline_keyboard: [
       [
-        { text: "ℹ️ " + (lang === "oromo" ? "Waa'ee" : "About"), callback_data: "help_about" },
-        { text: "📊 " + (lang === "oromo" ? "Itti Gaafii" : "Stats"), callback_data: "help_stats" },
+        { text: `ℹ️ ${t("commands.help_about", lc)}`, callback_data: "help_about" },
+        { text: `📊 ${t("commands.help_stats", lc)}`, callback_data: "help_stats" },
       ],
       [
-        { text: "😂 " + (lang === "oromo" ? "Kolfa" : "Joke"), callback_data: "help_joke" },
-        { text: "🧹 " + (lang === "oromo" ? "Yaadannoo Qulqulleessi" : "Clear Memory"), callback_data: "help_forget" },
+        { text: `😂 ${t("commands.help_joke", lc)}`, callback_data: "help_joke" },
+        { text: `🧹 ${t("commands.help_forget", lc)}`, callback_data: "help_forget" },
       ],
     ],
   };
 }
 
 function jokeKeyboard(page, totalJokes, lang = "english") {
+  const lc = getLangCode(lang);
   const keyboard = { inline_keyboard: [[]] };
   if (page < totalJokes - 1) {
     keyboard.inline_keyboard[0].push({
-      text: lang === "oromo" ? "Kan itti aanu →" : "Next →",
+      text: t("joke.next", lc),
       callback_data: `joke_${page + 1}`,
     });
   }
   if (page > 0) {
     keyboard.inline_keyboard[0].push({
-      text: "← " + (lang === "oromo" ? "Kan duraa" : "Prev"),
+      text: t("joke.prev", lc),
       callback_data: `joke_${page - 1}`,
     });
   }
@@ -322,5 +338,6 @@ module.exports = {
   handleCommand,
   helpKeyboard,
   jokeKeyboard,
+  languageSwitchKeyboard,
   isAdmin,
 };

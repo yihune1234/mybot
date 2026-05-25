@@ -1,0 +1,77 @@
+{
+  "language": {
+    "name": "English",
+    "code": "en",
+    "emoji": "🇺🇸"
+  },
+  "welcome": {
+    "first_time": "Welcome! Please select your preferred language to continue.",
+    "select_language": "🌐 *Language Selection*\n\nPlease choose your preferred language:",
+    "language_saved": "✅ Language set to English 🇺🇸",
+    "hello": "Hello! How can I help you today?",
+    "hello_oromo": "Akkam jirtu! Har'a maal keessatti isin gargaaruu danda'a?"
+  },
+  "commands": {
+    "start": "Hi! This bot replies as me – just talk normally.\n\nUse /help to see what I can do!",
+    "help": "🤖 *Help Menu*\nSelect an option below:",
+    "help_about": "About",
+    "help_stats": "Stats",
+    "help_joke": "Joke",
+    "help_forget": "Clear Memory",
+    "forget_done": "🧹 Memory cleared! I've forgotten our previous conversation.",
+    "forget_oromo": "🧹 Yaadannoo qulqulleffame! Haasa'aa duraa irraanfadheera.",
+    "stats_title": "📊 *Your Stats*",
+    "stats_first_seen": "📅 First seen",
+    "stats_messages": "💬 Messages sent",
+    "stats_language": "🌐 Language",
+    "stats_memory": "🧠 Conversation memory",
+    "stats_no_data": "No stats found for you yet. Send a message first!",
+    "ping_response": "Pong! 🏓",
+    "ping_time": "Response time",
+    "echo_usage": "Usage: /echo <message>",
+    "remind_usage": "Usage: /remind <time> <text>\nExamples:\n/remind 10s buy milk\n/remind 5min call mom\n/remind 1h take a break",
+    "remind_invalid": "Invalid time format. Use e.g. 10s, 5min, 1h",
+    "remind_max": "Reminder max is 24 hours.",
+    "remind_set": "✅ Reminder set! I'll remind you in",
+    "weather_usage": "Usage: /weather <city name>",
+    "weather_unavailable": "Sorry, weather service is unavailable right now.",
+    "weather_ask_city": "Which city would you like the weather for? Try /weather <city>!"
+  },
+  "language_command": {
+    "title": "🌐 *Language Settings*\n\nCurrent language: {{language}} {{emoji}}\n\nSelect your preferred language:",
+    "switched": "✅ Language switched to {{language}} {{emoji}}\n\nFrom now on, all conversations will be in {{language}}.",
+    "button_en": "English 🇺🇸",
+    "button_om": "Afaan Oromoo 🇪🇹",
+    "current": "Current language"
+  },
+  "admin": {
+    "not_admin": "⛔ Only the admin can use this command.",
+    "reload_ok": "🔄 Replies reloaded and classifier retrained successfully!",
+    "reload_fail": "❌ Reload failed",
+    "broadcast_sending": "📤 Broadcasting to {{count}} users...",
+    "broadcast_done": "✅ Broadcast complete!\n✓ Sent: {{sent}}\n✗ Failed: {{failed}}",
+    "broadcast_usage": "Usage: /broadcast <message>",
+    "getuser_not_found": "User not found.",
+    "statsall_title": "📊 *Global Stats*",
+    "statsall_users": "👥 Total users",
+    "statsall_messages": "💬 Total messages",
+    "statsall_top": "🏆 *Top 5 users:*"
+  },
+  "time": {
+    "current": "🕐 The current time is {{time}}."
+  },
+  "help_response": "I can chat, tell jokes, check weather, set reminders, and more! Try /help to see the menu.",
+  "joke": {
+    "no_jokes": "I don't know any jokes right now!",
+    "no_jokes_oromo": "Waan kolfaa amma hin beeku!",
+    "next": "Next →",
+    "prev": "← Prev",
+    "next_oromo": "Kan itti aanu →",
+    "prev_oromo": "← Kan duraa",
+    "no_more": "No more jokes on this page."
+  },
+  "errors": {
+    "generic": "Sorry, something went wrong. Please try again.",
+    "weather_fetch": "Sorry, couldn't fetch weather data for that city."
+  }
+}

@@ -77,12 +77,21 @@ function setUserLanguage(userId, lang) {
     };
   }
   stats[userId].preferredLanguage = lang;
+  stats[userId].languageSelected = true;
   saveJSON(STATS_FILE, stats);
 }
 
 function getUserLanguage(userId) {
   const s = stats[userId];
   return s?.preferredLanguage || null;
+}
+
+function hasSelectedLanguage(userId) {
+  return !!(stats[userId]?.languageSelected);
+}
+
+function isNewUser(userId) {
+  return !stats[userId] || !stats[userId].firstSeen;
 }
 
 function getAllUsers() {
@@ -103,4 +112,6 @@ module.exports = {
   getStats,
   setUserLanguage,
   getUserLanguage,
+  hasSelectedLanguage,
+  isNewUser,
 };

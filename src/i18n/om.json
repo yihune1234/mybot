@@ -1,0 +1,77 @@
+{
+  "language": {
+    "name": "Afaan Oromoo",
+    "code": "om",
+    "emoji": "🇪🇹"
+  },
+  "welcome": {
+    "first_time": "Bagaa nagaan dhufte! Afaan kee filadhuu itti fufuuf.",
+    "select_language": "🌐 *Filannoo Afaanii*\n\nAfaan kee filadhu:",
+    "language_saved": "✅ Afaan Oromoo filatamee! 🇪🇹",
+    "hello": "Akkam jirtu! Har'a maal keessatti si gargaaruu danda'a?",
+    "hello_oromo": "Akkam jirtu! Har'a maal keessatti si gargaaruu danda'a?"
+  },
+  "commands": {
+    "start": "Akkam! Botiin kun akka Yihune deebisa — akkuma barbaaddetti haasa'i.\n\n/help fayyadami waan nan danda'u argachuuf!",
+    "help": "🤖 *Gargaarsa*\nFilannoo gadii irraa filadhu:",
+    "help_about": "Waa'ee",
+    "help_stats": "Itti Gaafii",
+    "help_joke": "Kolfa",
+    "help_forget": "Yaadannoo Qulqulleessi",
+    "forget_done": "🧹 Yaadannoo qulqulleffame! Haasa'aa duraa irraanfadheera.",
+    "forget_oromo": "🧹 Yaadannoo qulqulleffame! Haasa'aa duraa irraanfadheera.",
+    "stats_title": "📊 *Itti Gaafii kee*",
+    "stats_first_seen": "📅 Yeroo dura",
+    "stats_messages": "💬 Ergaa ergame",
+    "stats_language": "🌐 Afaan",
+    "stats_memory": "🧠 Yaadannoo",
+    "stats_no_data": "Amma sirr waa hin jiru. Jalqaba ergaa ergi!",
+    "ping_response": "Pong! 🏓",
+    "ping_time": "Yeroo deebii",
+    "echo_usage": "Fayyadama: /echo <ergaa>",
+    "remind_usage": "Fayyadama: /remind <yeroo> <ergaa>\nFakkeenya:\n/remind 10s aannan biti\n/remind 5min haadha bilbil",
+    "remind_invalid": "Yeroo sirrii miti. Fayyadami: 10s, 5min, 1h",
+    "remind_max": "Yaadachiisaan sa'aatii 24 ol hin ta'u.",
+    "remind_set": "✅ Yaadachiisaa qindaa'e! Sa'aatii {{time}} keessatti nan si yaadachiisa.",
+    "weather_usage": "Fayyadama: /weather <maqaa magaalaa>",
+    "weather_unavailable": "Dhiifama, tajaajilli qilleensaa amma hin jiru.",
+    "weather_ask_city": "Magaalaa kam haala qilleensaa isaa barbaadda? /weather <city> yaali!"
+  },
+  "language_command": {
+    "title": "🌐 *Sagalee Afaanii*\n\nAfaan ammaa: {{language}} {{emoji}}\n\nAfaan kee filadhu:",
+    "switched": "✅ Afaan {{language}} {{emoji}} ti jijjirame!\n\nAmmaa kaasee haasa'awwan hunduu afaan {{language}} ta'u.",
+    "button_en": "English 🇺🇸",
+    "button_om": "Afaan Oromoo 🇪🇹",
+    "current": "Afaan ammaa"
+  },
+  "admin": {
+    "not_admin": "⛔ Admin qofatu ajaja kana fayyadamuu danda'a.",
+    "reload_ok": "🔄 Replies fooyya'ee fi classifier baruumsa godhame!",
+    "reload_fail": "❌ Qindaa'iinsa fooyyessuu hin dandeenye",
+    "broadcast_sending": "📤 Fayyadamtoota {{count}} tti ergaa...",
+    "broadcast_done": "✅ Broadcast xumurame!\n✓ Ergame: {{sent}}\n✗ Dadhabe: {{failed}}",
+    "broadcast_usage": "Fayyadama: /broadcast <ergaa>",
+    "getuser_not_found": "Fayyadamaan hin argamne.",
+    "statsall_title": "📊 *Itti Gaafii Guutuu*",
+    "statsall_users": "👥 Fayyadamtoota",
+    "statsall_messages": "💬 Ergaa",
+    "statsall_top": "🏆 *5 firooma:*"
+  },
+  "time": {
+    "current": "🕐 Sa'aatii ammaa {{time}} dha."
+  },
+  "help_response": "Ani hasaasa, kolfa, haala qilleensaa, fi yaadachiisaa nan danda'a! /help naaf himi.",
+  "joke": {
+    "no_jokes": "Waan kolfaa amma hin beeku!",
+    "no_jokes_oromo": "Waan kolfaa amma hin beeku!",
+    "next": "Kan itti aanu →",
+    "prev": "← Kan duraa",
+    "next_oromo": "Kan itti aanu →",
+    "prev_oromo": "← Kan duraa",
+    "no_more": "Kolfaan baay'e miti."
+  },
+  "errors": {
+    "generic": "Dhiifama, wanti tokko dogoggora. Irra deebi'ii yaali.",
+    "weather_fetch": "Dhiifama, haala qilleensaa magaalattii argachuu hin dandeenye."
+  }
+}

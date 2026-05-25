@@ -5,6 +5,7 @@ const http = require("http");
 const logger = require("./src/utils/logger");
 const { PORT, REPLIES_FILE } = require("./src/utils/constants");
 const { loadReplies } = require("./src/services/replyService");
+const { loadTranslations } = require("./src/services/i18nService");
 const { handleMessage } = require("./src/handlers/messageHandler");
 const { handleCallback } = require("./src/handlers/callbackHandler");
 const { clearAllReminders } = require("./src/services/reminderService");
@@ -23,6 +24,7 @@ if (!TOKEN) {
 }
 
 loadReplies(REPLIES_FILE);
+loadTranslations();
 
 const PUBLIC_URL = process.env.PUBLIC_URL || null;
 const useWebhook = !!PUBLIC_URL;

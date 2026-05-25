@@ -1,20 +1,75 @@
 const logger = require("../utils/logger");
 const { randomPick, formatDate } = require("../utils/helpers");
 const { getReplies, pickLocalizedReply, pickLocalizedTriggerReply, getAllJokes } = require("../services/replyService");
-const { getUserStats, getUserLanguage } = require("../services/userService");
+const { getUserStats, getUserLanguage, setUserLanguage, hasSelectedLanguage } = require("../services/userService");
 const { addMemory, clearMemory, getContext } = require("../services/memoryService");
+const { t, getLangCode } = require("../services/i18nService");
 const { helpKeyboard, jokeKeyboard } = require("./commandHandler");
+const { languageSelectionKeyboard } = require("./messageHandler");
 
 async function handleCallback(callbackQuery, bot) {
   const msg = callbackQuery.message;
   const chatId = msg.chat.id;
   const userId = callbackQuery.from.id;
   const data = callbackQuery.data;
-  const userLang = getUserLanguage(userId) || "english";
-  const lang = userLang;
 
   await bot.answerCallbackQuery(callbackQuery.id);
 
+  if (data === "lang_en") {
+    setUserLanguage(userId, "english");
+    try {
+      await bot.editMessageText(
+        "✅ Language set to English 🇺🇸\n\nHello! How can I help you today?",
+        {
+          chat_id: chatId,
+          message_id: msg.message_id,
+          parse_mode: "Markdown",
+        }
+      );
+      logger.info(`🌐 User ${userId} selected English`);
+    } catch (err) {
+      logger.error(`Language selection error: ${err.message}`);
+    }
+    return;
+  }
+
+  if (data === "lang_om") {
+    setUserLanguage(userId, "oromo");
+    try {
+      await bot.editMessageText(
+        "✅ Afaan Oromoo filatamee! 🇪🇹\n\nAkkam jirtu! Har'a maal keessatti si gargaaruu danda'a?",
+        {
+          chat_id: chatId,
+          message_id: msg.message_id,
+          parse_mode: "Markdown",
+        }
+      );
+      logger.info(`🌐 User ${userId} selected Afaan Oromoo`);
+    } catch (err) {
+      logger.error(`Language selection error: ${err.message}`);
+    }
+    return;
+  }
+
+  if (!hasSelectedLanguage(userId)) {
+    try {
+      await bot.sendMessage(
+        chatId,
+        "🌐 *Language Selection / Filannoo Afaanii*\n\nPlease select your preferred language to continue.\n\nAfaan kee filadhuu itti fufuuf.",
+        {
+          parse_mode: "Markdown",
+          reply_markup: languageSelectionKeyboard(),
+        }
+      );
+    } catch (err) {
+      logger.error(`Language prompt error: ${err.message}`);
+    }
+    return;
+  }
+
+  const userLang = getUserLanguage(userId) || "english";
+  const lang = userLang === "oromo" ? "oromo" : "english";
+  const lc = getLangCode(userLang);
   const replies = getReplies();
 
   if (data === "help_about") {
@@ -32,8 +87,7 @@ async function handleCallback(callbackQuery, bot) {
   if (data === "help_stats") {
     const userStat = getUserStats(userId);
     if (!userStat) {
-      const msg = lang === "oromo" ? "Amma itti gaafii hin jiru. Jalqaba haasa'i!" : "No stats yet. Start chatting!";
-      try { await bot.sendMessage(chatId, msg); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("commands.stats_no_data", lc)); } catch (e) {}
       return;
     }
     const ctx = getContext(userId);
@@ -41,9 +95,7 @@ async function handleCallback(callbackQuery, bot) {
     const reply = lang === "oromo"
       ? `📊 *Itti Gaafii kee*\n📅 Yeroo dura: ${formatDate(userStat.firstSeen)}\n💬 Ergaa: ${userStat.messageCount}\n🌐 Afaan: ${userStat.language || "unknown"}\n🧠 Yaadannoo: ${memoryCount}`
       : `📊 *Your Stats*\n📅 First seen: ${formatDate(userStat.firstSeen)}\n💬 Messages: ${userStat.messageCount}\n🌐 Language: ${userStat.language || "unknown"}\n🧠 Memory: ${memoryCount}`;
-    try {
-      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
-    } catch (err) {
+    try { await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" }); } catch (err) {
       logger.error(`Callback stats error: ${err.message}`);
     }
     return;
@@ -51,7 +103,7 @@ async function handleCallback(callbackQuery, bot) {
 
   if (data === "help_joke") {
     const jokes = getAllJokes(lang);
-    const joke = jokes.length > 0 ? jokes[0] : (lang === "oromo" ? "Kolfaan hin jiru!" : "No jokes available!");
+    const joke = jokes.length > 0 ? jokes[0] : t("joke.no_jokes", lc);
     try {
       await bot.sendMessage(chatId, joke, {
         reply_markup: jokes.length > 1
@@ -68,7 +120,9 @@ async function handleCallback(callbackQuery, bot) {
   if (data === "help_forget") {
     clearMemory(userId);
     try {
-      const msg = lang === "oromo" ? "🧹 Yaadannoo qulqulleffame!" : "🧹 Memory cleared!";
+      const msg = lang === "oromo"
+        ? "🧹 Yaadannoo qulqulleffame!"
+        : "🧹 Memory cleared!";
       await bot.sendMessage(chatId, msg);
       logger.info(`🧹 User ${userId} cleared memory via /help button.`);
     } catch (err) {
@@ -81,7 +135,7 @@ async function handleCallback(callbackQuery, bot) {
     const page = parseInt(data.split("_")[1], 10);
     const jokes = getAllJokes(lang);
     if (page < 0 || page >= jokes.length) {
-      try { await bot.sendMessage(chatId, lang === "oromo" ? "Kolfaan baay'e miti." : "No more jokes on this page."); } catch (e) {}
+      try { await bot.sendMessage(chatId, t("joke.no_more", lc)); } catch (e) {}
       return;
     }
     const joke = jokes[page];
@@ -92,6 +146,26 @@ async function handleCallback(callbackQuery, bot) {
       addMemory(userId, "bot", joke);
     } catch (err) {
       logger.error(`Joke page callback error: ${err.message}`);
+    }
+    return;
+  }
+
+  if (data.startsWith("lang_switch_")) {
+    const newLang = data.replace("lang_switch_", "");
+    setUserLanguage(userId, newLang);
+    const displayLang = newLang === "oromo" ? "Afaan Oromoo 🇪🇹" : "English 🇺🇸";
+    const confirmMsg = newLang === "oromo"
+      ? `✅ Afaan Oromoo 🇪🇹 ti jijjirame!\n\nAmmaa kaasee haasa'awwan hunduu afaan Oromoo ta'u.`
+      : `✅ Language switched to English 🇺🇸\n\nFrom now on, all conversations will be in English.`;
+    try {
+      await bot.editMessageText(confirmMsg, {
+        chat_id: chatId,
+        message_id: msg.message_id,
+        parse_mode: "Markdown",
+      });
+      logger.info(`🌐 User ${userId} switched language to ${newLang}`);
+    } catch (err) {
+      logger.error(`Language switch error: ${err.message}`);
     }
     return;
   }
