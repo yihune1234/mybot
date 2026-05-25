@@ -38,8 +38,13 @@ async function handleMessage(msg, bot, userList) {
   if (text) addMemory(userId, "user", text);
   if (!text) return;
 
+  if (text.startsWith("/")) {
+    const adminHandled = await handleAdminCommand(text, chatId, userId, bot);
+    if (adminHandled) return;
+  }
+
   if (!hasSelectedLanguage(userId)) {
-    if (text === "/start" || text.startsWith("/")) {
+    if (text === "/start") {
       try {
         await bot.sendMessage(
           chatId,
@@ -75,11 +80,6 @@ async function handleMessage(msg, bot, userList) {
   const langForReplies = lang === "oromo" ? "oromo" : "english";
 
   trackMessage(msg, langForReplies);
-
-  if (text.startsWith("/")) {
-    const adminHandled = await handleAdminCommand(text, chatId, userId, bot, langForReplies);
-    if (adminHandled) return;
-  }
 
   const handled = await handleCommand(text, chatId, userId, bot, userList, langForReplies);
   if (handled) return;

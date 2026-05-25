@@ -1,6 +1,6 @@
 const logger = require("../utils/logger");
 const { t, getLangCode } = require("../services/i18nService");
-const { isAdmin, sendToAdmin } = require("../services/adminNotifier");
+const { isAdmin } = require("../services/adminNotifier");
 const { getRecentLogs, getLogsByCategory, getLogStats, clearLogs } = require("../services/actionLogService");
 const { getStats: getTrackerStats, trackSystemEvent } = require("../services/eventTracker");
 const { blockUser, unblockUser, isBlocked, getBlockedUsers, getBlockReason } = require("../services/blockService");
@@ -37,7 +37,7 @@ async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
 
   if (text === "/clearlogs") {
     clearLogs();
-    await sendToAdmin("🗑️ Action logs cleared.");
+    await bot.sendMessage(chatId, "🗑️ Action logs cleared.");
     return true;
   }
 
@@ -84,7 +84,7 @@ async function showAdminDashboard(chatId, bot, lc) {
     `🗑️ /clearlogs — Clear all logs\n` +
     `━`;
 
-  await sendToAdmin(msg, "Markdown");
+  await bot.sendMessage(chatId, msg, { parse_mode: "Markdown" });
   return true;
 }
 
@@ -97,7 +97,7 @@ async function showLogs(text, chatId, bot, lc) {
     if (["user", "system", "error", "security"].includes(filter)) {
       logs = getLogsByCategory(filter, 20);
     } else {
-      await sendToAdmin(`❌ Unknown log category: ${filter}\nAvailable: user, system, error, security`);
+      await bot.sendMessage(chatId, `❌ Unknown log category: ${filter}\nAvailable: user, system, error, security`);
       return true;
     }
   } else {
@@ -105,7 +105,7 @@ async function showLogs(text, chatId, bot, lc) {
   }
 
   if (logs.length === 0) {
-    await sendToAdmin("📋 No log entries found.");
+    await bot.sendMessage(chatId, "📋 No log entries found.");
     return true;
   }
 
@@ -139,10 +139,10 @@ async function showLogs(text, chatId, bot, lc) {
     }
     chunks.push(current + footer);
     for (const chunk of chunks) {
-      await sendToAdmin(chunk, "Markdown");
+      await bot.sendMessage(chatId, chunk, { parse_mode: "Markdown" });
     }
   } else {
-    await sendToAdmin(msg, "Markdown");
+    await bot.sendMessage(chatId, msg, { parse_mode: "Markdown" });
   }
 
   return true;
@@ -153,7 +153,7 @@ async function showUsers(chatId, bot, lc) {
   const usersData = getUserStatsData();
 
   if (userList.length === 0) {
-    await sendToAdmin("👥 No users yet.");
+    await bot.sendMessage(chatId, "👥 No users yet.");
     return true;
   }
 
@@ -184,10 +184,10 @@ async function showUsers(chatId, bot, lc) {
     }
     chunks.push(current);
     for (const chunk of chunks) {
-      await sendToAdmin(chunk, "Markdown");
+      await bot.sendMessage(chatId, chunk, { parse_mode: "Markdown" });
     }
   } else {
-    await sendToAdmin(msg, "Markdown");
+    await bot.sendMessage(chatId, msg, { parse_mode: "Markdown" });
   }
 
   return true;
@@ -197,18 +197,18 @@ async function handleBlock(text, chatId, adminUserId, bot, lc) {
   const parts = text.slice(7).trim().split(/ (.+)/);
   const targetId = parseInt(parts[0], 10);
   if (isNaN(targetId)) {
-    await sendToAdmin("Usage: /block <userId> <reason>");
+    await bot.sendMessage(chatId, "Usage: /block <userId> <reason>");
     return true;
   }
 
   if (isAdmin(targetId)) {
-    await sendToAdmin("⛔ Cannot block the admin.");
+    await bot.sendMessage(chatId, "⛔ Cannot block the admin.");
     return true;
   }
 
   const reason = parts[1] || "No reason given";
   blockUser(targetId, reason, adminUserId);
-  await sendToAdmin(`🚫 User \`${targetId}\` blocked.\nReason: ${reason}`, "Markdown");
+  await bot.sendMessage(chatId, `🚫 User \`${targetId}\` blocked.\nReason: ${reason}`, { parse_mode: "Markdown" });
   trackSystemEvent("user_blocked", `User ${targetId} blocked by admin. Reason: ${reason}`);
   return true;
 }
@@ -216,16 +216,16 @@ async function handleBlock(text, chatId, adminUserId, bot, lc) {
 async function handleUnblock(text, chatId, bot, lc) {
   const targetId = parseInt(text.slice(9).trim(), 10);
   if (isNaN(targetId)) {
-    await sendToAdmin("Usage: /unblock <userId>");
+    await bot.sendMessage(chatId, "Usage: /unblock <userId>");
     return true;
   }
 
   const result = unblockUser(targetId);
   if (result) {
-    await sendToAdmin(`✅ User \`${targetId}\` unblocked.`, "Markdown");
+    await bot.sendMessage(chatId, `✅ User \`${targetId}\` unblocked.`, { parse_mode: "Markdown" });
     trackSystemEvent("user_unblocked", `User ${targetId} unblocked by admin.`);
   } else {
-    await sendToAdmin(`User \`${targetId}\` is not blocked.`, "Markdown");
+    await bot.sendMessage(chatId, `User \`${targetId}\` is not blocked.`, { parse_mode: "Markdown" });
   }
   return true;
 }
@@ -235,7 +235,7 @@ async function showBlocked(chatId, bot, lc) {
   const ids = Object.keys(blocked);
 
   if (ids.length === 0) {
-    await sendToAdmin("✅ No blocked users.");
+    await bot.sendMessage(chatId, "✅ No blocked users.");
     return true;
   }
 
@@ -250,7 +250,7 @@ async function showBlocked(chatId, bot, lc) {
     `━━━━━━━━━━━━━━\n` +
     lines.join("\n");
 
-  await sendToAdmin(msg, "Markdown");
+  await bot.sendMessage(chatId, msg, { parse_mode: "Markdown" });
   return true;
 }
 
