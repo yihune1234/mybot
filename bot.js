@@ -40,6 +40,7 @@ bot.setMyCommands([
   { command: "stats", description: "View your stats" },
   { command: "forget", description: "Clear my memory" },
   { command: "ping", description: "Check bot latency" },
+  { command: "contact", description: "Contact Yihune B" },
 ]).catch((err) => logger.warn(`Failed to set bot commands: ${err.message}`));
 
 initNotifier(bot);

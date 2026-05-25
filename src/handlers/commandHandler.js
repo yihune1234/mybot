@@ -159,6 +159,20 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
     return true;
   }
 
+  if (text === "/contact") {
+    try {
+      const reply = "📬 *Contact Yihune B*\n\nReach out to Yihune B through any of the platforms below:";
+      await bot.sendMessage(chatId, reply, {
+        parse_mode: "Markdown",
+        reply_markup: contactKeyboard(),
+      });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
+    } catch (err) {
+      logger.error(`/contact error: ${err.message}`);
+    }
+    return true;
+  }
+
   if (text === "/help") {
     try {
       const reply = t("commands.help", lc);
@@ -324,6 +338,21 @@ function helpKeyboard(lang = "english") {
         { text: `😂 ${t("commands.help_joke", lc)}`, callback_data: "help_joke" },
         { text: `🧹 ${t("commands.help_forget", lc)}`, callback_data: "help_forget" },
       ],
+      [
+        { text: "📬 Contact", url: "https://t.me/Y13bel" },
+      ],
+    ],
+  };
+}
+
+function contactKeyboard() {
+  return {
+    inline_keyboard: [
+      [{ text: "🌐 Portfolio", url: "https://myportfolio-1-01m7.onrender.com/" }],
+      [{ text: "💻 GitHub", url: "https://github.com/yihune1234" }],
+      [{ text: "🔗 LinkedIn", url: "https://www.linkedin.com/in/yihune-belay-30b0a4383" }],
+      [{ text: "📱 Telegram", url: "https://t.me/Y13bel" }],
+      [{ text: "✉️ Email", url: "mailto:yihunebelay859@gmail.com" }],
     ],
   };
 }
@@ -351,5 +380,6 @@ module.exports = {
   helpKeyboard,
   jokeKeyboard,
   languageSwitchKeyboard,
+  contactKeyboard,
   isAdmin,
 };

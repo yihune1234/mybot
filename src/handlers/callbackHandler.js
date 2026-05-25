@@ -4,7 +4,7 @@ const { getReplies, pickLocalizedReply, pickLocalizedTriggerReply, getAllJokes }
 const { getUserStats, getUserLanguage, setUserLanguage, hasSelectedLanguage } = require("../services/userService");
 const { addMemory, clearMemory, getContext } = require("../services/memoryService");
 const { t, getLangCode } = require("../services/i18nService");
-const { helpKeyboard, jokeKeyboard } = require("./commandHandler");
+const { helpKeyboard, jokeKeyboard, contactKeyboard } = require("./commandHandler");
 const { languageSelectionKeyboard } = require("./messageHandler");
 const { trackLanguageSelection, trackError, trackBotReply } = require("../services/eventTracker");
 
@@ -49,6 +49,7 @@ async function handleCallback(callbackQuery, bot) {
           chat_id: chatId,
           message_id: msg.message_id,
           parse_mode: "Markdown",
+          reply_markup: contactKeyboard(),
         }
       );
       trackBotReply(userId, callbackQuery.from.first_name || "unknown", "/language", "Language set to English");
@@ -79,6 +80,7 @@ async function handleCallback(callbackQuery, bot) {
           chat_id: chatId,
           message_id: msg.message_id,
           parse_mode: "Markdown",
+          reply_markup: contactKeyboard(),
         }
       );
       trackBotReply(userId, callbackQuery.from.first_name || "unknown", "/language", "Language set to Afaan Oromoo");
