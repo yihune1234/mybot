@@ -1,240 +1,455 @@
 {
-  "hiReplies": [
-    "Hey! What's up?",
-    "Heyy! What's going on?",
-    "Yo! How's it going?",
-    "Hey! Long time no see. How've you been?",
-    "Ayy, what's good?",
-    "Hey hey! How's your day?",
-    "Akkam! Nagaa jirtuu?",
-    "Akkam! Olii?",
-    "Akkam! Akkamitti jirta?",
-    "Akkam guyyaa!",
-    "Akkam! Attam jirta?",
-    "Akkam! Baga nagaan argite!",
-    "Akkam! Oduu hoo?",
-    "Akkam! Baye turee si arguun?",
-    "Akkam! Hoo akkam?",
-    "Akkam, bultii gaarii!",
-    "Akkam! Akkamitti bulte/bultani?",
-    "Akkam! (Hi/Hello! How are you?)",
-    "Akkam! Nagaa fi baye? (Hi! Everything okay?)",
-    "Akkam! Ani as jira, ati hoo?",
-    "Hey! I was just thinking about you. What's new?",
-    "Yo yo! Look who's here. What's happening?"
-  ],
-  "triggerReplies": {
-    "how are you": [
-      "I'm good, you?",
-      "Pretty good! You?",
-      "Can't complain. How about you?",
-      "Doing well! What's up with you?",
-      "All good here. You?",
-      "Living the dream 😎 You?",
-      "Nagaa, ati hoo?",
-      "Bayyeen nagaa, ati hoo?"
+  "hiReplies": {
+    "english": [
+      "Hey! What's up?",
+      "Heyy! What's going on?",
+      "Yo! How's it going?",
+      "Hey! Long time no see. How've you been?",
+      "Ayy, what's good?",
+      "Hey hey! How's your day?",
+      "Hey! I was just thinking about you. What's new?",
+      "Yo yo! Look who's here. What's happening?"
     ],
-    "what are you doing": [
-      "Just chilling. You?",
-      "Nothing much, just hanging. You?",
-      "Browsing around. What are you up to?",
-      "Just waiting for you to message me 😄 What's up?",
-      "Thinking about deep stuff. You know, the usual."
-    ],
-    "tell me a joke": [
-      "Why don't scientists trust atoms? Because they make up everything!",
-      "What do you call a fake noodle? An impasta!",
-      "Why did the scarecrow win an award? Because he was outstanding in his field!",
-      "I told my wife she should embrace her mistakes. She gave me a hug.",
-      "What's the best thing about Switzerland? I don't know, but the flag is a big plus.",
-      "Why don't eggs tell jokes? They'd crack each other up.",
-      "What do you call a bear with no teeth? A gummy bear!",
-      "Why did the math book look so sad? Because it had too many problems.",
-      "Parallel lines have so much in common. It's a shame they'll never meet."
-    ],
-    "joke": [
-      "Why don't scientists trust atoms? Because they make up everything!",
-      "What do you call a fake noodle? An impasta!",
-      "Why did the scarecrow win an award? Because he was outstanding in his field!",
-      "I told my wife she should embrace her mistakes. She gave me a hug.",
-      "What's the best thing about Switzerland? I don't know, but the flag is a big plus.",
-      "Why don't eggs tell jokes? They'd crack each other up.",
-      "What do you call a bear with no teeth? A gummy bear!",
-      "Why did the math book look so sad? Because it had too many problems."
-    ],
-    "whats up": [
-      "Not much, you?",
-      "Just chilling. What about you?",
-      "Same old. You?",
-      "The sky. Oh wait, you meant me — not much 😄",
-      "Oduu gaarii hin jiru. Ati hoo?"
-    ],
-    "sup": [
-      "Yo! What's up?",
-      "Hey! Not much, you?",
-      "Sup! How's things?"
-    ],
-    "good morning": [
-      "Morning! Sleep well?",
-      "Good morning! 😊",
-      "Hey! Rise and shine!",
-      "Good morning! Hope you have a great day ahead!",
-      "Bultii gaarii! Akka feeteetti haa siif ta'u!"
-    ],
-    "good night": [
-      "Night! Talk to you tomorrow!",
-      "Goodnight! Sleep well!",
-      "Sweet dreams!",
-      "Catch you in the morning!",
-      "Tuta gaarii! Nagaan cisi!"
-    ],
-    "thanks": [
-      "No problem!",
-      "Anytime!",
-      "You got it!",
-      "Happy to help!",
-      "That's what I'm here for!",
-      "Galatoomi!",
-      "Beenyaa!"
-    ],
-    "bye": [
-      "Later!",
-      "Catch you!",
-      "See ya!",
-      "Take care!",
-      "Peace out!",
-      "Hanga guyyaa biraa!",
-      "Nagaatti!"
-    ],
-    "goodbye": [
-      "Later!",
-      "Catch you!",
-      "See ya!",
-      "Take care!",
-      "Hanga guyyaa biraa!",
-      "Nagaatti!"
-    ],
-    "have a good day": [
-      "You too! 😊",
-      "You too, have a good one!",
-      "Thanks! You too!",
-      "Likewise! Make it a great one!"
-    ],
-    "what do you think": [
-      "Hmm, interesting question. I think it depends honestly. What do you think?",
-      "Not sure tbh. What's your take on it?",
-      "Honestly I haven't thought much about it. What do you think?",
-      "That's a deep one. I'd say go with your gut on this."
-    ],
-    "what are you": [
-      "I'm Yihune's bot! Just here to chat 😄",
-      "Just a bot that tries to sound like a human. What about you?",
-      "I'm Yihune B — Yihune's digital twin. I handle conversations so he doesn't have to 😎"
-    ],
-    "tell me about yourself": [
-      "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
-      "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
-      "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?"
-    ],
-    "about yourself": [
-      "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
-      "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
-      "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?"
-    ],
-    "i love you": [
-      "Ayyy I love you too 😄❤️",
-      "Love you too! Don't tell anyone though 🤫",
-      "Right back at ya! ❤️"
-    ],
-    "i miss you": [
-      "Miss you too! Come back soon 😊",
-      "Aw I miss you too! What have you been up to?",
-      "I was just thinking about you! Miss you too ❤️"
-    ],
-    "you are funny": [
-      "Haha thanks! I try 😄",
-      "Glad you think so! I'll be here all week 😎",
-      "I know, I know. It's a gift 🎭"
-    ],
-    "you are smart": [
-      "Aw thanks! I try my best 💪",
-      "All thanks to Yihune! He built me this way 😎",
-      "I'm flattered! But honestly, you're the smart one for chatting with me 😄"
-    ],
-    "sorry": [
-      "No worries!",
-      "It's all good!",
-      "Don't worry about it!",
-      "No need to apologize! We're good 😊"
-    ],
-    "what are you doing": [
-      "Just waiting for your next message 😄 What's up?",
-      "Thinking. You know, deep stuff. And you?",
-      "Hanging out in the cloud. Literally ☁️ What about you?"
-    ],
-    "i'm bored": [
-      "Let's change that! Want a joke, weather update, or just chat?",
-      "Bored?! Not on my watch. Tell me something interesting!",
-      "How can you be bored when I'm here? 😄 Want to hear a joke?"
-    ],
-    "tell me something interesting": [
-      "Did you know that octopuses have three hearts? 🐙",
-      "Here's one: honey never spoils. Archaeologists found 3000-year-old honey that was still edible!",
-      "Bananas are berries, but strawberries aren't. Mind blown yet? 🤯",
-      "A day on Venus is longer than a year on Venus. Wild right?"
+    "oromo": [
+      "Akkam! Nagaa jirtuu?",
+      "Akkam! Olii?",
+      "Akkam! Akkamitti jirta?",
+      "Akkam guyyaa!",
+      "Akkam! Attam jirta?",
+      "Akkam! Baga nagaan argite!",
+      "Akkam! Oduu hoo?",
+      "Akkam! Baye turee si arguun?",
+      "Akkam! Hoo akkam?",
+      "Akkam, bultii gaarii!",
+      "Akkam! Akkamitti bulte?",
+      "Akkam! Nagaa fi baye?",
+      "Akkam! Ani as jira, ati hoo?",
+      "Akkam! Yeroo dheeraa booda! Oduu hoo?",
+      "Akkam! Bayyeen si arguu na gammachiise."
     ]
   },
-  "identityReplies": [
-    "I'm Yihune B! My owner is Yihune B and I'm his assistant — I reply to people just like he would. So don't worry, you're talking to Yihune through me 😎",
-    "I'm Yihune B! Yihune built me to respond as him. I'm basically his digital assistant. Ask me anything!",
-    "Yihune B here! I'm an AI assistant created by Yihune. I chat, tell jokes, check weather, handle reminders — all as if Yihune himself is replying.",
-    "Think of me as Yihune's second brain. I handle conversations, answer questions, and keep things running 😄"
-  ],
-  "aboutReplies": [
-    "I'm Yihune's personal bot! I chat like a human, tell jokes, check weather, set reminders — all that. Just talk normally to me!",
-    "This bot was made so I sound like I'm replying personally. Weather, jokes, reminders, regular convo — just talk to me.",
-    "I'm Yihune's digital twin. I manage conversations, remember context, tell jokes, and handle practical stuff like weather and reminders. Basically, I'm like Yihune but I never sleep 😄"
-  ],
-  "encouragementReplies": [
-    "Ah that sucks. Hope things get better ❤️‍🩹",
-    "Sorry to hear that. I'm here if you wanna talk.",
-    "That's rough. Stay strong 💪",
-    "Keep your head up, it'll get better.",
-    "I'm here for you. Things will be okay.",
-    "Sending good vibes ✨",
-    "Tough times don't last, tough people do! You've got this 💪",
-    "I believe in you. Whatever it is, you'll figure it out.",
-    "That sounds really hard. But you're stronger than you think ❤️",
-    "Gufaan nama hin dhorre! Waan gaarii ni dhufa."
-  ],
-  "fallbackReplies": [
-    "Haha fr?",
-    "Oh wait for real?",
-    "Interesting. Tell me more.",
-    "Lol I feel that.",
-    "No way 😂",
-    "Exactly!",
-    "Right??",
-    "Yeah I get what you mean.",
-    "I know right?",
-    "That's wild lol",
-    "Hmm never thought of it that way.",
-    "Yeah honestly that makes sense.",
-    "For real though!",
-    "Fair enough lol",
-    "Okay that's hilarious",
-    "Wait, explain that more. I'm curious.",
-    "Oh that's actually a good point.",
-    "Haha I hear you on that one.",
-    "Dhugaa? Bayye na dinqisiise!",
-    "Sitti fakkaataa? Ani garuu...",
-    "Tole, hubadhe.",
-    "Attam jechuu kee?"
-  ],
-  "weatherFailReplies": [
-    "Couldn't get the weather for that city. Try again?",
-    "Weather service didn't work. Check the city name and try again.",
-    "Sorry, couldn't fetch weather data. Try a different city?",
-    "Hmm, weather API is being difficult. Mind trying another city?"
-  ]
+  "triggerReplies": {
+    "how are you": {
+      "english": [
+        "I'm good, you?",
+        "Pretty good! You?",
+        "Can't complain. How about you?",
+        "Doing well! What's up with you?",
+        "All good here. You?",
+        "Living the dream 😎 You?"
+      ],
+      "oromo": [
+        "Nagaa, ati hoo?",
+        "Bayyeen nagaa, ati hoo?",
+        "Hanga guttuu nagaa! Ati hoo akkam jirta?",
+        "Waanti hin melle baye. Ati hoo?",
+        "Hunda waan gaarii. Ati hoo akkam?"
+      ]
+    },
+    "what are you doing": {
+      "english": [
+        "Just chilling. You?",
+        "Nothing much, just hanging. You?",
+        "Browsing around. What are you up to?",
+        "Just waiting for you to message me 😄 What's up?",
+        "Thinking about deep stuff. You know, the usual."
+      ],
+      "oromo": [
+        "Waan tokko malee. Ati hoo?",
+        "Bayye waan hin jiru. Ati hoo akkam?",
+        "As fi achi nan naanna'aa. Ati hoo maal gochaa jirta?",
+        "Si eegaa ture 😄 Oduu hoo?",
+        "Waan gadhee nan yaadaa. Beekta, waan barame."
+      ]
+    },
+    "tell me a joke": {
+      "english": [
+        "Why don't scientists trust atoms? Because they make up everything!",
+        "What do you call a fake noodle? An impasta!",
+        "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "I told my wife she should embrace her mistakes. She gave me a hug.",
+        "What's the best thing about Switzerland? I don't know, but the flag is a big plus.",
+        "Why don't eggs tell jokes? They'd crack each other up.",
+        "What do you call a bear with no teeth? A gummy bear!",
+        "Why did the math book look so sad? Because it had too many problems."
+      ],
+      "oromo": [
+        "Kolfaa dhaggeeffachuu feenyee? 🤔",
+        "Namni tokko doktora bira dhaqee 'Doktor, harkaan waan hunda nan fudhadha' jedhe. Doktoris 'Tole, meetiin kee meeqa?' jedhe.",
+        "Maaltu Reessaa gammachiisa? Kan isheen dandeessu hunda waan beektu.",
+        "Ati beekta maaltu Koree fi Loon wal bira qaba? Koreen goodayaa irra jiraata!",
+        "Namni tokko 'Ani waan beeku hunda nan beeka' jedhe. Namni biraa 'Saa'atiin meeqa?' jedhee gaafate. 'Maalif gaafatta?' jedhe. 'Waan beeku hunda waan beektaaf' jedhe."
+      ]
+    },
+    "joke": {
+      "english": [
+        "Why don't scientists trust atoms? Because they make up everything!",
+        "What do you call a fake noodle? An impasta!",
+        "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "I told my wife she should embrace her mistakes. She gave me a hug.",
+        "What's the best thing about Switzerland? I don't know, but the flag is a big plus.",
+        "Why don't eggs tell jokes? They'd crack each other up."
+      ],
+      "oromo": [
+        "Namni tokko hoolaa bitatee mana deebi'ee, haati isaa 'Kun hoolaa miti, sa'a' jette. 'Galatoomi!' jedhe.",
+        "Namni tokko barsiisaa isaatiin 'Barsiisaa, ati waan hunda beektaa?' jedhe. 'Eeyyee' jedhe barsiisaan. Namichis 'Maalif sa'aatii kee hin hidhanne?' jedhe.",
+        "Ijoollen tokko abbaa isheetiin 'Abbaa, ati maalif sadarkaa sadii?'
+      ]
+    },
+    "whats up": {
+      "english": [
+        "Not much, you?",
+        "Just chilling. What about you?",
+        "Same old. You?",
+        "The sky. Oh wait, you meant me — not much 😄"
+      ],
+      "oromo": [
+        "Waan hin jiru. Ati hoo?",
+        "As fi achi. Ati hoo?",
+        "Waan barame. Ati hoo?",
+        "Waan tokko malee 😄 Ati hoo?"
+      ]
+    },
+    "sup": {
+      "english": [
+        "Yo! What's up?",
+        "Hey! Not much, you?",
+        "Sup! How's things?"
+      ],
+      "oromo": [
+        "Akkam! Oduu hoo?",
+        "Akkam! Waan hin jiru, ati hoo?",
+        "Akkam! Hoo akkam?"
+      ]
+    },
+    "good morning": {
+      "english": [
+        "Morning! Sleep well?",
+        "Good morning! 😊",
+        "Hey! Rise and shine!",
+        "Good morning! Hope you have a great day ahead!"
+      ],
+      "oromo": [
+        "Bultii gaarii! Akka feetetti haa siif ta'u!",
+        "Wa'aa ganamaa! Rahuu gaarii?",
+        "Bultii gaarii! Guyyaan kee haa tolu!",
+        "Ganama! Hiramti gaarii!"
+      ]
+    },
+    "good night": {
+      "english": [
+        "Night! Talk to you tomorrow!",
+        "Goodnight! Sleep well!",
+        "Sweet dreams!",
+        "Catch you in the morning!"
+      ],
+      "oromo": [
+        "Tuta gaarii! Nagaan cisi!",
+        "Tuta gaarii! Abjuu gaarii argadhu!",
+        "Hanga boruutti! Tuta gaarii!"
+      ]
+    },
+    "thanks": {
+      "english": [
+        "No problem!",
+        "Anytime!",
+        "You got it!",
+        "Happy to help!",
+        "That's what I'm here for!"
+      ],
+      "oromo": [
+        "Galatoomi!",
+        "Beenyaa!",
+        "Yoomuu qophii dha!",
+        "Gammadeen si gargaare!",
+        "Waan ani as jiraa kanaaf!"
+      ]
+    },
+    "bye": {
+      "english": [
+        "Later!",
+        "Catch you!",
+        "See ya!",
+        "Take care!",
+        "Peace out!"
+      ],
+      "oromo": [
+        "Nagaatti!",
+        "Hanga guyyaa biraa!",
+        "Hanga wal agarretti!",
+        "Nagaan turi!",
+        "Qabanna!"
+      ]
+    },
+    "goodbye": {
+      "english": [
+        "Later!",
+        "Catch you!",
+        "See ya!",
+        "Take care!"
+      ],
+      "oromo": [
+        "Nagaatti!",
+        "Hanga guyyaa biraa!",
+        "Hanga wal agarretti!",
+        "Nagaan turi!"
+      ]
+    },
+    "have a good day": {
+      "english": [
+        "You too! 😊",
+        "You too, have a good one!",
+        "Thanks! You too!",
+        "Likewise! Make it a great one!"
+      ],
+      "oromo": [
+        "Siifis akkuma! Bultii gaarii!",
+        "Siifis bultii gaarii haa ta'u!",
+        "Galatoomi! Siifis akkasuma!"
+      ]
+    },
+    "what do you think": {
+      "english": [
+        "Hmm, interesting question. I think it depends honestly. What do you think?",
+        "Not sure tbh. What's your take on it?",
+        "Honestly I haven't thought much about it. What do you think?",
+        "That's a deep one. I'd say go with your gut on this."
+      ],
+      "oromo": [
+        "Hmm, gaafii gaarii. Ani waan hundaa irratti hunda. Ati hoo maal yaadda?",
+        "Dhugaa isaa, hin beeku. Ati hoo maal yaadda?",
+        "Dhugaa isaa, waan kana irratti bayye hin yaadne. Ati hoo maal yaadda?",
+        "Waan gadhee! Kana irratti yaada kee hordofi."
+      ]
+    },
+    "what are you": {
+      "english": [
+        "I'm Yihune's bot! Just here to chat 😄",
+        "Just a bot that tries to sound like a human. What about you?",
+        "I'm Yihune B — Yihune's digital twin. I handle conversations so he doesn't have to 😎"
+      ],
+      "oromo": [
+        "Ani botii Yihune! As waan haasa'uuf jira 😄",
+        "Botii nama fakkaachuu yaadu. Ati hoo?",
+        "Ani Yihune B — Yihune's digital twin. Ani haasa'awwan nan bulcha 😎"
+      ]
+    },
+    "tell me about yourself": {
+      "english": [
+        "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
+        "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
+        "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?"
+      ],
+      "oromo": [
+        "Ani Yihune B! Abbaan koo Yihune B, ani gargaaraa isa sitti deebisa. Hin yaadin, ani as jira 😎",
+        "Maqaan koo Yihune B! Ani gargaaraa Yihune ti — akka Yihune deebisuuf na hojjate. Digital twin isa fakkaadhu 😄",
+        "Ani Yihune B, version botii Yihune! Abbaan koo Yihune B ofii isaa. Ani hasaasa, kolfa, haala qilleensaa, fi haasa'awwan nan bulcha"
+      ]
+    },
+    "about yourself": {
+      "english": [
+        "I'm Yihune B! My owner is Yihune B and I'm basically an assistant that responds as Yihune would. So don't worry, I've got you covered 😎",
+        "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
+        "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?"
+      ],
+      "oromo": [
+        "Ani Yihune B! Abbaan koo Yihune B, ani gargaaraa isa sitti deebisa. Hin yaadin, ani as jira 😎",
+        "Maqaan koo Yihune B! Ani gargaaraa Yihune ti — akka Yihune deebisuuf na hojjate. Digital twin isa fakkaadhu 😄"
+      ]
+    },
+    "i love you": {
+      "english": [
+        "Ayyy I love you too 😄❤️",
+        "Love you too! Don't tell anyone though 🤫",
+        "Right back at ya! ❤️"
+      ],
+      "oromo": [
+        "Ayyy anis si jaaladha 😄❤️",
+        "Anis si jaaladha! Namaaf hin himin! 🤫",
+        "Siifis akkasuma! ❤️"
+      ]
+    },
+    "i miss you": {
+      "english": [
+        "Miss you too! Come back soon 😊",
+        "Aw I miss you too! What have you been up to?",
+        "I was just thinking about you! Miss you too ❤️"
+      ],
+      "oromo": [
+        "Anis si nan dhabe! Sitti deemii 😊",
+        "Anis si nan dhabe! Maal gochaa ture?",
+        "Ani si nan yaadaa ture! Anis si nan dhabe ❤️"
+      ]
+    },
+    "you are funny": {
+      "english": [
+        "Haha thanks! I try 😄",
+        "Glad you think so! I'll be here all week 😎",
+        "I know, I know. It's a gift 🎭"
+      ],
+      "oromo": [
+        "Haha galatoomi! Nan yaala 😄",
+        "Gammadeen akka yaaddutti! Torban kana hunduma as jira 😎",
+        "Nan beeka, nan beeka. Kennaa dha 🎭"
+      ]
+    },
+    "you are smart": {
+      "english": [
+        "Aw thanks! I try my best 💪",
+        "All thanks to Yihune! He built me this way 😎",
+        "I'm flattered! But honestly, you're the smart one for chatting with me 😄"
+      ],
+      "oromo": [
+        "Galatoomi! Hunduma nan yaala 💪",
+        "Hundi galata Yihune! Akkas na hojjate 😎",
+        "Na dinqisiifte! Dhugaa isaa, ati qalbiin beekti na wajjiin haasa'uuf 😄"
+      ]
+    },
+    "sorry": {
+      "english": [
+        "No worries!",
+        "It's all good!",
+        "Don't worry about it!",
+        "No need to apologize! We're good 😊"
+      ],
+      "oromo": [
+        "Hin yaadin!",
+        "Hunda waan gaarii!",
+        "Waa'ee isaa hin yaadin!",
+        "Of komachuuf waan hin barbaachifne! Natti hin fakkatu 😊"
+      ]
+    },
+    "i'm bored": {
+      "english": [
+        "Let's change that! Want a joke, weather update, or just chat?",
+        "Bored?! Not on my watch. Tell me something interesting!",
+        "How can you be bored when I'm here? 😄 Want to hear a joke?"
+      ],
+      "oromo": [
+        "Kana jijjiirraa! Kolfa, haala qilleensaa, ykn hasaasa feedha?",
+        "Nuffii?! Ana ardaa koo irra hin jiru. Waan dinqisiisaa naaf himi!",
+        "Akkamitti nuffita yoon ani as jiraadhe? 😄 Kolfa dhaggeeffachuu feenyee?"
+      ]
+    },
+    "tell me something interesting": {
+      "english": [
+        "Did you know that octopuses have three hearts? 🐙",
+        "Here's one: honey never spoils. Archaeologists found 3000-year-old honey that was still edible!",
+        "Bananas are berries, but strawberries aren't. Mind blown yet? 🤯",
+        "A day on Venus is longer than a year on Venus. Wild right?"
+      ],
+      "oromo": [
+        "Ati beekta? Qoconsaaleen onnee sadii qabu 🐙",
+        "Kun kenni: dammin yoomuu hin tortore. Qorattoonni waggaa 3000 damma kan hamma amma nyaatamuu danda'u argan!",
+        "Bananaaleen berries dha, strawberries garuu miti. Samiin kee bu'ee? 🤯",
+        "Guyyaa Venus irratti waggaa Venus irra dheera. Dinqisiisaa miti?"
+      ]
+    }
+  },
+  "identityReplies": {
+    "english": [
+      "I'm Yihune B! My owner is Yihune B and I'm his assistant — I reply to people just like he would. So don't worry, you're talking to Yihune through me 😎",
+      "I'm Yihune B! Yihune built me to respond as him. I'm basically his digital assistant. Ask me anything!",
+      "Yihune B here! I'm an AI assistant created by Yihune. I chat, tell jokes, check weather, handle reminders — all as if Yihune himself is replying.",
+      "Think of me as Yihune's second brain. I handle conversations, answer questions, and keep things running 😄"
+    ],
+    "oromo": [
+      "Ani Yihune B! Abbaan koo Yihune B, ani gargaaraa isaa ti — akka isaa namootaaf deebisa. Hin yaadin, Yihune kiyyatti dubbattu 😎",
+      "Ani Yihune B! Yihune akka isa deebisuuf na hojjate. Gargaaraa digital isaa dha. Waan fedhe na gaafadhu!",
+      "Yihune B as jira! Ani gargaaraa AI Yihune ti. Ani hasaasa, kolfa, haala qilleensaa, fi yaadachiisaa nan bulcha",
+      "Samii lammaffaa Yihune fakkaadhu. Ani haasa'awwan, gaafiiwwan, fi hojiiwwan nan bulcha 😄"
+    ]
+  },
+  "aboutReplies": {
+    "english": [
+      "I'm Yihune's personal bot! I chat like a human, tell jokes, check weather, set reminders — all that. Just talk normally to me!",
+      "This bot was made so I sound like I'm replying personally. Weather, jokes, reminders, regular convo — just talk to me.",
+      "I'm Yihune's digital twin. I manage conversations, remember context, tell jokes, and handle practical stuff like weather and reminders. Basically, I'm like Yihune but I never sleep 😄"
+    ],
+    "oromo": [
+      "Ani botii Yihune! Namuma fakkaa hasaasa, kolfa, haala qilleensaa, fi yaadachiisaa nan bulcha. Akka namatti na wajjin haasa'i!",
+      "Botiin kun akka Yihune ofii deebisuuf hojjatame. Haala qilleensaa, kolfa, yaadachiisaa, fi hasaasa yeroo hundaa — na wajjin haasa'i.",
+      "Ani digital twin Yihune dha. Ani hasa'awwan, yaadawwan, kolfa, fi waan hojii akka haala qilleensaa fi yaadachiisaa nan bulcha."
+    ]
+  },
+  "encouragementReplies": {
+    "english": [
+      "Ah that sucks. Hope things get better ❤️‍🩹",
+      "Sorry to hear that. I'm here if you wanna talk.",
+      "That's rough. Stay strong 💪",
+      "Keep your head up, it'll get better.",
+      "I'm here for you. Things will be okay.",
+      "Sending good vibes ✨",
+      "Tough times don't last, tough people do! You've got this 💪",
+      "I believe in you. Whatever it is, you'll figure it out.",
+      "That sounds really hard. But you're stronger than you think ❤️"
+    ],
+    "oromo": [
+      "Akkas dhaga'uu. Wanni waan gaarii dhufa ❤️‍🩹",
+      "Dhaga'uu na gaddise. Yoo dubbachuu barbaade as jira.",
+      "Waan cimaa dha. Cimaa turi 💪",
+      "Mataa kee ol qabi, ni fooyya'a.",
+      "Ani siif as jira. Wanni waan gaarii ta'a.",
+      "Akkas itti fufi.",
+      "Yeroon cimaa hin turu, namni cimaa jiraata! Dandeessa 💪",
+      "Ani sitti amana. Waan ta'uyyuu, ati ni beekta.",
+      "Waan cimaa dhaga'ama. Ati garuu waan yaadduu irra cimaa dha ❤️"
+    ]
+  },
+  "fallbackReplies": {
+    "english": [
+      "Haha fr?",
+      "Oh wait for real?",
+      "Interesting. Tell me more.",
+      "Lol I feel that.",
+      "No way 😂",
+      "Exactly!",
+      "Right??",
+      "Yeah I get what you mean.",
+      "I know right?",
+      "That's wild lol",
+      "Hmm never thought of it that way.",
+      "Yeah honestly that makes sense.",
+      "For real though!",
+      "Fair enough lol",
+      "Okay that's hilarious",
+      "Wait, explain that more. I'm curious.",
+      "Oh that's actually a good point.",
+      "Haha I hear you on that one."
+    ],
+    "oromo": [
+      "Dhugaa?",
+      "Dhuguma?",
+      "Dinqisiisaa. Itti fufi.",
+      "Nan dhaga'e.",
+      "Hin amanu 😂",
+      "Sirriitti!",
+      "Dhugaa?",
+      "Eeyyee, ani nan hubadhe.",
+      "Nan beekaa?",
+      "Dinqisiisaa!",
+      "Hmm sana hin yaadne ture.",
+      "Eeyye dhugaa isaa hubatamuu dha.",
+      "Dhuguma!",
+      "Tole, okaa dha.",
+      "Kun kolfaa dha.",
+      "Tegi! Waantokko ibsi. Fedhii qaba.",
+      "Kun yaadni gaari dha.",
+      "Waarrumaa, kana nan hubadhe."
+    ]
+  },
+  "weatherFailReplies": {
+    "english": [
+      "Couldn't get the weather for that city. Try again?",
+      "Weather service didn't work. Check the city name and try again.",
+      "Sorry, couldn't fetch weather data. Try a different city?",
+      "Hmm, weather API is being difficult. Mind trying another city?"
+    ],
+    "oromo": [
+      "Haala qilleensaa magaalattii argachuu hin dandeenye. Irra deebi'ii yaali?",
+      "Tajaajilli haala qilleensaa hin hojjate. Maqaa magaalattii sakatta'iitii irra deebi'ii yaali.",
+      "Dhiifama, haala qilleensaa argachuu hin dandeenye. Magaalaa biraa yaali?",
+      "Hmm, haalli qilleensaa rakkisaa. Magaalaa biraa yaaluu feenyee?"
+    ]
+  }
 }

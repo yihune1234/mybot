@@ -1,10 +1,11 @@
 const logger = require("../utils/logger");
 const { randomPick, extractCity } = require("../utils/helpers");
-const { getReplies } = require("../services/replyService");
+const { getReplies, pickLocalizedReply, pickLocalizedTriggerReply, getAllJokes } = require("../services/replyService");
 const { classifyIntent, analyzeSentiment } = require("../services/nluService");
 const { addMemory, getMemoryString } = require("../services/memoryService");
 const { getWeather, formatWeather } = require("../services/weatherService");
-const { trackUser } = require("../services/userService");
+const { trackUser, setUserLanguage, getUserLanguage } = require("../services/userService");
+const { detectLanguage } = require("../services/languageService");
 const { handleCommand } = require("./commandHandler");
 const { SENTIMENT_ENCOURAGE_THRESHOLD, SENTIMENT_LOG_THRESHOLD, PERSONALIZE_CHANCE } = require("../utils/constants");
 
@@ -25,7 +26,11 @@ async function handleMessage(msg, bot, userList) {
 
   if (!text) return;
 
-  const handled = await handleCommand(text, chatId, userId, bot, userList);
+  const lang = detectLanguage(text);
+  setUserLanguage(userId, lang);
+  logger.info(`🌐 Lang: ${lang} for user ${userId}`);
+
+  const handled = await handleCommand(text, chatId, userId, bot, userList, lang);
   if (handled) return;
 
   const replies = getReplies();
@@ -41,9 +46,9 @@ async function handleMessage(msg, bot, userList) {
 
   if (sentiment.comparative < SENTIMENT_ENCOURAGE_THRESHOLD) {
     try {
-      const encouragement = randomPick(replies.encouragementReplies);
+      const encouragement = pickLocalizedReply("encouragementReplies", lang);
       if (intent === "greeting") {
-        const reply = randomPick(replies.hiReplies);
+        const reply = pickLocalizedReply("hiReplies", lang);
         await bot.sendMessage(chatId, reply + " " + encouragement);
         addMemory(userId, "bot", reply + " " + encouragement);
       } else {
@@ -65,43 +70,46 @@ async function handleMessage(msg, bot, userList) {
 
   switch (intent) {
     case "greeting":
-      replyText = randomPick(replies.hiReplies);
+      replyText = pickLocalizedReply("hiReplies", lang);
       break;
 
     case "goodbye":
-      replyText = randomPick(replies.triggerReplies?.bye || replies.fallbackReplies);
+      replyText = pickLocalizedTriggerReply("bye", lang) || pickLocalizedReply("fallbackReplies", lang);
       break;
 
     case "thanks":
-      replyText = randomPick(replies.triggerReplies?.thanks || ["You're welcome!"]);
+      replyText = pickLocalizedTriggerReply("thanks", lang) || "You're welcome!";
       break;
 
     case "joke":
-      replyText = handleJokeIntent(chatId, userId, bot, replies);
+      replyText = handleJokeIntent(chatId, userId, bot, replies, lang);
       if (replyText && replyText._sent) return;
       break;
 
     case "weather":
-      replyText = await handleWeatherIntent(text, replies);
+      replyText = await handleWeatherIntent(text, replies, lang);
       break;
 
     case "identity":
-      replyText = randomPick(replies.identityReplies);
+      replyText = pickLocalizedReply("identityReplies", lang);
       break;
 
     case "time":
-      replyText = `🕐 The current time is ${new Date().toLocaleTimeString()}.`;
+      replyText = lang === "oromo"
+        ? `🕐 Sa'aatii ammaa ${new Date().toLocaleTimeString()} dha.`
+        : `🕐 The current time is ${new Date().toLocaleTimeString()}.`;
       break;
 
     case "help":
-      replyText =
-        "I can chat, tell jokes, check weather, set reminders, and more! Try /help to see the menu.";
+      replyText = lang === "oromo"
+        ? "Ani hasaasa, kolfa, haala qilleensaa, fi yaadachiisaa nan danda'a! /help naaf himi."
+        : "I can chat, tell jokes, check weather, set reminders, and more! Try /help to see the menu.";
       break;
 
     case "smalltalk":
     case "unknown":
     default:
-      replyText = handleFallbackIntent(lower, userId, replies);
+      replyText = handleFallbackIntent(lower, userId, replies, lang);
       break;
   }
 
@@ -121,16 +129,15 @@ async function handleMessage(msg, bot, userList) {
   }
 }
 
-function handleJokeIntent(chatId, userId, bot, replies) {
-  const jokes =
-    replies.triggerReplies?.["tell me a joke"] || replies.triggerReplies?.joke || [];
+function handleJokeIntent(chatId, userId, bot, replies, lang) {
+  const jokes = getAllJokes(lang);
   if (jokes.length > 0) {
     const jokeText = jokes[0];
     if (jokes.length > 1) {
       bot.sendMessage(chatId, jokeText, {
         reply_markup: {
           inline_keyboard: [
-            [{ text: "Next →", callback_data: "joke_1" }],
+            [{ text: lang === "oromo" ? "Kan itti aanu →" : "Next →", callback_data: "joke_1" }],
           ],
         },
       });
@@ -140,10 +147,10 @@ function handleJokeIntent(chatId, userId, bot, replies) {
     }
     return jokeText;
   }
-  return "I don't know any jokes right now!";
+  return lang === "oromo" ? "Waan kolfaa amma hin beeku!" : "I don't know any jokes right now!";
 }
 
-async function handleWeatherIntent(text, replies) {
+async function handleWeatherIntent(text, replies, lang) {
   const city = extractCity(text);
   if (city) {
     try {
@@ -152,18 +159,20 @@ async function handleWeatherIntent(text, replies) {
     } catch (err) {
       // fall through
     }
-    return randomPick(replies.weatherFailReplies);
+    return pickLocalizedReply("weatherFailReplies", lang);
   }
-  return "Which city would you like the weather for? Try /weather <city>!";
+  return lang === "oromo"
+    ? "Magaalaa kam haala qilleensaa isaa barbaadda? /weather <city> yaali!"
+    : "Which city would you like the weather for? Try /weather <city>!";
 }
 
-function handleFallbackIntent(lower, userId, replies) {
+function handleFallbackIntent(lower, userId, replies, lang) {
   const sortedKeys = Object.keys(replies.triggerReplies).sort(
     (a, b) => b.length - a.length
   );
   for (const key of sortedKeys) {
     if (lower.includes(key)) {
-      return randomPick(replies.triggerReplies[key]);
+      return pickLocalizedTriggerReply(key, lang) || randomPick(replies.fallbackReplies?.english || []);
     }
   }
 
@@ -175,7 +184,7 @@ function handleFallbackIntent(lower, userId, replies) {
     return `Here's what I remember:\n${memStr}`;
   }
 
-  return randomPick(replies.fallbackReplies);
+  return pickLocalizedReply("fallbackReplies", lang);
 }
 
 module.exports = { handleMessage };

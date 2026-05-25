@@ -67,6 +67,24 @@ function getGlobalStats() {
   return { totalUsers, totalMessages, topUsers };
 }
 
+function setUserLanguage(userId, lang) {
+  if (!stats[userId]) {
+    stats[userId] = {
+      firstSeen: new Date().toISOString(),
+      lastSeen: new Date().toISOString(),
+      messageCount: 0,
+      language: "unknown",
+    };
+  }
+  stats[userId].preferredLanguage = lang;
+  saveJSON(STATS_FILE, stats);
+}
+
+function getUserLanguage(userId) {
+  const s = stats[userId];
+  return s?.preferredLanguage || null;
+}
+
 function getAllUsers() {
   return userList;
 }
@@ -83,4 +101,6 @@ module.exports = {
   getGlobalStats,
   getAllUsers,
   getStats,
+  setUserLanguage,
+  getUserLanguage,
 };
