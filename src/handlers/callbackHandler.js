@@ -6,6 +6,7 @@ const { addMemory, clearMemory, getContext } = require("../services/memoryServic
 const { t, getLangCode } = require("../services/i18nService");
 const { helpKeyboard, jokeKeyboard } = require("./commandHandler");
 const { languageSelectionKeyboard } = require("./messageHandler");
+const { trackLanguageSelection, trackError } = require("../services/eventTracker");
 
 async function handleCallback(callbackQuery, bot) {
   const msg = callbackQuery.message;
@@ -17,6 +18,8 @@ async function handleCallback(callbackQuery, bot) {
 
   if (data === "lang_en") {
     setUserLanguage(userId, "english");
+    const userName = callbackQuery.from.first_name || "unknown";
+    trackLanguageSelection(userId, userName, "english");
     try {
       await bot.editMessageText(
         "✅ Language set to English 🇺🇸\n\nHello! How can I help you today?",
@@ -35,6 +38,8 @@ async function handleCallback(callbackQuery, bot) {
 
   if (data === "lang_om") {
     setUserLanguage(userId, "oromo");
+    const userName = callbackQuery.from.first_name || "unknown";
+    trackLanguageSelection(userId, userName, "oromo");
     try {
       await bot.editMessageText(
         "✅ Afaan Oromoo filatamee! 🇪🇹\n\nAkkam jirtu! Har'a maal keessatti si gargaaruu danda'a?",
@@ -153,6 +158,8 @@ async function handleCallback(callbackQuery, bot) {
   if (data.startsWith("lang_switch_")) {
     const newLang = data.replace("lang_switch_", "");
     setUserLanguage(userId, newLang);
+    const userName = callbackQuery.from.first_name || "unknown";
+    trackLanguageSelection(userId, userName, newLang);
     const displayLang = newLang === "oromo" ? "Afaan Oromoo 🇪🇹" : "English 🇺🇸";
     const confirmMsg = newLang === "oromo"
       ? `✅ Afaan Oromoo 🇪🇹 ti jijjirame!\n\nAmmaa kaasee haasa'awwan hunduu afaan Oromoo ta'u.`

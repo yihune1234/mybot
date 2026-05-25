@@ -8,6 +8,8 @@ const { trackUser, setUserLanguage, getUserLanguage, hasSelectedLanguage } = req
 const { detectLanguage } = require("../services/languageService");
 const { t, getLangCode } = require("../services/i18nService");
 const { handleCommand } = require("./commandHandler");
+const { handleAdminCommand } = require("./adminCommandHandler");
+const { trackMessage, trackLanguageSelection, trackError } = require("../services/eventTracker");
 const { SENTIMENT_ENCOURAGE_THRESHOLD, SENTIMENT_LOG_THRESHOLD, PERSONALIZE_CHANCE } = require("../utils/constants");
 
 function languageSelectionKeyboard() {
@@ -71,6 +73,13 @@ async function handleMessage(msg, bot, userList) {
   const lang = getUserLanguage(userId) || "english";
   const lc = getLangCode(lang);
   const langForReplies = lang === "oromo" ? "oromo" : "english";
+
+  trackMessage(msg, langForReplies);
+
+  if (text.startsWith("/")) {
+    const adminHandled = await handleAdminCommand(text, chatId, userId, bot, langForReplies);
+    if (adminHandled) return;
+  }
 
   const handled = await handleCommand(text, chatId, userId, bot, userList, langForReplies);
   if (handled) return;
