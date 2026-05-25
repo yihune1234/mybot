@@ -36,14 +36,11 @@ async function handleCallback(callbackQuery, bot) {
     try {
       await bot.editMessageText(
         "✅ *Language set to English* / *Afaan Ingilizii filatamee* 🇺🇸" +
-        "\n━━━━━━━━━━━━━━━━━━━" +
-        "\n\n👋 *ENGLISH*" +
-        "\nHello! I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
+        "\n\nHello 👋 I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
         "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
         "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
         "\n\n━━━━━━━━━━━━━━━━━━━" +
-        "\n\n👋 *AFAN OROMOO*" +
-        "\nAkkam jirtu! Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+        "\n\nAkkam jirtu 👋 Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
         "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
         "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
         "\n\n━━━━━━━━━━━━━━━━━━━" +
@@ -69,14 +66,11 @@ async function handleCallback(callbackQuery, bot) {
     try {
       await bot.editMessageText(
         "✅ *Afaan Oromoo filatamee* / *Language set to Afaan Oromoo* 🇪🇹" +
-        "\n━━━━━━━━━━━━━━━━━━━" +
-        "\n\n👋 *AFAN OROMOO*" +
-        "\nAkkam jirtu! Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+        "\n\nAkkam jirtu 👋 Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
         "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
         "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
         "\n\n━━━━━━━━━━━━━━━━━━━" +
-        "\n\n👋 *ENGLISH*" +
-        "\nHello! I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
+        "\n\nHello 👋 I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
         "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
         "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
         "\n\n━━━━━━━━━━━━━━━━━━━" +
@@ -97,14 +91,11 @@ async function handleCallback(callbackQuery, bot) {
 
   if (!hasSelectedLanguage(userId)) {
     const intro =
-      "━━━━━━━━━━━━━━━━━━━" +
-      "\n\n👋 *ENGLISH*" +
-      "\nHello! I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
+      "Hello 👋 I am the official assistant of *Yihune B* — a software developer, system builder, and innovation-focused creator." +
       "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
       "\nSpecialties: AI systems, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
       "\n\n━━━━━━━━━━━━━━━━━━━" +
-      "\n\n👋 *AFAN OROMOO*" +
-      "\nAkkam jirtu! Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
+      "\n\nAkkam jirtu 👋 Ani asistan mootummaa *Yihune B* ti — inni developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
       "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
       "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack development, Backend architecture, Cloud applications." +
       "\n\n━━━━━━━━━━━━━━━━━━━" +
