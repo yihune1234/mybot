@@ -192,7 +192,7 @@ function clearMemory(userId) {
 // ─── NLU: Intent Classification ─────────────────────────────────────────────
 const tokenizer = new natural.WordTokenizer();
 const TfIdf = natural.TfIdf;
-const classifier = new natural.BayesClassifier();
+let classifier = new natural.BayesClassifier();
 
 // Train the classifier with example phrases for each intent
 const trainingData = {
@@ -433,6 +433,35 @@ bot.on("message", async (msg) => {
       addMemory(userId, "bot", "Hi! This bot replies as me – just talk normally.");
     } catch (err) {
       logger.error(`/start error: ${err.message}`);
+    }
+    return;
+  }
+
+  // /reload - refresh replies.json and retrain classifier without restart
+  if (text === "/reload") {
+    // Only admin can reload to prevent abuse
+    if (ADMIN_CHAT_ID && userId !== ADMIN_CHAT_ID) {
+      try { await bot.sendMessage(chatId, "⛔ Only the admin can reload the config."); } catch (e) {}
+      return;
+    }
+    try {
+      delete require.cache[require.resolve("./replies.json")];
+      replies = require("./replies.json");
+      // Retrain classifier with potentially updated training data
+      classifier = new natural.BayesClassifier();
+      for (const [intent, phrases] of Object.entries(trainingData)) {
+        for (const phrase of phrases) {
+          classifier.addDocument(phrase, intent);
+        }
+      }
+      classifier.train();
+      try {
+        await bot.sendMessage(chatId, "🔄 Replies reloaded and classifier retrained successfully!");
+        logger.info(`🔄 Admin ${userId} reloaded config and retrained classifier.`);
+      } catch (e) {}
+    } catch (err) {
+      logger.error(`/reload error: ${err.message}`);
+      try { await bot.sendMessage(chatId, `❌ Reload failed: ${err.message}`); } catch (e) {}
     }
     return;
   }
