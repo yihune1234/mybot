@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "main": "bot.js",
   "scripts": {
-    "build": "node bot.js",
+    "build": "echo 'Build complete'",
     "start": "node bot.js",
     "dev": "nodemon bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
