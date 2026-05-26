@@ -7,6 +7,7 @@ const {
   notifyCommand,
   notifyError,
   notifySystem,
+  notifyBotReply,
 } = require("./adminNotifier");
 const { isAdmin } = require("./adminNotifier");
 const { isNewUser } = require("./userService");
