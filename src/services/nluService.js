@@ -81,6 +81,30 @@ const trainingData = {
     "gargaarsa", "maal gochuu dandetta", "akkamitti hojjatta",
     "gargaarsi", "na gargaar",
   ],
+  ai_intent: [
+    "how does the ai work", "how does ai work", "how does the bot think",
+    "how do you use ai", "do you use ai", "are you ai", "are you using ai",
+    "is this ai", "is this chatgpt", "do you use chatgpt", "are you powered by ai",
+    "how is ai integrated", "ai integration", "how is the ai set up",
+    "what ai do you use", "what ai model", "what engine", "ai engine",
+    "tell me about the ai", "explain the ai", "ai architecture", "ai system",
+    "how are you intelligent", "how are you smart", "how do you answer",
+    "chatgpt integration", "chatgpt connection", "how do you connect to chatgpt",
+    "do you use openai", "openai integration", "chatgpt api", "unofficial api",
+    "what port does the ai use", "port 3001", "ai server", "how is the server setup",
+    "how does the ai server work", "spawn", "child process", "ai process",
+    "do you remember conversations", "how does memory work", "how do you remember",
+    "ai explanation", "ai how it works", "how the bot works",
+    "what is your ai", "ai behind you", "what powers you", "brain of the bot",
+    "how are you so smart", "how are you intelligent", "what makes you smart",
+    "what technology do you use", "what tech are you built on",
+    "akkaataa ai hojjetuu", "ai akkam hojjata", "ai akkaataa hojii",
+    "chatgpt fayyadamaa", "chatgpt waliin hidhama", "ai fayyadamtaa",
+    "ai sirna", "ai caasaa", "sirni ai akkami", "chatgpt waliin hidhama",
+    "akkamitti deebii kennita", "sammuu kee akkam", "ai moo'ela",
+    "port 3001 maal", "server ai akkamitti hojjata", "ai server maal",
+    "sammuu kee akkamitti hojjata", "deebii ogeessa akkamitti kennita",
+  ],
 };
 
 function trainClassifier() {
@@ -99,7 +123,16 @@ trainClassifier();
 function classifyIntent(text) {
   const lower = text.toLowerCase().trim();
 
+  // First check ai_intent phrases explicitly (before generic intent matching)
+  // This prevents phrases like "how are you so smart" from being caught by greeting
+  for (const phrase of trainingData.ai_intent || []) {
+    if (lower === phrase || lower.startsWith(phrase + " ") || lower.endsWith(" " + phrase) || lower.includes(" " + phrase + " ")) {
+      return "ai_intent";
+    }
+  }
+
   for (const [intent, phrases] of Object.entries(trainingData)) {
+    if (intent === "ai_intent") continue; // already checked above
     for (const phrase of phrases) {
       if (lower === phrase || lower.startsWith(phrase + " ") || lower.endsWith(" " + phrase) || lower.includes(" " + phrase + " ")) {
         return intent;

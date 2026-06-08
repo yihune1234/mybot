@@ -1,4 +1,14 @@
 {
+  "999": {
+    "messages": [
+      {
+        "role": "bot",
+        "text": "Hello!",
+        "timestamp": 1780924190268
+      }
+    ],
+    "summary": null
+  },
   "746360079": {
     "messages": [
       {
@@ -18,43 +28,53 @@
     "messages": [
       {
         "role": "user",
-        "text": "tw gobez",
-        "timestamp": 1779709994496
-      },
-      {
-        "role": "bot",
-        "text": "Fair enough!",
-        "timestamp": 1779709994646
+        "text": "/ping",
+        "timestamp": 1780925480130
       },
       {
         "role": "user",
-        "text": "you are mindless bot",
-        "timestamp": 1779710021046
+        "text": "hi",
+        "timestamp": 1780925492827
       },
       {
         "role": "bot",
-        "text": "That sounds tough. Remember, tough times don't last, but tough people do! 🌟",
-        "timestamp": 1779710021216
+        "text": "Welcome! I'm the digital assistant representing Yihune B — a full-stack developer and system architect. What can I do for you?",
+        "timestamp": 1780925492976
       },
       {
         "role": "user",
-        "text": "is stupd interesting ? yasazinal wolahe",
-        "timestamp": 1779710144225
+        "text": "hello",
+        "timestamp": 1780925498934
       },
       {
         "role": "bot",
-        "text": "That's interesting! Tell me more.",
-        "timestamp": 1779710144377
+        "text": "Tesfalem Markos, welcome! I'm the digital assistant representing Yihune B — a full-stack developer and system architect. What can I do for you?",
+        "timestamp": 1780925499101
       },
       {
         "role": "user",
-        "text": "tell me yourself",
-        "timestamp": 1779710285672
+        "text": "skills",
+        "timestamp": 1780925504638
       },
       {
         "role": "bot",
-        "text": "Here's what I remember:\nYou: you are mindless bot\nBot: That sounds tough. Remember, tough times don't last, but tough people do! 🌟\nYou: is stupd interesting ? yasazinal wolahe\nBot: That's interesting! Tell me more.\nYou: tell me yourself",
-        "timestamp": 1779710285831
+        "text": "Tesfalem Markos, i represent Yihune B — a passionate developer who works with React, Node.js, Django, PostgreSQL, and more. His vision is to build intelligent, secure, scalable, and impactful digital systems for the future. How can I help you?",
+        "timestamp": 1780925504788
+      },
+      {
+        "role": "user",
+        "text": "fuck",
+        "timestamp": 1780925515512
+      },
+      {
+        "role": "bot",
+        "text": "I believe in you. Whatever it is, you'll figure it out.",
+        "timestamp": 1780925515729
+      },
+      {
+        "role": "user",
+        "text": "what",
+        "timestamp": 1780925522148
       }
     ],
     "summary": null
@@ -62,54 +82,54 @@
   "7458921957": {
     "messages": [
       {
-        "role": "user",
-        "text": "tell me your self",
-        "timestamp": 1779711192404
-      },
-      {
         "role": "bot",
-        "text": "Right??",
-        "timestamp": 1779711192647
+        "text": "🐾, **Yihune B's Assistant — System Info**\n\n**Assistant Identity**\n- Name: Yihune B's AI Assistant\n- Role: Personal AI assistant for **entity[\"people\",\"Yihune Belay\",\"Software Engineer\"]**\n-, programming help, and information about Yihune B's professional work\n\n**Supported Topics**\n- Software engineering\n- Web & mobile development\n- AI chatbots and automation\n- Backend systems & APIs\n- Cybersecurity and authentication\n- Databases and cloud deployment\n- General knowledge\n- Science, history, mathematics\n- Casual conversation and jokes\n- Learning and study assistance\n\n**Yihune B Professional Links**\n- Portfolio: urlYihune B Portfoliohttps://mys in Oromo when the user writes in Oromo)\n\n**Current Status**\n- Online\n- Ready to assist with both technical and non-technical questions\n\n**Available Commands**\n- `/ai` — Assistant information\n- `/sysinfo` — System information\n- Ask any question naturally (no command required)\n\nHow can I help you today? 🚀",
+        "timestamp": 1780956648964
       },
       {
         "role": "user",
-        "text": "tell me about yourself",
-        "timestamp": 1779711202048
-      },
-      {
-        "role": "bot",
-        "text": "I'm Yihune B, the bot version of Yihune! My owner is Yihune B himself. I chat, tell jokes, check weather, and handle conversations like it's the real Yihune. What's up?",
-        "timestamp": 1779711202205
+        "text": "/start",
+        "timestamp": 1780956681260
       },
       {
         "role": "user",
-        "text": "Hi",
-        "timestamp": 1779711509420
+        "text": "/help",
+        "timestamp": 1780956712701
       },
       {
         "role": "bot",
-        "text": "Interesting. Tell me more.",
-        "timestamp": 1779711509888
+        "text": "This bot is Yihune B's digital portfolio and assistant. It represents his professional identity, showcases his technical expertise, and helps users understand his skills and services. Whether you need web development, API design, or system architecture — Yihune B can build it.",
+        "timestamp": 1780956716437
+      },
+      {
+        "role": "bot",
+        "text": "Why don't scientists trust atoms? Because they make up everything!",
+        "timestamp": 1780956739286
+      },
+      {
+        "role": "bot",
+        "text": "What do you call a fake noodle? An impasta!",
+        "timestamp": 1780956742526
+      },
+      {
+        "role": "bot",
+        "text": "Why don't scientists trust atoms? Because they make up everything!",
+        "timestamp": 1780956745002
+      },
+      {
+        "role": "bot",
+        "text": "What do you call a fake noodle? An impasta!",
+        "timestamp": 1780956747459
       },
       {
         "role": "user",
-        "text": "Hey",
-        "timestamp": 1779711585450
-      },
-      {
-        "role": "bot",
-        "text": "Right??",
-        "timestamp": 1779711585646
+        "text": "/start",
+        "timestamp": 1780957561916
       },
       {
         "role": "user",
-        "text": "Hi",
-        "timestamp": 1779711588796
-      },
-      {
-        "role": "bot",
-        "text": "Fair enough lol",
-        "timestamp": 1779711588959
+        "text": "/help",
+        "timestamp": 1780957577015
       }
     ],
     "summary": null
@@ -117,54 +137,54 @@
   "5201342445": {
     "messages": [
       {
-        "role": "user",
-        "text": "I am fine",
-        "timestamp": 1779710349923
+        "role": "bot",
+        "text": "Hello! I'm Yihune B's AI assistant. He's a software engineer, and I can help you learn about his portfolio, skills, projects, or answer questions about programming and technology.  \n\nYou want to explore **Yihune B’s work** or **talk tech**?",
+        "timestamp": 1780957096040
       },
       {
         "role": "bot",
-        "text": "Oh wow, that's something!",
-        "timestamp": 1779710350069
+        "text": "Y, hello! I'm Yihune B's AI assistant. He's a software engineer, and I can help you learn about his portfolio, skills, projects, or answer questions about programming and technology.  \n\nYou want to explore **Yihune B’s work** or **talk tech**?",
+        "timestamp": 1780957096239
       },
       {
         "role": "user",
-        "text": "Tell me about your self",
-        "timestamp": 1779710366254
+        "text": "Yihune",
+        "timestamp": 1780957111398
       },
       {
         "role": "bot",
-        "text": "Here's what I remember:\nYou: Hi\nBot: Hey! Long time no talk – how are you?\nYou: I am fine\nBot: Oh wow, that's something!\nYou: Tell me about your self",
-        "timestamp": 1779710366392
+        "text": "Hello! Yihune B is a software engineer who builds digital systems. He specializes in full-stack development (React, Node.js, Django, PHP), backend systems & APIs, AI chatbots, cybersecurity, digital identity, system architecture, and bot development.  \n\nYou can check out his work here:  \n- **Portfolio:** [myportfolio-1-01m7.onrender.com](https://myportfolio-1-01m7.onrender.com/)  \n- **GitHub:** [github.com/yihune1234](https://github.com/yihune1234)  \n- **LinkedIn:** [linkedin.com/in/yihune-belay-30b0a4383](https://www.linkedin.com/in/yihune-belay-30b0a4383)  \n- **Telegram:** [t.me/Y13bel](https://t.me/Y13bel)  \n\nIf you want, I can give you a quick summary of his main projects and services. Do you want me to do that?",
+        "timestamp": 1780957118171
+      },
+      {
+        "role": "bot",
+        "text": "Y, hello! Yihune B is a software engineer who builds digital systems. He specializes in full-stack development (React, Node.js, Django, PHP), backend systems & APIs, AI chatbots, cybersecurity, digital identity, system architecture, and bot development.  \n\nYou can check out his work here:  \n- **Portfolio:** [myportfolio-1-01m7.onrender.com](https://myportfolio-1-01m7.onrender.com/)  \n- **GitHub:** [github.com/yihune1234](https://github.com/yihune1234)  \n- **LinkedIn:** [linkedin.com/in/yihune-belay-30b0a4383](https://www.linkedin.com/in/yihune-belay-30b0a4383)  \n- **Telegram:** [t.me/Y13bel](https://t.me/Y13bel)  \n\nIf you want, I can give you a quick summary of his main projects and services. Do you want me to do that?",
+        "timestamp": 1780957118559
       },
       {
         "role": "user",
-        "text": "Who is you",
-        "timestamp": 1779710390373
-      },
-      {
-        "role": "bot",
-        "text": "No way! That's wild.",
-        "timestamp": 1779710390607
+        "text": "/language",
+        "timestamp": 1780957179572
       },
       {
         "role": "user",
-        "text": "Hey",
-        "timestamp": 1779711626010
-      },
-      {
-        "role": "bot",
-        "text": "Hmm never thought of it that way.",
-        "timestamp": 1779711626169
+        "text": "Akkami yihune",
+        "timestamp": 1780957188952
       },
       {
         "role": "user",
-        "text": "Tell me about yourself",
-        "timestamp": 1779711639138
+        "text": "Akkami yihune",
+        "timestamp": 1780957218468
       },
       {
         "role": "bot",
-        "text": "My name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
-        "timestamp": 1779711639298
+        "text": "Akkam! Yihune B nama **software engineer** dha. Inni **sistemoota dijitaalaa** ijaara. Guddina isaa keessatti:  \n\n- **Full-stack development:** React, Node.js, Django, PHP  \n- **Backend systems & APIs:** REST, PostgreSQL, MySQL  \n- **AI chatbots & automation**  \n- **Cybersecurity & authentication**  \n- **Digital identity:** DIDs fi verifiable credentials  \n- **System architecture & cloud deployment**  \n- **Bot development:** Telegram fi kanneen biroo  \n\nHojii isaa fi proojektoota isaa ilaaluf:  \n- **Portfolio:** [myportfolio-1-01m7.onrender.com](https://myportfolio-1-01m7.onrender.com/)  \n- **GitHub:** [github.com/yihune1234](https://github.com/yihune1234)  \n- **LinkedIn:** [linkedin.com/in/yihune-belay-30b0a4383](https://www.linkedin.com/in/yihune-belay-30b0a4383)  \n- **Telegram:** [t.me/Y13bel](https://t.me/Y13bel)  \n\nYoo barbaadde, ani proojektoota isaa gurguddoo fi tajaajiloota inni kennu siif gabaabsuu nan danda’a. Sii gochuu nan barbaadaa?",
+        "timestamp": 1780957225500
+      },
+      {
+        "role": "bot",
+        "text": "Y, akkam! Yihune B nama **software engineer** dha. Inni **sistemoota dijitaalaa** ijaara. Guddina isaa keessatti:  \n\n- **Full-stack development:** React, Node.js, Django, PHP  \n- **Backend systems & APIs:** REST, PostgreSQL, MySQL  \n- **AI chatbots & automation**  \n- **Cybersecurity & authentication**  \n- **Digital identity:** DIDs fi verifiable credentials  \n- **System architecture & cloud deployment**  \n- **Bot development:** Telegram fi kanneen biroo  \n\nHojii isaa fi proojektoota isaa ilaaluf:  \n- **Portfolio:** [myportfolio-1-01m7.onrender.com](https://myportfolio-1-01m7.onrender.com/)  \n- **GitHub:** [github.com/yihune1234](https://github.com/yihune1234)  \n- **LinkedIn:** [linkedin.com/in/yihune-belay-30b0a4383](https://www.linkedin.com/in/yihune-belay-30b0a4383)  \n- **Telegram:** [t.me/Y13bel](https://t.me/Y13bel)  \n\nYoo barbaadde, ani proojektoota isaa gurguddoo fi tajaajiloota inni kennu siif gabaabsuu nan danda’a. Sii gochuu nan barbaadaa?",
+        "timestamp": 1780957225689
       }
     ],
     "summary": null
@@ -180,6 +200,26 @@
         "role": "bot",
         "text": "Bealu, my name is Yihune B! I'm an assistant built by Yihune — I reply to people just like Yihune would. Think of me as Yihune's digital twin 😄",
         "timestamp": 1779711829024
+      },
+      {
+        "role": "user",
+        "text": "/contact@yihun12_bot",
+        "timestamp": 1779877235732
+      },
+      {
+        "role": "user",
+        "text": "/contact@yihun12_bot",
+        "timestamp": 1779877236283
+      },
+      {
+        "role": "user",
+        "text": "/contact@yihun12_bot",
+        "timestamp": 1779877236710
+      },
+      {
+        "role": "user",
+        "text": "/contact@yihun12_bot",
+        "timestamp": 1779877236817
       }
     ],
     "summary": null

@@ -8,7 +8,8 @@ const { getContext, clearMemory } = require("../services/memoryService");
 const { retrainClassifier } = require("../services/nluService");
 const { t, getLangCode } = require("../services/i18nService");
 const { trackBotReply } = require("../services/eventTracker");
-const { REMINDER_MAX_MS } = require("../utils/constants");
+const { REMINDER_MAX_MS, AI_PORT } = require("../utils/constants");
+const { getModel, setModel, getAIStatus, restartAIServer } = require("../services/aiService");
 
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID
   ? parseInt(process.env.ADMIN_CHAT_ID, 10)
@@ -249,6 +250,97 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
     return true;
   }
 
+  // --- /ai commands ---
+  // /ai (plain), /ai help, /ai info → full AI help
+  if (text === "/ai" || text === "/ai help" || text === "/ai info") {
+    try {
+      const status = await getAIStatus();
+      const statusLine = status && status.running
+        ? t("ai.status_running", lc, { port: AI_PORT })
+        : t("ai.status_stopped", lc);
+      const reply =
+        `${t("ai.title", lc)}\n\n` +
+        `${t("ai.intro", lc)}\n\n` +
+        `${t("ai.how_it_works", lc)}\n\n` +
+        `${t("ai.tech_stack", lc)}\n\n` +
+        `${t("ai.capabilities", lc)}\n\n` +
+        `${t("ai.commands", lc)}\n\n` +
+        `${t("ai.tips", lc)}\n\n` +
+        `━━━━━━━━━━━━━━\n${statusLine}\n` +
+        t("ai.model_current", lc, { model: getModel() });
+      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "AI help");
+    } catch (err) {
+      logger.error(`/ai help error: ${err.message}`);
+    }
+    return true;
+  }
+
+  // /ai status → short status check
+  if (text === "/ai status") {
+    try {
+      const status = await getAIStatus();
+      if (status && status.running) {
+        const reply = t("ai.status_running", lc, { port: AI_PORT }) +
+          "\n\n" + t("ai.model_current", lc, { model: getModel() });
+        await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
+      } else {
+        await bot.sendMessage(chatId, t("ai.status_stopped", lc), { parse_mode: "Markdown" });
+      }
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "AI status");
+    } catch (err) {
+      logger.error(`/ai status error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/ai model") {
+    try {
+      const reply = t("ai.model_current", lc, { model: getModel() });
+      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "AI model");
+    } catch (err) {
+      logger.error(`/ai model error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text.startsWith("/ai model ")) {
+    if (!isAdmin(userId)) {
+      try { await bot.sendMessage(chatId, t("admin.not_admin", lc)); } catch (e) {}
+      return true;
+    }
+    const modelName = text.slice(10).trim();
+    if (!modelName) {
+      try { await bot.sendMessage(chatId, t("ai.model_usage", lc)); } catch (e) {}
+      return true;
+    }
+    try {
+      setModel(modelName);
+      await bot.sendMessage(chatId, t("ai.model_set", lc, { model: modelName }), { parse_mode: "Markdown" });
+      logger.info(`AI model changed to ${modelName} by admin ${userId}`);
+    } catch (err) {
+      logger.error(`/ai model set error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/ai restart") {
+    if (!isAdmin(userId)) {
+      try { await bot.sendMessage(chatId, t("admin.not_admin", lc)); } catch (e) {}
+      return true;
+    }
+    try {
+      await restartAIServer();
+      await bot.sendMessage(chatId, t("ai.restarted", lc), { parse_mode: "Markdown" });
+      logger.info(`AI server restarted by admin ${userId}`);
+    } catch (err) {
+      await bot.sendMessage(chatId, t("ai.restart_failed", lc), { parse_mode: "Markdown" });
+      logger.error(`/ai restart error: ${err.message}`);
+    }
+    return true;
+  }
+
   if (text.startsWith("/") && isAdmin(userId)) {
     return handleAdminCommand(text, chatId, userId, bot, lang);
   }
@@ -328,6 +420,7 @@ async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
 
 function helpKeyboard(lang = "english") {
   const lc = getLangCode(lang);
+  const aiLabel = lang === "oromo" ? "🤖 AI Odeeffannoo" : "🤖 AI Info";
   return {
     inline_keyboard: [
       [
@@ -339,6 +432,7 @@ function helpKeyboard(lang = "english") {
         { text: `🧹 ${t("commands.help_forget", lc)}`, callback_data: "help_forget" },
       ],
       [
+        { text: aiLabel, callback_data: "help_ai" },
         { text: "📬 Contact", url: "https://t.me/Y13bel" },
       ],
     ],

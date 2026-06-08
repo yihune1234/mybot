@@ -14,6 +14,16 @@
             "date": 1779742973553,
             "name": "/home/yihunebelay/Desktop/mybot/logs/bot-2026-05-26.log",
             "hash": "0356bdaf6b712ea541b5e95482cc5a5e1af2be312e7492492bfb6deec2cec6c6"
+        },
+        {
+            "date": 1779877228344,
+            "name": "/home/yihunebelay/Desktop/mybot/logs/bot-2026-05-27.log",
+            "hash": "5e5c73e71dd2c4243b9e3850d3cdea8a2d76654e18484696f08c3a4ff7de0909"
+        },
+        {
+            "date": 1780165164520,
+            "name": "/home/yihunebelay/Desktop/mybot/logs/bot-2026-05-30.log",
+            "hash": "869ba62f6fdc718c9b40c81efa664146c9201bfe046643274f31c11aa74b8900"
         }
     ],
     "hashType": "sha256"

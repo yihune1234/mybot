@@ -17,6 +17,7 @@ const { MEMORY_FILE, STATS_FILE, USER_LIST_FILE } = require("./src/utils/constan
 const { init: initNotifier } = require("./src/services/adminNotifier");
 const { trackError, trackSystemEvent, getStats: getTrackerStats } = require("./src/services/eventTracker");
 const { isBlocked } = require("./src/services/blockService");
+const { startAIServer, stopAIServer } = require("./src/services/aiService");
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 if (!TOKEN) {
@@ -114,12 +115,13 @@ if (!useWebhook) {
   });
 }
 
-function gracefulShutdown(signal) {
+async function gracefulShutdown(signal) {
   logger.info(`Received ${signal}. Saving data and shutting down gracefully...`);
   clearAllReminders();
   saveJSON(MEMORY_FILE, getAllMemories());
   saveJSON(STATS_FILE, getStats());
   saveJSON(USER_LIST_FILE, getAllUsers());
+  await stopAIServer();
   trackSystemEvent("shutdown", `Bot shut down via ${signal}`);
   logger.info("All data saved. Goodbye!");
   process.exit(0);
@@ -178,4 +180,12 @@ server.listen(PORT, "0.0.0.0", () => {
   logger.info("🤖 Bot is now running and listening for messages...");
   console.log(`🤖 Bot started – listening via ${useWebhook ? "webhook" : "long polling"}...`);
   trackSystemEvent("bot_start", `Bot started via ${useWebhook ? "webhook" : "polling"}`);
+
+  try {
+    await startAIServer();
+    console.log("🤖 AI server started on port " + (process.env.AI_PORT || 3001));
+  } catch (err) {
+    logger.warn(`AI server startup failed: ${err.message}`);
+    console.warn("⚠️ AI server startup failed - AI features will be unavailable");
+  }
 })();

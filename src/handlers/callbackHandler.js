@@ -7,6 +7,8 @@ const { t, getLangCode } = require("../services/i18nService");
 const { helpKeyboard, jokeKeyboard, contactKeyboard } = require("./commandHandler");
 const { languageSelectionKeyboard } = require("./messageHandler");
 const { trackLanguageSelection, trackError, trackBotReply } = require("../services/eventTracker");
+const { getModel, getAIStatus } = require("../services/aiService");
+const { AI_PORT } = require("../utils/constants");
 
 async function handleCallback(callbackQuery, bot) {
   if (!callbackQuery || !callbackQuery.from) {
@@ -174,6 +176,31 @@ async function handleCallback(callbackQuery, bot) {
       logger.info(`🧹 User ${userId} cleared memory via /help button.`);
     } catch (err) {
       logger.error(`Callback forget error: ${err.message}`);
+    }
+    return;
+  }
+
+  if (data === "help_ai") {
+    try {
+      const status = await getAIStatus();
+      const statusLine = status && status.running
+        ? t("ai.status_running", lc, { port: AI_PORT })
+        : t("ai.status_stopped", lc);
+      const reply =
+        `${t("ai.title", lc)}\n\n` +
+        `${t("ai.intro", lc)}\n\n` +
+        `${t("ai.how_it_works", lc)}\n\n` +
+        `${t("ai.tech_stack", lc)}\n\n` +
+        `${t("ai.capabilities", lc)}\n\n` +
+        `${t("ai.commands", lc)}\n\n` +
+        `${t("ai.tips", lc)}\n\n` +
+        `━━━━━━━━━━━━━━\n${statusLine}\n` +
+        t("ai.model_current", lc, { model: getModel() });
+      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
+      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_ai", "AI info");
+      logger.info(`🤖 Showed AI info to user ${userId}`);
+    } catch (err) {
+      logger.error(`Callback help_ai error: ${err.message}`);
     }
     return;
   }

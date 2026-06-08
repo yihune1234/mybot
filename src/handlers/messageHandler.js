@@ -2,7 +2,7 @@ const logger = require("../utils/logger");
 const { randomPick, extractCity } = require("../utils/helpers");
 const { getReplies, pickLocalizedReply, pickLocalizedTriggerReply, getAllJokes } = require("../services/replyService");
 const { classifyIntent, analyzeSentiment } = require("../services/nluService");
-const { addMemory, getMemoryString } = require("../services/memoryService");
+const { addMemory, getMemoryString, getContext } = require("../services/memoryService");
 const { getWeather, formatWeather } = require("../services/weatherService");
 const { trackUser, setUserLanguage, getUserLanguage, hasSelectedLanguage } = require("../services/userService");
 const { detectLanguage } = require("../services/languageService");
@@ -10,7 +10,8 @@ const { t, getLangCode } = require("../services/i18nService");
 const { handleCommand } = require("./commandHandler");
 const { handleAdminCommand } = require("./adminCommandHandler");
 const { trackMessage, trackLanguageSelection, trackError, trackBotReply } = require("../services/eventTracker");
-const { SENTIMENT_ENCOURAGE_THRESHOLD, SENTIMENT_LOG_THRESHOLD, PERSONALIZE_CHANCE } = require("../utils/constants");
+const { SENTIMENT_ENCOURAGE_THRESHOLD, SENTIMENT_LOG_THRESHOLD } = require("../utils/constants");
+const { getAIResponse } = require("../services/aiService");
 
 function languageSelectionKeyboard() {
   return {
@@ -93,26 +94,66 @@ async function handleMessage(msg, bot, userList) {
     logger.info(`😟 Negative sentiment from user ${userId} (score: ${sentiment.comparative})`);
   }
 
+  bot.sendChatAction(chatId, "typing").catch(() => {});
+
   if (sentiment.comparative < SENTIMENT_ENCOURAGE_THRESHOLD) {
-    try {
-      const encouragement = pickLocalizedReply("encouragementReplies", langForReplies);
-      if (intent === "greeting") {
-        const reply = pickLocalizedReply("hiReplies", langForReplies);
-        await bot.sendMessage(chatId, reply + " " + encouragement);
-        addMemory(userId, "bot", reply + " " + encouragement);
-      } else {
-        await bot.sendMessage(chatId, encouragement);
-        addMemory(userId, "bot", encouragement);
+    const ctx = getContext(userId);
+    const convHistory = ctx ? ctx.recentMessages : [];
+    const aiReply = await getAIResponse(text, userId, {
+      intent: "encouragement",
+      language: langForReplies,
+      conversationHistory: convHistory,
+    });
+    if (aiReply) {
+      const truncated = aiReply.length > 4000 ? aiReply.substring(0, 4000) + "…" : aiReply;
+      try {
+        await bot.sendMessage(chatId, truncated, { parse_mode: "Markdown" });
+      } catch {
+        await bot.sendMessage(chatId, truncated);
       }
-      logger.info(`🤖 Encouraged user ${userId} (sentiment: ${sentiment.comparative})`);
-    } catch (err) {
-      logger.error(`Encouragement error: ${err.message}`);
+      addMemory(userId, "bot", truncated);
+      trackBotReply(userId, firstName, text, truncated);
+      logger.info(`🤖 AI encouragement for ${userId} (sentiment: ${sentiment.comparative})`);
+      return;
     }
+    const encouragement = pickLocalizedReply("encouragementReplies", langForReplies);
+    if (intent === "greeting") {
+      const reply = pickLocalizedReply("hiReplies", langForReplies);
+      await bot.sendMessage(chatId, reply + " " + encouragement);
+      addMemory(userId, "bot", reply + " " + encouragement);
+    } else {
+      await bot.sendMessage(chatId, encouragement);
+      addMemory(userId, "bot", encouragement);
+    }
+    logger.info(`🤖 Encouraged user ${userId} (sentiment: ${sentiment.comparative})`);
     return;
   }
 
-  const personalize = firstName !== "there" && Math.random() < PERSONALIZE_CHANCE;
+  const ctx = getContext(userId);
+  const convHistory = ctx ? ctx.recentMessages : [];
+  const aiReply = await getAIResponse(text, userId, {
+    intent,
+    language: langForReplies,
+    conversationHistory: convHistory,
+  });
 
+  if (aiReply) {
+    const finalReply = firstName !== "there"
+      ? `${firstName}, ${aiReply[0].toLowerCase() + aiReply.slice(1)}`
+      : aiReply;
+    const truncated = finalReply.length > 4000 ? finalReply.substring(0, 4000) + "…" : finalReply;
+    try {
+      await bot.sendMessage(chatId, truncated, { parse_mode: "Markdown" });
+    } catch {
+      await bot.sendMessage(chatId, truncated);
+    }
+    addMemory(userId, "bot", truncated);
+    trackBotReply(userId, firstName, text, truncated);
+    logger.info(`🤖 AI replied to ${userId} (intent: ${intent}): "${truncated.substring(0, 60)}..."`);
+    return;
+  }
+
+  logger.info(`AI unavailable, using fallback for user ${userId} (intent: ${intent})`);
   let replyText = null;
 
   switch (intent) {
@@ -149,25 +190,46 @@ async function handleMessage(msg, bot, userList) {
       replyText = t("help_response", lc);
       break;
 
-    case "smalltalk":
-    case "unknown":
+    case "ai_intent": {
+      const { getModel, getAIStatus } = require("../services/aiService");
+      const { AI_PORT } = require("../utils/constants");
+      try {
+        const status = await getAIStatus();
+        const statusLine = status && status.running
+          ? t("ai.status_running", lc, { port: AI_PORT })
+          : t("ai.status_stopped", lc);
+        replyText =
+          `${t("ai.title", lc)}\n\n` +
+          `${t("ai.intro", lc).substring(0, 200)}...\n\n` +
+          `${t("ai.how_it_works", lc).substring(0, 300)}...\n\n` +
+          `${t("ai.capabilities", lc).substring(0, 250)}...\n\n` +
+          `${t("ai.tips", lc).substring(0, 200)}...\n\n` +
+          `━━━━━━━━━━━━━━\n${statusLine}\n` +
+          t("ai.model_current", lc, { model: getModel() }) + "\n\n" +
+          `💡 *Tip:* Type \`/ai\` for the *complete* architecture diagram, tech stack, and troubleshooting guide!`;
+      } catch (err) {
+        replyText = t("ai.title", lc) + "\n\n" + t("ai.commands", lc);
+      }
+      break;
+    }
+
     default:
       replyText = handleFallbackIntent(lower, userId, replies, langForReplies);
       break;
   }
 
   if (replyText && !replyText._sent) {
-    const finalReply = personalize && langForReplies === "english"
+    const finalReply = firstName !== "there" && langForReplies === "english"
       ? `${firstName}, ${replyText[0].toLowerCase() + replyText.slice(1)}`
       : replyText;
     try {
       await bot.sendMessage(chatId, finalReply, { parse_mode: "Markdown" });
-      addMemory(userId, "bot", finalReply);
-      trackBotReply(userId, firstName, text, finalReply);
-      logger.info(`🤖 Replied to ${userId}: "${finalReply.substring(0, 60)}..."`);
-    } catch (err) {
-      logger.error(`Send reply error: ${err.message}`);
+    } catch {
+      await bot.sendMessage(chatId, finalReply);
     }
+    addMemory(userId, "bot", finalReply);
+    trackBotReply(userId, firstName, text, finalReply);
+    logger.info(`🤖 Replied to ${userId}: "${finalReply.substring(0, 60)}..."`);
   }
 }
 
@@ -197,7 +259,6 @@ async function handleWeatherIntent(text, replies, lang) {
       const weather = await getWeather(city);
       if (weather) return formatWeather(weather);
     } catch (err) {
-      // fall through
     }
     return pickLocalizedReply("weatherFailReplies", lang);
   }

@@ -25,6 +25,8 @@ const SENTIMENT_LOG_THRESHOLD = -0.3;
 const PERSONALIZE_CHANCE = 0.2;
 
 const PORT = process.env.PORT || 3000;
+const AI_PORT = parseInt(process.env.AI_PORT, 10) || 3001;
+const AI_API_URL = process.env.AI_API_URL || `http://localhost:${AI_PORT}`;
 
 module.exports = {
   ROOT_DIR,
@@ -46,4 +48,6 @@ module.exports = {
   SENTIMENT_LOG_THRESHOLD,
   PERSONALIZE_CHANCE,
   PORT,
+  AI_PORT,
+  AI_API_URL,
 };
