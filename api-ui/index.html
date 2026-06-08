@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT API Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="chat-app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🤖</span>
+                    <span class="logo-text">AI Chat</span>
+                </div>
+            </div>
+            <div class="sidebar-body">
+                <div class="model-selector">
+                    <label>Model</label>
+                    <select id="modelSelect">
+                        <option value="auto">Auto (Default)</option>
+                        <option value="gpt-4o">GPT-4o</option>
+                        <option value="gpt-4o-mini">GPT-4o Mini</option>
+                        <option value="o1">OpenAI o1</option>
+                    </select>
+                </div>
+                <div class="api-config">
+                    <label>API URL</label>
+                    <input type="url" id="apiUrl" value="http://localhost:3000">
+                </div>
+                <div class="server-status" id="serverStatus">
+                    <span class="status-dot offline"></span>
+                    <span class="status-text">Offline</span>
+                    <button class="btn btn-xs" onclick="checkHealth()" title="Check server">⟳</button>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="btn btn-clear" onclick="clearChat()">
+                    <span>🗑️</span> Clear Chat
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <div class="messages-container" id="messagesContainer">
+                <div class="welcome-message" id="welcomeMessage">
+                    <div class="welcome-icon">💬</div>
+                    <h2>AI Chat Interface</h2>
+                    <p>Select a model and start chatting. Responses appear in real-time.</p>
+                    <div class="welcome-tips">
+                        <span>⌨️ Type a message</span>
+                        <span>⏎ Enter to send</span>
+                        <span>⇧+⏎ New line</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea id="messageInput" rows="1" placeholder="Type your message..." autofocus></textarea>
+                    <button class="btn btn-send" id="sendBtn" onclick="sendMessage()" title="Send (Enter)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                <p class="input-hint">API: <span id="endpointDisplay">/ask</span> · Model: <span id="modelDisplay">auto</span></p>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
