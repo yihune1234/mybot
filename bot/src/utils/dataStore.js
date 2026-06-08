@@ -14,6 +14,8 @@ function loadJSON(filePath, defaultValue) {
 
 function saveJSON(filePath, data) {
   try {
+    const dir = require("path").dirname(filePath);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf-8");
   } catch (err) {
     logger.error(`Failed to save ${filePath}: ${err.message}`);
