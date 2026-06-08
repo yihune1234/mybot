@@ -149,14 +149,31 @@ function killProcessOnPort(port) {
   return false;
 }
 
-async function startAIServer() {
-  if (aiProcess) return;
+function isExternalUrl(url) {
+  try {
+    const u = new URL(url);
+    return u.hostname !== "localhost" && u.hostname !== "127.0.0.1";
+  } catch {
+    return false;
+  }
+}
 
-  const inUse = await isPortInUse(AI_PORT);
-  if (inUse) {
-    logger.warn(`Port ${AI_PORT} is in use. Attempting to free it...`);
-    killProcessOnPort(AI_PORT);
-    await new Promise(r => setTimeout(r, 1000));
+async function startAIServer() {
+  if (aiProcess || serverReady) return;
+
+  if (isExternalUrl(AI_API_URL)) {
+    logger.info(`Using external AI server at ${AI_API_URL}`);
+    try {
+      const res = await axios.get(`${AI_API_URL}/`, { timeout: 10000 });
+      if (res.data && res.data.status === "ok") {
+        serverReady = true;
+        logger.info("External AI server is ready");
+        return;
+      }
+    } catch (err) {
+      logger.warn(`External AI server not reachable: ${err.message}. AI features will be unavailable.`);
+      return;
+    }
   }
 
   logger.info(`Starting AI server from: ${CHATGPT_SERVER_PATH}`);
@@ -198,6 +215,11 @@ async function startAIServer() {
 }
 
 async function stopAIServer() {
+  if (isExternalUrl(AI_API_URL)) {
+    logger.info("External AI server — no local process to stop");
+    serverReady = false;
+    return;
+  }
   if (aiProcess) {
     logger.info("Stopping AI server...");
     aiProcess.kill("SIGTERM");
