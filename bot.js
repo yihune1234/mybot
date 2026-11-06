@@ -36,15 +36,14 @@ const useWebhook = !!PUBLIC_URL;
 const bot = useWebhook ? new TelegramBot(TOKEN) : new TelegramBot(TOKEN, { polling: true });
 
 bot.setMyCommands([
-  { command: "start", description: "Start the bot" },
-  { command: "help", description: "Show help menu" },
-  { command: "language", description: "Change language" },
-  { command: "weather", description: "Get weather for a city" },
-  { command: "remind", description: "Set a reminder" },
-  { command: "stats", description: "View your stats" },
-  { command: "forget", description: "Clear my memory" },
+  { command: "start", description: "Start the bot & open main menu" },
+  { command: "verify", description: "Verify media origin (C2PA & SynthID)" },
+  { command: "quote", description: "Request a software quote" },
+  { command: "services", description: "Explore Aritii Tech services" },
+  { command: "help", description: "Show help & available commands" },
+  { command: "contact", description: "Contact our engineering team" },
+  { command: "language", description: "Switch language (EN / OM)" },
   { command: "ping", description: "Check bot latency" },
-  { command: "contact", description: "Contact Yihune B" },
 ]).catch((err) => logger.warn(`Failed to set bot commands: ${err.message}`));
 
 initNotifier(bot);

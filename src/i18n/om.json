@@ -73,5 +73,13 @@
   "errors": {
     "generic": "Dhiifama, wanti tokko dogoggora. Irra deebi'ii yaali.",
     "weather_fetch": "Dhiifama, haala qilleensaa magaalattii argachuu hin dandeenye."
+  },
+  "verify": {
+    "usage": "🔍 *Mirkaneessa Miidiyaa AI (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\nSuuraa ykn faayila tokko ergaa, ykn suuraa duraan ergame irratti `/verify` jedhaa deebisaa. Mallattoolee C2PA, SynthID fi madda isaa qoranna.",
+    "analyzing": "⏳ *Madda miidiyaa qorachaa jira...*\nMallattoolee dijitaalaa C2PA, SynthID fi metadata sakatta'aa jira...",
+    "multiple_files": "⚠️ *Mirkaneessa sirriif maaloo faayila tokko qofa yeroo tokkotti ergaa.*",
+    "oversized": "❌ *Hangi faayilii baay'ee guddaadha.* Hangi heyyamame 20 MB qofa.",
+    "download_failed": "❌ Faayila Telegram irraa buusuu hin dandeenye. Maaloo deebisaa yaalaa.",
+    "button": "🔍 Miidiyaa Mirkaneessi (C2PA)"
   }
 }

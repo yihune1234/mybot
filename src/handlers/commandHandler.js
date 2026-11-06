@@ -328,6 +328,7 @@ async function handleAdminCommand(text, chatId, userId, bot, lang = "english") {
 
 function helpKeyboard(lang = "english") {
   const lc = getLangCode(lang);
+  const isOr = lang === "oromo";
   return {
     inline_keyboard: [
       [
@@ -337,6 +338,9 @@ function helpKeyboard(lang = "english") {
       [
         { text: `😂 ${t("commands.help_joke", lc)}`, callback_data: "help_joke" },
         { text: `🧹 ${t("commands.help_forget", lc)}`, callback_data: "help_forget" },
+      ],
+      [
+        { text: isOr ? "🔍 Miidiyaa Mirkaneessi (C2PA)" : "🔍 Verify Media (C2PA)", callback_data: "verify_media_prompt" },
       ],
       [
         { text: "📬 Contact", url: "https://t.me/Y13bel" },

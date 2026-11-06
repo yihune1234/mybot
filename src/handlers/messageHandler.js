@@ -51,6 +51,7 @@ const {
   STATE_QUOTE_DESC,
   STATE_QUOTE_BUDGET,
   STATE_QUOTE_CONTACT,
+  STATE_VERIFY_MEDIA,
   INTENT_SERVICES,
   INTENT_PORTFOLIO,
   INTENT_QUOTE,
@@ -222,30 +223,138 @@ function getHumanTopicName(intent, lang = "english") {
   return map[intent] || (lang === "oromo" ? "Pirojektiiwwan Yihune B" : "Yihune B's Software Services");
 }
 
+/**
+ * Media Verification Handler (C2PA & Google SynthID Provenance)
+ */
+async function processMediaVerification(mediaMsg, chatId, userId, bot, lang = "english") {
+  const isOr = lang === "oromo";
+
+  // Check for multiple files (Telegram media group)
+  if (mediaMsg.media_group_id) {
+    const multiMsg = isOr
+      ? "⚠️ *Maaloo mirkaneessa sirriif faayila tokko qofa yeroo tokkotti ergaa.*"
+      : "⚠️ *Please send only one media file at a time* for accurate provenance and metadata verification.";
+    await bot.sendMessage(chatId, multiMsg, { parse_mode: "Markdown" });
+    return;
+  }
+
+  let fileId = null;
+  let fileName = "media_image.jpg";
+  let mimeType = "image/jpeg";
+  let isDoc = false;
+  let fileSize = 0;
+
+  if (Array.isArray(mediaMsg.photo) && mediaMsg.photo.length > 0) {
+    const highestRes = mediaMsg.photo[mediaMsg.photo.length - 1];
+    fileId = highestRes.file_id;
+    fileSize = highestRes.file_size || 0;
+    fileName = `photo_${highestRes.file_unique_id || Date.now()}.jpg`;
+    mimeType = "image/jpeg";
+    isDoc = false;
+  } else if (mediaMsg.document) {
+    fileId = mediaMsg.document.file_id;
+    fileSize = mediaMsg.document.file_size || 0;
+    fileName = mediaMsg.document.file_name || "document_media";
+    mimeType = mediaMsg.document.mime_type || "application/octet-stream";
+    isDoc = true;
+  }
+
+  if (!fileId) {
+    const noMediaMsg = isOr
+      ? "❌ Suuraa ykn faayila mirkaneeffamu hin arganne. Maaloo suuraa ergaa."
+      : "❌ No valid image or media file detected. Please send a photo or document.";
+    await bot.sendMessage(chatId, noMediaMsg);
+    return;
+  }
+
+  // Oversized file check
+  if (fileSize > 20 * 1024 * 1024) {
+    const overMsg = isOr
+      ? "❌ *Hangi faayilii baay'ee guddaadha.* Hangi heyyamame 20 MB qofa."
+      : "❌ *File exceeds size limit.* Maximum allowed size is 20 MB.";
+    await bot.sendMessage(chatId, overMsg, { parse_mode: "Markdown" });
+    return;
+  }
+
+  // Send analyzing progress indicator
+  const statusPrompt = isOr
+    ? "⏳ *Madda miidiyaa qorachaa jira...*\nMallattoolee dijitaalaa C2PA, SynthID fi metadata sakatta'aa jira..."
+    : "⏳ *Analyzing media provenance...*\nChecking C2PA digital credentials, Google SynthID markers, and metadata...";
+  const statusMsg = await bot.sendMessage(chatId, statusPrompt, { parse_mode: "Markdown" });
+
+  try {
+    const axios = require("axios");
+    const fileLink = await bot.getFileLink(fileId);
+    const response = await axios.get(fileLink, { responseType: "arraybuffer", timeout: 30000 });
+    const buffer = Buffer.from(response.data);
+
+    const { verifyMediaBuffer } = require("../services/verifyService");
+    const result = await verifyMediaBuffer(buffer, {
+      fileName,
+      mimeType,
+      isDocument: isDoc,
+      lang,
+    });
+
+    const reportKb = {
+      inline_keyboard: [
+        [{ text: isOr ? "🔍 Miidiyaa Biroo Mirkaneessi" : "🔍 Verify Another Media", callback_data: "verify_media_prompt" }],
+        [{ text: isOr ? "⬅️ Fuula Duraa" : "⬅️ Back to Main Menu", callback_data: "main_menu" }],
+      ],
+    };
+
+    try {
+      await bot.deleteMessage(chatId, statusMsg.message_id);
+    } catch (_) {}
+
+    await bot.sendMessage(chatId, result.report, {
+      parse_mode: "Markdown",
+      reply_markup: reportKb,
+      disable_web_page_preview: true,
+    });
+
+    clearUserState(userId);
+  } catch (err) {
+    logger.error(`Media verification error for user ${userId}: ${err.message}`);
+    try {
+      await bot.deleteMessage(chatId, statusMsg.message_id);
+    } catch (_) {}
+    const failMsg = isOr
+      ? `❌ *Dogoggora mirkaneessa miidiyaa:* ${err.message}`
+      : `❌ *Media verification failed:* Could not process file (${err.message}).`;
+    await bot.sendMessage(chatId, failMsg, { parse_mode: "Markdown" });
+  }
+}
+
 async function handleMessage(msg, bot, userList) {
   if (msg.from && msg.from.is_bot) return;
 
   const chatId = msg.chat.id;
   const userId = msg.from.id;
+  const caption = (msg.caption || "").trim();
   const text = (msg.text || "").trim();
+  const rawText = text || caption;
   const firstName = msg.from.first_name || "there";
   const username = msg.from.username || "no-username";
+  const isPhoto = Array.isArray(msg.photo) && msg.photo.length > 0;
+  const isDocument = !!msg.document;
+  const isMedia = isPhoto || isDocument;
 
   trackUser(msg);
-  logger.info(`📩 ${firstName} (@${username}): ${text}`);
+  logger.info(`📩 ${firstName} (@${username}): ${rawText || (isPhoto ? "[Photo]" : isDocument ? "[Document]" : "[Empty]")}`);
 
-  if (text) addMemory(userId, "user", text);
-  if (!text) return;
+  if (rawText) addMemory(userId, "user", rawText);
+  if (!rawText && !isMedia) return;
 
   // Admin Slash Commands
-  if (text.startsWith("/")) {
-    const adminHandled = await handleAdminCommand(text, chatId, userId, bot);
+  if (rawText.startsWith("/")) {
+    const adminHandled = await handleAdminCommand(rawText, chatId, userId, bot);
     if (adminHandled) return;
   }
 
   // Fast-track /start command
-  if (text === "/start") {
-    const handled = await handleCommand(text, chatId, userId, bot, userList, "english");
+  if (rawText === "/start") {
+    const handled = await handleCommand(rawText, chatId, userId, bot, userList, "english");
     if (handled) return;
   }
 
@@ -294,6 +403,79 @@ async function handleMessage(msg, bot, userList) {
 
   trackMessage(msg, langForReplies);
 
+  // ----------------------------------------------------
+  // AI MEDIA VERIFICATION (C2PA & Google SynthID check)
+  // ----------------------------------------------------
+  if (rawText.startsWith("/verify")) {
+    const repliedMsg = msg.reply_to_message;
+    if (repliedMsg && (repliedMsg.photo || repliedMsg.document)) {
+      await processMediaVerification(repliedMsg, chatId, userId, bot, langForReplies);
+      return;
+    }
+
+    if (isMedia) {
+      await processMediaVerification(msg, chatId, userId, bot, langForReplies);
+      return;
+    }
+
+    // Set state and prompt user
+    setUserState(userId, STATE_VERIFY_MEDIA, {});
+    const verifyHelp = langForReplies === "oromo"
+      ? `🔍 *Mirkaneessa Miidiyaa AI (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `Maaloo suuraa irratti *reply* gochuun \`/verify\` jedhaa, ykn suuraa/faayila qabdu \`/verify\` barreesitanii ergaa.\n\n` +
+        `• *C2PA Content Credentials:* Madda, seenaa gulaallii, fi mallattoo dijitaalaa ni qorata\n` +
+        `• *Google SynthID:* Watermark suuraa AI Google'n uumame ni sakatta'a\n` +
+        `• *Meeshaalee AI:* EXIF fi meeshaalee AI (DALL-E, Firefly, Midjourney) ni adda baasa\n\n` +
+        `💡 _Qulqullina guutuuf faayilicha akka uncompressed 'File / Document' tti ergaa._`
+      : `🔍 *AI Media Verification (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `Please reply to an image or send a photo with the caption \`/verify\` to check its origin and content credentials.\n\n` +
+        `• *C2PA Content Credentials:* Extracts origin history, editing steps, and digital signatures.\n` +
+        `• *Google SynthID:* Detects imperceptible watermarks and Google generative AI provenance.\n` +
+        `• *AI Tool Signatures:* Detects DALL-E, Adobe Firefly, Midjourney, and Stable Diffusion markers.\n\n` +
+        `💡 _Standard Telegram photo compression strips metadata. For full cryptographic C2PA verification, send as an uncompressed 'File / Document'._`;
+
+    const cancelKb = {
+      inline_keyboard: [
+        [{ text: langForReplies === "oromo" ? "❌ Dhiisi" : "❌ Cancel", callback_data: "main_menu" }],
+      ],
+    };
+    await bot.sendMessage(chatId, verifyHelp, { parse_mode: "Markdown", reply_markup: cancelKb });
+    return;
+  }
+
+  // Active STATE_VERIFY_MEDIA handling
+  const userSession = getUserState(userId);
+  const activeState = userSession.state;
+
+  if (activeState === STATE_VERIFY_MEDIA) {
+    if (rawText === "/cancel" || rawText.toLowerCase() === "cancel" || rawText.toLowerCase() === "dhiisi") {
+      clearUserState(userId);
+      const cancelMsg = langForReplies === "oromo"
+        ? "❌ Mirkaneessi miidiyaa haqameera. Fuula duraatti deebi'eera."
+        : "❌ Media verification canceled. Returned to main menu.";
+      const { getMainMenuKeyboard } = require("../utils/uiComponents");
+      await bot.sendMessage(chatId, cancelMsg, { reply_markup: getMainMenuKeyboard(langForReplies, isAdmin(userId)) });
+      return;
+    }
+
+    if (isMedia) {
+      await processMediaVerification(msg, chatId, userId, bot, langForReplies);
+      return;
+    }
+
+    const reminder = langForReplies === "oromo"
+      ? "📸 Maaloo suuraa ykn faayila mirkaneeffachuu barbaaddan ergaa, ykn haquuf /cancel jedhaa."
+      : "📸 Please send the photo or file you wish to verify, or type /cancel to return.";
+    await bot.sendMessage(chatId, reminder);
+    return;
+  }
+
+  // If user sends media directly with "verify" in caption
+  if (isMedia && /verify/i.test(caption)) {
+    await processMediaVerification(msg, chatId, userId, bot, langForReplies);
+    return;
+  }
+
   // General Slash Commands (/start, /help, /weather, etc.)
   const handled = await handleCommand(text, chatId, userId, bot, userList, langForReplies);
   if (handled) return;
@@ -301,9 +483,6 @@ async function handleMessage(msg, bot, userList) {
   // ==========================================
   // STEP 1: CHECK ACTIVE CONVERSATION STATE
   // ==========================================
-  const userSession = getUserState(userId);
-  const activeState = userSession.state;
-
   if (activeState && activeState !== STATE_IDLE) {
     if (text === "/cancel" || text.toLowerCase() === "cancel" || text.toLowerCase() === "dhiisi") {
       clearUserState(userId);

@@ -116,6 +116,30 @@ async function handleCallback(callbackQuery, bot) {
     return;
   }
 
+  if (data === "verify_media_prompt") {
+    const { STATE_VERIFY_MEDIA } = require("../utils/constants");
+    setUserState(userId, STATE_VERIFY_MEDIA, {});
+    const prompt = lang === "oromo"
+      ? `🔍 *Mirkaneessa Miidiyaa AI (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `Maaloo suuraa ykn faayila mirkaneeffachuu barbaaddan asitti ergaa ykn forward godhaa.\n\n` +
+        `• C2PA Content Credentials fi mallattoolee dijitaalaa ni qoranna\n` +
+        `• Google SynthID watermark fi madda AI ni sakatta'a\n` +
+        `• Qulqullina olaanaaf faayilicha akka *File / Document* tti ergaa.`
+      : `🔍 *AI Media Verification (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `Please send or forward an image or document file to inspect its provenance:\n\n` +
+        `• Extracts C2PA Content Credentials & digital signatures\n` +
+        `• Checks for Google SynthID imperceptible watermarks\n` +
+        `• Detects generative AI tool signatures (DALL-E, Firefly, Midjourney)\n` +
+        `• For maximum accuracy, send the uncompressed *File / Document*.`;
+    const keyboard = {
+      inline_keyboard: [
+        [{ text: lang === "oromo" ? "⬅️ Duubatti" : "⬅️ Back to Main Menu", callback_data: "main_menu" }],
+      ],
+    };
+    await safeEditOrSend(bot, chatId, messageId, prompt, keyboard);
+    return;
+  }
+
   if (data === "switch_lang") {
     const prompt = lang === "oromo"
       ? "🌐 *Afaan filadhaa / Select your preferred language:*"

@@ -39,6 +39,9 @@ function getMainMenuKeyboard(lang = "english", isAdminUser = false) {
     ],
     [
       { text: isOr ? "📞 Nu Quunnamaa" : "📞 Contact Us", callback_data: "view_contact" },
+      { text: isOr ? "🔍 Miidiyaa Mirkaneessi" : "🔍 Verify Media (C2PA)", callback_data: "verify_media_prompt" },
+    ],
+    [
       { text: isOr ? "🌐 Afaan (EN / OM)" : "🌐 Language (EN / OM)", callback_data: "switch_lang" },
     ],
   ];

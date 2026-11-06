@@ -73,5 +73,13 @@
   "errors": {
     "generic": "Sorry, something went wrong. Please try again.",
     "weather_fetch": "Sorry, couldn't fetch weather data for that city."
+  },
+  "verify": {
+    "usage": "🔍 *AI Media Verification (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\nPlease send or forward an image or file, or reply to any photo with `/verify` to inspect its C2PA Content Credentials, Google SynthID watermark, and origin history.",
+    "analyzing": "⏳ *Analyzing media provenance...*\nChecking C2PA digital credentials, Google SynthID markers, and metadata...",
+    "multiple_files": "⚠️ *Please send only one media file at a time* for accurate provenance and metadata verification.",
+    "oversized": "❌ *File exceeds size limit.* Maximum allowed size is 20 MB.",
+    "download_failed": "❌ Could not download media file from Telegram servers. Please try again.",
+    "button": "🔍 Verify Media (C2PA)"
   }
 }
