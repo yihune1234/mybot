@@ -7,7 +7,19 @@ const LOG_DIR = path.join(ROOT_DIR, "logs");
 const MEMORY_FILE = path.join(DATA_DIR, "memories.json");
 const STATS_FILE = path.join(DATA_DIR, "stats.json");
 const USER_LIST_FILE = path.join(DATA_DIR, "users.json");
+const BUSINESS_CONFIG_FILE = path.join(DATA_DIR, "businessConfig.json");
+const SERVICES_FILE = path.join(DATA_DIR, "services.json");
+const ROLES_FILE = path.join(DATA_DIR, "roles.json");
+const LEADS_FILE = path.join(DATA_DIR, "leads.json");
+const QUOTES_FILE = path.join(DATA_DIR, "quotes.json");
 const REPLIES_FILE = path.join(ROOT_DIR, "replies.json");
+
+const ROLE_ADMIN = "admin";
+const ROLE_CUSTOMER = "customer";
+
+const MODE_RULE_BASED = "rule_based";
+const MODE_HYBRID = "hybrid";
+const MODE_AI_ENHANCED = "ai_enhanced";
 
 const MEMORY_MAX_MESSAGES = 10;
 const MEMORY_SUMMARY_THRESHOLD = 15;
@@ -25,8 +37,33 @@ const SENTIMENT_LOG_THRESHOLD = -0.3;
 const PERSONALIZE_CHANCE = 0.2;
 
 const PORT = process.env.PORT || 3000;
-const AI_PORT = parseInt(process.env.AI_PORT, 10) || 3001;
-const AI_API_URL = process.env.AI_API_URL || `http://localhost:${AI_PORT}`;
+
+// Conversation States
+const STATE_IDLE = null;
+const STATE_QUOTE_SERVICE = "STATE_QUOTE_SERVICE";
+const STATE_QUOTE_DESC = "STATE_QUOTE_DESC";
+const STATE_QUOTE_BUDGET = "STATE_QUOTE_BUDGET";
+const STATE_QUOTE_CONTACT = "STATE_QUOTE_CONTACT";
+
+const STATE_ADMIN_EDIT_PHONE = "STATE_ADMIN_EDIT_PHONE";
+const STATE_ADMIN_EDIT_EMAIL = "STATE_ADMIN_EDIT_EMAIL";
+const STATE_ADMIN_EDIT_TELEGRAM = "STATE_ADMIN_EDIT_TELEGRAM";
+const STATE_ADMIN_EDIT_LOCATION = "STATE_ADMIN_EDIT_LOCATION";
+const STATE_ADMIN_EDIT_HOURS = "STATE_ADMIN_EDIT_HOURS";
+
+// Standard Intent Names
+const INTENT_SERVICES = "services";
+const INTENT_PORTFOLIO = "portfolio";
+const INTENT_QUOTE = "quote";
+const INTENT_CONTACT = "contact";
+const INTENT_GREETING = "greeting";
+const INTENT_HELP = "help";
+const INTENT_GOODBYE = "goodbye";
+const INTENT_THANKS = "thanks";
+const INTENT_JOKE = "joke";
+const INTENT_WEATHER = "weather";
+const INTENT_TIME = "time";
+const INTENT_IDENTITY = "identity";
 
 module.exports = {
   ROOT_DIR,
@@ -48,6 +85,36 @@ module.exports = {
   SENTIMENT_LOG_THRESHOLD,
   PERSONALIZE_CHANCE,
   PORT,
-  AI_PORT,
-  AI_API_URL,
+  STATE_IDLE,
+  STATE_QUOTE_SERVICE,
+  STATE_QUOTE_DESC,
+  STATE_QUOTE_BUDGET,
+  STATE_QUOTE_CONTACT,
+  STATE_ADMIN_EDIT_PHONE,
+  STATE_ADMIN_EDIT_EMAIL,
+  STATE_ADMIN_EDIT_TELEGRAM,
+  STATE_ADMIN_EDIT_LOCATION,
+  STATE_ADMIN_EDIT_HOURS,
+  BUSINESS_CONFIG_FILE,
+  SERVICES_FILE,
+  ROLES_FILE,
+  LEADS_FILE,
+  QUOTES_FILE,
+  ROLE_ADMIN,
+  ROLE_CUSTOMER,
+  MODE_RULE_BASED,
+  MODE_HYBRID,
+  MODE_AI_ENHANCED,
+  INTENT_SERVICES,
+  INTENT_PORTFOLIO,
+  INTENT_QUOTE,
+  INTENT_CONTACT,
+  INTENT_GREETING,
+  INTENT_HELP,
+  INTENT_GOODBYE,
+  INTENT_THANKS,
+  INTENT_JOKE,
+  INTENT_WEATHER,
+  INTENT_TIME,
+  INTENT_IDENTITY,
 };

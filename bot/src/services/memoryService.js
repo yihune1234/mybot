@@ -4,6 +4,7 @@ const {
   MEMORY_FILE,
   MEMORY_MAX_MESSAGES,
   MEMORY_SUMMARY_THRESHOLD,
+  STATE_IDLE,
 } = require("../utils/constants");
 
 let memories = migrateData(loadJSON(MEMORY_FILE, {}));
@@ -11,18 +12,47 @@ let memories = migrateData(loadJSON(MEMORY_FILE, {}));
 function migrateData(raw) {
   for (const [userId, data] of Object.entries(raw)) {
     if (Array.isArray(data)) {
-      raw[userId] = { messages: data, summary: null };
-    } else if (data && !data.messages) {
-      raw[userId] = { messages: [], summary: null };
+      raw[userId] = {
+        messages: data,
+        summary: null,
+        session: { state: STATE_IDLE, stateData: {}, lastIntent: null, lastIntentTime: null, selectedService: null },
+      };
+    } else if (data && typeof data === "object") {
+      if (!data.messages) data.messages = [];
+      if (!data.session) {
+        data.session = { state: STATE_IDLE, stateData: {}, lastIntent: null, lastIntentTime: null, selectedService: null };
+      }
     }
   }
   return raw;
 }
 
-function addMemory(userId, role, text) {
+function ensureUserSession(userId) {
   if (!memories[userId]) {
-    memories[userId] = { messages: [], summary: null };
+    memories[userId] = {
+      messages: [],
+      summary: null,
+      session: {
+        state: STATE_IDLE,
+        stateData: {},
+        lastIntent: null,
+        lastIntentTime: null,
+        selectedService: null,
+      },
+    };
+  } else if (!memories[userId].session) {
+    memories[userId].session = {
+      state: STATE_IDLE,
+      stateData: {},
+      lastIntent: null,
+      lastIntentTime: null,
+      selectedService: null,
+    };
   }
+}
+
+function addMemory(userId, role, text) {
+  ensureUserSession(userId);
 
   const entry = { role, text, timestamp: Date.now() };
   memories[userId].messages.push(entry);
@@ -74,7 +104,58 @@ function getContext(userId) {
     recentMessages: mem.messages.slice(-5),
     summary: mem.summary,
     messageCount: mem.messages.length,
+    session: mem.session || {},
   };
+}
+
+// Conversation State & Context Management
+function getUserState(userId) {
+  ensureUserSession(userId);
+  return {
+    state: memories[userId].session.state || STATE_IDLE,
+    data: memories[userId].session.stateData || {},
+  };
+}
+
+function setUserState(userId, state, data = {}) {
+  ensureUserSession(userId);
+  memories[userId].session.state = state;
+  memories[userId].session.stateData = {
+    ...(memories[userId].session.stateData || {}),
+    ...data,
+  };
+  saveJSON(MEMORY_FILE, memories);
+}
+
+function clearUserState(userId) {
+  if (memories[userId] && memories[userId].session) {
+    memories[userId].session.state = STATE_IDLE;
+    memories[userId].session.stateData = {};
+    saveJSON(MEMORY_FILE, memories);
+  }
+}
+
+function getLastIntent(userId) {
+  if (!memories[userId] || !memories[userId].session) return null;
+  return memories[userId].session.lastIntent || null;
+}
+
+function setLastIntent(userId, intent) {
+  ensureUserSession(userId);
+  memories[userId].session.lastIntent = intent;
+  memories[userId].session.lastIntentTime = Date.now();
+  saveJSON(MEMORY_FILE, memories);
+}
+
+function getSelectedService(userId) {
+  if (!memories[userId] || !memories[userId].session) return null;
+  return memories[userId].session.selectedService || null;
+}
+
+function setSelectedService(userId, service) {
+  ensureUserSession(userId);
+  memories[userId].session.selectedService = service;
+  saveJSON(MEMORY_FILE, memories);
 }
 
 function clearMemory(userId) {
@@ -92,4 +173,11 @@ module.exports = {
   getContext,
   clearMemory,
   getAllMemories,
+  getUserState,
+  setUserState,
+  clearUserState,
+  getLastIntent,
+  setLastIntent,
+  getSelectedService,
+  setSelectedService,
 };

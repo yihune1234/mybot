@@ -17,13 +17,16 @@ const { MEMORY_FILE, STATS_FILE, USER_LIST_FILE } = require("./src/utils/constan
 const { init: initNotifier } = require("./src/services/adminNotifier");
 const { trackError, trackSystemEvent, getStats: getTrackerStats } = require("./src/services/eventTracker");
 const { isBlocked } = require("./src/services/blockService");
-const { startAIServer, stopAIServer } = require("./src/services/aiService");
+const { connectDB } = require("./src/utils/db");
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 if (!TOKEN) {
   console.error("❌ TELEGRAM_BOT_TOKEN is not set.");
   process.exit(1);
 }
+
+// Connect to MongoDB selectively (if MONGO_URI configured; otherwise graceful fallback)
+connectDB();
 
 loadReplies(REPLIES_FILE);
 loadTranslations();
@@ -121,7 +124,6 @@ async function gracefulShutdown(signal) {
   saveJSON(MEMORY_FILE, getAllMemories());
   saveJSON(STATS_FILE, getStats());
   saveJSON(USER_LIST_FILE, getAllUsers());
-  await stopAIServer();
   trackSystemEvent("shutdown", `Bot shut down via ${signal}`);
   logger.info("All data saved. Goodbye!");
   process.exit(0);
@@ -156,6 +158,16 @@ const server = http.createServer((req, res) => {
   res.end(JSON.stringify({ status: "ok", uptime: process.uptime() }));
 });
 
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    const nextPort = Number(PORT) + 10;
+    logger.warn(`Port ${PORT} in use for HTTP health server. Trying port ${nextPort}...`);
+    server.listen(nextPort, "0.0.0.0");
+  } else {
+    logger.error(`HTTP server error: ${err.message}`);
+  }
+});
+
 server.listen(PORT, "0.0.0.0", () => {
   logger.info(`🌐 HTTP server listening on port ${PORT}`);
   console.log(`🌐 HTTP server listening on port ${PORT}`);
@@ -180,12 +192,4 @@ server.listen(PORT, "0.0.0.0", () => {
   logger.info("🤖 Bot is now running and listening for messages...");
   console.log(`🤖 Bot started – listening via ${useWebhook ? "webhook" : "long polling"}...`);
   trackSystemEvent("bot_start", `Bot started via ${useWebhook ? "webhook" : "polling"}`);
-
-  try {
-    await startAIServer();
-    console.log("🤖 AI server started on port " + (process.env.AI_PORT || 3001));
-  } catch (err) {
-    logger.warn(`AI server startup failed: ${err.message}`);
-    console.warn("⚠️ AI server startup failed - AI features will be unavailable");
-  }
 })();

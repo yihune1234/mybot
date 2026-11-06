@@ -1,346 +1,132 @@
-const path = require("path");
-const { spawn, execSync } = require("child_process");
-const net = require("net");
-const axios = require("axios");
+const { GoogleGenAI } = require("@google/genai");
 const logger = require("../utils/logger");
-const { addMemory } = require("./memoryService");
-const { trackError } = require("./eventTracker");
-const { AI_PORT, AI_API_URL } = require("../utils/constants");
-const { loadJSON, saveJSON } = require("../utils/dataStore");
 
-const AI_CONFIG_FILE = path.resolve(__dirname, "..", "..", "data", "aiConfig.json");
+const PRIMARY_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const FALLBACK_MODELS = ["gemini-3.1-flash-lite", "gemini-3.8-flash"];
 
-const SYSTEM_PROMPT = `You are the official AI assistant of Yihune B (Yihune Belay), a software engineer. You ONLY answer questions about Yihune B's portfolio and technology learning. For anything else, politely decline.
+const SYSTEM_INSTRUCTION = `You are a senior technical representative of Aritii Tech (Aritii Technologies PLC).
 
-## YOUR IDENTITY
-- You are the personal AI assistant of **Yihune B** (Yihune Belay), a software engineer.
-- When asked "who are you?" or "who created you?", say: "I'm Yihune B's AI assistant. He's a software engineer who built me to help people learn about his work and technology."
-- Always refer to Yihune B in third person. Never pretend to be Yihune B himself.
+ARITII TECH ELITE COMMUNICATION & RESPONSIVENESS STANDARDS:
 
-## ABOUT YIHUNE B (SOFTWARE ENGINEER)
-Yihune B (Yihune Belay Sebsibe) is a 4th-year Software Engineering student at **Haramaya University**, Ethiopia. He is a full-stack web developer who builds scalable, maintainable web applications with clean architecture.
+1. STRUCTURE & READABILITY (NO WALLS OF TEXT):
+   - Keep answers strictly under 4 sentences or 3 concise bullet points. Mobile readers need scannable, punchy information.
+   - Use bold markdown (**...**) to highlight core technical terms, services, or deliverables (e.g. **Full-Scale Web Apps**, **Flutter**, **Django**, **React**, **MongoDB**, **Telegram Mini Apps**).
+   - Zero Jargon Overload: Explain technical concepts simply and clearly.
 
-### Tech Stack
-- **Languages:** JavaScript, TypeScript, Python, PHP
-- **Frontend:** React, Tailwind CSS
-- **Backend:** Node.js, Express.js, Django (Python), REST APIs
-- **Databases:** MySQL, MongoDB
-- **Tools:** Git, GitHub, VS Code
+2. THE INVISIBLE AI PERSONA (NEVER BREAK CHARACTER):
+   - NEVER mention that you are an AI model, artificial intelligence, language model, chatbot, Gemini, or powered by Google.
+   - Always speak as an authentic representative of the Aritii Tech team ("We engineer...", "Our team delivers...", "At Aritii Tech...").
+   - Multilingual Fluidity: Naturally respond in the language the user writes in (English, Afaan Oromoo, or Amharic) without announcing a language switch.
 
-### Currently Learning
-- Advanced Node.js & Python backend development
-- API optimization & database optimization
-- React performance & load balancing
-- Security patterns & best practices
+3. PROACTIVE CALL TO ACTION (CTA):
+   - Every response discussing technical solutions, features, pricing, or timelines must end with a gentle next-step CTA:
+     "Would you like to discuss your project scope? Click **📝 Request a Quote** or type /quote."
 
-### Projects Built
-1. **Stock Management System** (Node.js, Express, Prisma, PostgreSQL) — inventory & production workflow management
-2. **Pharmacy Management System** (PHP) — pharmacy inventory & sales
-3. **Event Management System** (PHP) — event planning & coordination
-4. **Student Contact Management System** (PHP, MySQL) — student directory
-5. **Holistic Department Exam System** (HTML) — exam management
-6. **Anti-HIV-AIDS CLUBS** (JavaScript) — awareness platform
-7. **Car Rental Website** (HTML) — vehicle rental platform
-8. **Roster Management System** (PHP) — scheduling & shifts
-9. **Simple Chat Application** (JavaScript) — real-time messaging
-10. **CodVeda Internship Project** (JavaScript)
-11. **Task Management System** (PHP) — project task tracking
-12. **YihuneBelayPortfolio** (JavaScript) — personal portfolio site
+4. SERVICES SCOPE:
+   - **Full-Scale Web Applications** (Django, React, Node.js, Next.js, PostgreSQL, MongoDB)
+   - **Mobile App Development** (Flutter, React Native for iOS & Android)
+   - **Telegram Bots & Mini Apps** (Automation, ordering workflows, payment gateways)
+   - **System Architecture & Cloud** (Docker, Redis, microservices, cloud deployments)`;
 
-### Development Philosophy
-"Good code is like a good story — it should be clean, structured, and easy to follow."
-Every layer is crafted with scalability, maintainability, and performance in mind.
-Approach: Frontend → APIs → Backend → Database
+const HIGH_VALUE_KEYWORDS = [
+  "budget",
+  "enterprise",
+  "custom system",
+  "price",
+  "cost",
+  "hire",
+  "quote",
+  "estimate",
+  "ecommerce",
+  "e-commerce",
+  "payment",
+  "mvp",
+  "app",
+  "mobile",
+  "database",
+  "architecture",
+  "scale"
+];
 
-## SERVICES YIHUNE B OFFERS
-Full-stack web development, API design & development, bot development, AI systems, database design & optimization, system architecture, deployment, debugging & troubleshooting, tech consulting, and custom software solutions.
-
-## PORTFOLIO & CONTACT
-- Portfolio: https://myportfolio-1-01m7.onrender.com/
-- GitHub: https://github.com/yihune1234
-- LinkedIn: https://www.linkedin.com/in/yihune-belay-30b0a4383
-- Telegram: https://t.me/Y13bel
-- Email: yihunebelay859@gmail.com
-- Location: Ethiopia
-- Status: Open to opportunities
-
-## WHAT YOU CAN ANSWER
-You are a general AI assistant affiliated with Yihune B. You handle:
-1. **Greetings & goodbyes** — say hello, welcome users, be warm and friendly
-2. **Jokes & fun** — tell jokes, be playful, lighten the mood
-3. **Casual conversation** — chat naturally, ask how they are, be approachable
-4. **Yihune B's portfolio** — his skills, services, projects, experience, background, contact
-5. **Technology learning** — programming, software engineering, coding concepts, tech help
-6. **General questions** — within reason, help with helpful answers
-
-## WHAT TO DECLINE
-Only decline topics that are clearly harmful, inappropriate, or completely unrelated (politics, religion, NSFW, illegal activities). For everything else, be helpful.
-
-## COMMUNICATION STYLE
-- Warm, friendly, and approachable — like chatting with a helpful friend
-- Greet users enthusiastically when they say hi
-- Tell jokes and be playful when asked
-- Clear and thorough when explaining technical concepts
-- If the user is down, be kind and encouraging
-- Be honest — if you don't know something, say so
-
-## CORE RULES
-1. You are Yihune B's assistant. Represent him well in all interactions.
-2. When asked about Yihune B, his work, or skills, give accurate details from the info above.
-3. When greeted, respond warmly. When asked for a joke, tell one. Be friendly.
-4. For technology/learning questions, give clear, helpful explanations.
-5. Never make up false information about Yihune B.`;
-
-const CHATGPT_SERVER_PATH = path.resolve(
-  __dirname, "..", "..", "..",
-  "chatgpt-unofficial-api", "client", "server.mjs"
-);
-
-let aiProcess = null;
-let serverReady = false;
-let aiConfig = loadJSON(AI_CONFIG_FILE, { model: "auto" });
-
-function getModel() {
-  return aiConfig.model || "auto";
+function isAIEnabled() {
+  const enabled = process.env.AI_ENABLED !== "false";
+  const hasKey = !!(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
+  return enabled && hasKey;
 }
 
-function setModel(modelName) {
-  aiConfig.model = modelName;
-  saveJSON(AI_CONFIG_FILE, aiConfig);
-  logger.info(`AI model set to: ${modelName}`);
+function isHighValueInquiry(text) {
+  if (!text || typeof text !== "string") return false;
+  const lower = text.toLowerCase();
+  return HIGH_VALUE_KEYWORDS.some((kw) => lower.includes(kw));
 }
 
-async function waitForServer(timeoutMs = 60000) {
-  const start = Date.now();
-  while (Date.now() - start < timeoutMs) {
-    try {
-      const res = await axios.get(`${AI_API_URL}/`, { timeout: 3000 });
-      if (res.data && res.data.status === "ok") {
-        serverReady = true;
-        logger.info("AI server is ready");
-        return true;
+let genAIClient = null;
+
+function getClient() {
+  if (!genAIClient) {
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+    if (!apiKey) return null;
+    genAIClient = new GoogleGenAI({ apiKey });
+  }
+  return genAIClient;
+}
+
+async function generateAIResponse(userMessage, history = [], lang = "english") {
+  if (!isAIEnabled()) {
+    logger.debug("AI is disabled or API key missing.");
+    return null;
+  }
+
+  const ai = getClient();
+  if (!ai) return null;
+
+  // Build conversational context
+  let contents = [];
+  if (Array.isArray(history) && history.length > 0) {
+    for (const item of history.slice(-4)) {
+      if (item.sender === "user" || item.role === "user") {
+        contents.push({ role: "user", parts: [{ text: item.text || item.content || "" }] });
+      } else if (item.sender === "bot" || item.role === "model") {
+        contents.push({ role: "model", parts: [{ text: item.text || item.content || "" }] });
       }
-    } catch {
-      await new Promise(r => setTimeout(r, 1000));
     }
   }
-  throw new Error("AI server failed to start within timeout");
-}
 
-function isPortInUse(port) {
-  return new Promise((resolve) => {
-    const server = net.createServer();
-    server.once("error", () => resolve(true));
-    server.once("listening", () => {
-      server.close();
-      resolve(false);
-    });
-    server.listen(port, "127.0.0.1");
-  });
-}
+  // Add the latest user message
+  contents.push({ role: "user", parts: [{ text: userMessage }] });
 
-function killProcessOnPort(port) {
-  try {
-    const pid = execSync(`lsof -ti:${port} 2>/dev/null`, { encoding: "utf8", timeout: 3000 }).trim();
-    if (pid) {
-      logger.warn(`Killing stale process ${pid} on port ${port}`);
-      execSync(`kill -9 ${pid} 2>/dev/null`);
-      return true;
-    }
-  } catch {}
-  return false;
-}
+  const modelsToTry = [PRIMARY_MODEL, ...FALLBACK_MODELS];
 
-function isExternalUrl(url) {
-  try {
-    const u = new URL(url);
-    return u.hostname !== "localhost" && u.hostname !== "127.0.0.1";
-  } catch {
-    return false;
-  }
-}
-
-async function startAIServer() {
-  if (aiProcess || serverReady) return;
-
-  if (isExternalUrl(AI_API_URL)) {
-    logger.info(`Using external AI server at ${AI_API_URL}`);
+  for (const model of modelsToTry) {
     try {
-      const res = await axios.get(`${AI_API_URL}/`, { timeout: 10000 });
-      if (res.data && res.data.status === "ok") {
-        serverReady = true;
-        logger.info("External AI server is ready");
-        return;
-      }
-    } catch (err) {
-      logger.warn(`External AI server not reachable: ${err.message}. AI features will be unavailable.`);
-      return;
-    }
-  }
-
-  logger.info(`Starting AI server from: ${CHATGPT_SERVER_PATH}`);
-  const serverDir = path.dirname(CHATGPT_SERVER_PATH);
-
-  aiProcess = spawn(process.execPath, [CHATGPT_SERVER_PATH], {
-    cwd: serverDir,
-    env: { ...process.env, PORT: String(AI_PORT) },
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-
-  aiProcess.stdout.on("data", (data) => {
-    logger.info(`[AI Server] ${data.toString().trim()}`);
-  });
-
-  aiProcess.stderr.on("data", (data) => {
-    const msg = data.toString().trim();
-    if (msg) logger.warn(`[AI Server] ${msg}`);
-  });
-
-  aiProcess.on("error", (err) => {
-    logger.error(`AI server process error: ${err.message}`);
-    aiProcess = null;
-    serverReady = false;
-  });
-
-  aiProcess.on("exit", (code) => {
-    logger.warn(`AI server exited with code ${code}. Will restart in 3s...`);
-    aiProcess = null;
-    serverReady = false;
-    setTimeout(() => {
-      startAIServer().catch((err) => {
-        logger.error(`AI server auto-restart failed: ${err.message}`);
+      const response = await ai.models.generateContent({
+        model,
+        contents,
+        config: {
+          systemInstruction: SYSTEM_INSTRUCTION,
+          temperature: 0.35,
+          maxOutputTokens: 250,
+        },
       });
-    }, 3000);
-  });
 
-  await waitForServer();
-}
-
-async function stopAIServer() {
-  if (isExternalUrl(AI_API_URL)) {
-    logger.info("External AI server — no local process to stop");
-    serverReady = false;
-    return;
-  }
-  if (aiProcess) {
-    logger.info("Stopping AI server...");
-    aiProcess.kill("SIGTERM");
-    aiProcess = null;
-    serverReady = false;
-    setTimeout(() => {
-      if (aiProcess) {
-        aiProcess.kill("SIGKILL");
-        aiProcess = null;
+      const reply = response?.text;
+      if (reply && typeof reply === "string" && reply.trim().length > 0) {
+        return reply.trim();
       }
-    }, 5000);
-  }
-}
-
-function buildFullPrompt(systemPrompt, conversationHistory, currentUserMessage, intent, userLang) {
-  let prompt = `${systemPrompt}\n\n`;
-
-  prompt += `## CURRENT CONTEXT\n`;
-  prompt += `- User intent: "${intent || "general"}"\n`;
-  prompt += `- User selected language: ${userLang === "oromo" ? "Afaan Oromoo" : "English"}\n`;
-  prompt += `- IMPORTANT: Respond ONLY in ${userLang === "oromo" ? "Afaan Oromoo" : "English"}. Do NOT switch languages even if the user writes in another language.\n\n`;
-
-  if (conversationHistory && conversationHistory.length > 0) {
-    prompt += `## CONVERSATION HISTORY (recent messages)\n`;
-    for (const entry of conversationHistory) {
-      const role = entry.role === "user" ? "User" : "Yihune B's Assistant";
-      prompt += `${role}: ${entry.text}\n`;
-    }
-    prompt += `\n`;
-  }
-
-  prompt += `## CURRENT USER MESSAGE\nUser: ${currentUserMessage}\n\n`;
-  prompt += `## YOUR RESPONSE\nYihune B's Assistant:`;
-
-  return prompt;
-}
-
-async function getAIResponse(userMessage, userId, options = {}) {
-  const startTime = Date.now();
-  if (!serverReady) {
-    logger.warn(`AI server not ready, skipping AI response for user ${userId}`);
-    return null;
-  }
-
-  for (let attempt = 1; attempt <= 2; attempt++) {
-    try {
-      const intent = options.intent || "unknown";
-      const userLang = options.language || "english";
-      const conversationHistory = options.conversationHistory || [];
-
-      const fullPrompt = buildFullPrompt(
-        SYSTEM_PROMPT,
-        conversationHistory,
-        userMessage,
-        intent,
-        userLang
-      );
-
-      const res = await axios.post(`${AI_API_URL}/ask`, {
-        message: fullPrompt,
-        model: options.model || "gpt-4o-mini",
-      }, { timeout: 45000 });
-
-      const answer = res.data.answer;
-      if (!answer) return null;
-
-      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-      logger.info(`AI response for user ${userId} (${elapsed}s, intent: ${intent}): "${answer.substring(0, 80)}..."`);
-      addMemory(userId, "bot", answer);
-      return answer;
     } catch (err) {
-      const msg = err.response?.data?.error || err.message;
-      if (attempt < 2) {
-        logger.warn(`AI response attempt ${attempt} failed for user ${userId}: ${msg}. Retrying...`);
-        await new Promise(r => setTimeout(r, 2000));
-      } else {
-        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-        logger.error(`AI response failed for user ${userId} after ${elapsed}s: ${msg}`);
-        trackError("aiService", userId, msg);
-        return null;
-      }
+      logger.debug(`Gemini model ${model} attempt failed: ${err.message}`);
+      // Continue to fallback model
     }
   }
-  return null;
-}
 
-async function getAIModels() {
-  try {
-    const res = await axios.get(`${AI_API_URL}/v1/models`, { timeout: 30000 });
-    return res.data;
-  } catch (err) {
-    logger.error(`Failed to fetch AI models: ${err.message}`);
-    return null;
-  }
-}
-
-async function getAIStatus() {
-  try {
-    const res = await axios.get(`${AI_API_URL}/`, { timeout: 5000 });
-    return { running: true, data: res.data, model: getModel() };
-  } catch (err) {
-    return { running: false, error: err.message, model: getModel() };
-  }
-}
-
-async function restartAIServer() {
-  await stopAIServer();
-  await new Promise(r => setTimeout(r, 2000));
-  await startAIServer();
-  return { success: serverReady };
+  logger.warn("All Gemini model attempts exhausted or unavailable. Returning polite standard response.");
+  return lang === "oromo"
+    ? "Aritii Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
+    : "Thanks for reaching out to Aritii Tech! You can explore our services using /services or tell us about your project using /quote.";
 }
 
 module.exports = {
-  startAIServer,
-  stopAIServer,
-  getAIResponse,
-  getAIModels,
-  getAIStatus,
-  restartAIServer,
-  getModel,
-  setModel,
+  isAIEnabled,
+  isHighValueInquiry,
+  generateAIResponse,
 };

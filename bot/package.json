@@ -9,18 +9,29 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
-    "ignore": ["data/*", "logs/*", "*.json"],
+    "ignore": [
+      "data/*",
+      "logs/*",
+      "*.json"
+    ],
     "delay": "1000"
   },
-  "keywords": ["telegram", "bot", "node-telegram-bot-api", "conversational"],
+  "keywords": [
+    "telegram",
+    "bot",
+    "node-telegram-bot-api",
+    "conversational"
+  ],
   "author": "",
   "license": "ISC",
   "description": "Advanced human-like Telegram bot with memory, NLU, weather, reminders, admin controls, and more",
   "dependencies": {
-    "node-telegram-bot-api": "^0.64.0",
-    "dotenv": "^16.4.5",
+    "@google/genai": "^3.0.0",
     "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "mongoose": "^9.12.0",
     "natural": "^6.10.4",
+    "node-telegram-bot-api": "^0.64.0",
     "sentiment": "^5.0.2",
     "winston": "^3.11.0",
     "winston-daily-rotate-file": "^4.7.1"

@@ -1,11 +1,14 @@
 const { loadJSON, saveJSON } = require("../utils/dataStore");
 const logger = require("../utils/logger");
 const { STATS_FILE, USER_LIST_FILE } = require("../utils/constants");
+const { isConnected } = require("../utils/db");
+const User = require("../models/User");
 
 let stats = loadJSON(STATS_FILE, {});
 let userList = loadJSON(USER_LIST_FILE, []);
 
 function trackUser(msg) {
+  if (!msg || !msg.from) return;
   const uid = msg.from.id;
   const now = new Date().toISOString();
 
@@ -30,6 +33,27 @@ function trackUser(msg) {
   stats[uid].messageCount++;
   saveJSON(STATS_FILE, stats);
   saveJSON(USER_LIST_FILE, userList);
+
+  // Async selective persistence in MongoDB
+  if (isConnected()) {
+    User.findOneAndUpdate(
+      { telegramId: uid },
+      {
+        $set: {
+          username: msg.from.username || null,
+          firstName: msg.from.first_name || null,
+          languageCode: msg.from.language_code || "en",
+          lastSeen: new Date(),
+        },
+        $setOnInsert: {
+          firstSeen: new Date(),
+        },
+      },
+      { upsert: true, returnDocument: "after" }
+    ).catch((err) => {
+      logger.warn(`Failed to sync user ${uid} to MongoDB: ${err.message}`);
+    });
+  }
 }
 
 function getUserStats(userId) {
@@ -79,6 +103,13 @@ function setUserLanguage(userId, lang) {
   stats[userId].preferredLanguage = lang;
   stats[userId].languageSelected = true;
   saveJSON(STATS_FILE, stats);
+
+  if (isConnected()) {
+    User.updateOne(
+      { telegramId: userId },
+      { $set: { languageCode: lang, lastSeen: new Date() } }
+    ).catch((err) => logger.warn(`Failed to sync language to MongoDB for ${userId}: ${err.message}`));
+  }
 }
 
 function getUserLanguage(userId) {

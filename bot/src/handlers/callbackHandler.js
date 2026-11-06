@@ -1,14 +1,37 @@
 const logger = require("../utils/logger");
-const { randomPick, formatDate } = require("../utils/helpers");
-const { getReplies, pickLocalizedReply, pickLocalizedTriggerReply, getAllJokes } = require("../services/replyService");
+const { formatDate } = require("../utils/helpers");
+const { getAllJokes } = require("../services/replyService");
 const { getUserStats, getUserLanguage, setUserLanguage, hasSelectedLanguage } = require("../services/userService");
-const { addMemory, clearMemory, getContext } = require("../services/memoryService");
+const {
+  clearMemory,
+  getContext,
+  setUserState,
+  clearUserState,
+  setSelectedService,
+} = require("../services/memoryService");
 const { t, getLangCode } = require("../services/i18nService");
-const { helpKeyboard, jokeKeyboard, contactKeyboard } = require("./commandHandler");
-const { languageSelectionKeyboard } = require("./messageHandler");
-const { trackLanguageSelection, trackError, trackBotReply } = require("../services/eventTracker");
-const { getModel, getAIStatus } = require("../services/aiService");
-const { AI_PORT } = require("../utils/constants");
+const { jokeKeyboard } = require("./commandHandler");
+const { trackLanguageSelection, trackBotReply } = require("../services/eventTracker");
+const { isAdmin } = require("../services/rbacService");
+const {
+  STATE_QUOTE_SERVICE,
+  STATE_QUOTE_DESC,
+} = require("../utils/constants");
+const {
+  getWelcomeText,
+  getMainMenuKeyboard,
+  getServicesText,
+  getServicesKeyboard,
+  getPortfolioText,
+  getPortfolioKeyboard,
+  getAboutText,
+  getAboutKeyboard,
+  getContactText,
+  getContactKeyboard,
+  getQuoteWizardStep1Text,
+  getQuoteWizardKeyboard,
+  safeEditOrSend,
+} = require("../utils/uiComponents");
 
 async function handleCallback(callbackQuery, bot) {
   if (!callbackQuery || !callbackQuery.from) {
@@ -26,182 +49,201 @@ async function handleCallback(callbackQuery, bot) {
   }
 
   const chatId = msg.chat.id;
+  const messageId = msg.message_id;
   const userId = callbackQuery.from.id;
+  const userName = callbackQuery.from.first_name || "Valued Client";
   const data = callbackQuery.data || "";
+
+  // 1. Admin Module Callbacks
+  if (data.startsWith("admin_")) {
+    const { handleAdminCallback } = require("./businessAdminHandler");
+    const handled = await handleAdminCallback(data, callbackQuery, bot);
+    if (handled) return;
+  }
 
   await bot.answerCallbackQuery(callbackQuery.id);
 
-  if (data === "lang_en") {
-    setUserLanguage(userId, "english");
-    const userName = callbackQuery.from.first_name || "unknown";
-    trackLanguageSelection(userId, userName, "english");
-    try {
-      await bot.editMessageText(
-        "✅ *Language set to English* / *Afaan Ingilizii filatamee* 🇺🇸" +
-        "\n\nHello 👋 I am *Yihune B* — a software developer, system builder, and innovation-focused creator." +
-        "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
-        "\nSpecialties: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud." +
-        "\n\n━━━━━━━━━━━━━━" +
-        "\n\nAkkam jirtu 👋 Ani *Yihune B* ti — developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
-        "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
-        "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud." +
-        "\n\n━━━━━━━━━━━━━━" +
-        "\n\nHow can I help you today? / Har'a maal keessatti si gargaaruu danda'a? 😊",
-        {
-          chat_id: chatId,
-          message_id: msg.message_id,
-          parse_mode: "Markdown",
-          reply_markup: contactKeyboard(),
-        }
-      );
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "/language", "Language set to English");
-      logger.info(`🌐 User ${userId} selected English`);
-    } catch (err) {
-      logger.error(`Language selection error: ${err.message}`);
-    }
-    return;
-  }
+  // 2. Language Selection Callbacks (Onboarding)
+  if (data === "lang_en" || data === "lang_om") {
+    const selectedLang = data === "lang_om" ? "oromo" : "english";
+    setUserLanguage(userId, selectedLang);
+    trackLanguageSelection(userId, userName, selectedLang);
 
-  if (data === "lang_om") {
-    setUserLanguage(userId, "oromo");
-    const userName = callbackQuery.from.first_name || "unknown";
-    trackLanguageSelection(userId, userName, "oromo");
-    try {
-      await bot.editMessageText(
-        "✅ *Afaan Oromoo filatamee* / *Language set to Afaan Oromoo* 🇪🇹" +
-        "\n\nAkkam jirtu 👋 Ani *Yihune B* ti — developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate." +
-        "\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara." +
-        "\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud." +
-        "\n\n━━━━━━━━━━━━━━" +
-        "\n\nHello 👋 I am *Yihune B* — a software developer, system builder, and innovation-focused creator." +
-        "\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future." +
-        "\nSpecialties: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud." +
-        "\n\n━━━━━━━━━━━━━━" +
-        "\n\nHar'a maal keessatti si gargaaruu danda'a? / How can I help you today? 😊",
-        {
-          chat_id: chatId,
-          message_id: msg.message_id,
-          parse_mode: "Markdown",
-          reply_markup: contactKeyboard(),
-        }
-      );
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "/language", "Language set to Afaan Oromoo");
-      logger.info(`🌐 User ${userId} selected Afaan Oromoo`);
-    } catch (err) {
-      logger.error(`Language selection error: ${err.message}`);
-    }
-    return;
-  }
-
-  if (!hasSelectedLanguage(userId)) {
-    const en = "Hello 👋 I am *Yihune B* — a software developer, system builder, and innovation-focused creator.\n\nYihune B builds intelligent, secure, scalable, and impactful digital systems for the future.\nSpecialties: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
-    const om = "Akkam jirtu 👋 Ani *Yihune B* ti — developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate.\n\nYihune B sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara.\nKan xiyyeeffatu: AI, Cybersecurity, Digital Identity, Full-stack, Backend, Cloud.";
-    const intro = en + "\n\n━━━━━━━━━━━━━━\n\n" + om;
-    const full = intro + "\n\n━━━━━━━━━━━━━━\n\n🌐 *Please select your language / Afaan kee filadhu:*" +
-      "\n\n📬 *Contact Yihune B* — Use the buttons below to reach out.";
-    try {
-      await bot.sendMessage(chatId, full, {
-        parse_mode: "Markdown",
-        reply_markup: languageSelectionKeyboard(),
-      });
-    } catch (err) {
-      logger.error(`Language prompt error: ${err.message}`);
-    }
+    const welcomeMsg = getWelcomeText(selectedLang, userName);
+    const keyboard = getMainMenuKeyboard(selectedLang, isAdmin(userId));
+    await safeEditOrSend(bot, chatId, messageId, welcomeMsg, keyboard);
+    trackBotReply(userId, userName, data, "Welcome Screen");
     return;
   }
 
   const userLang = getUserLanguage(userId) || "english";
   const lang = userLang === "oromo" ? "oromo" : "english";
   const lc = getLangCode(userLang);
-  const replies = getReplies();
 
-  if (data === "help_about") {
-    const about = pickLocalizedReply("aboutReplies", lang) || "About this bot.";
-    try {
-      await bot.sendMessage(chatId, about);
-      addMemory(userId, "bot", about);
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_about", about);
-      logger.info(`🤖 Showed About to user ${userId}`);
-    } catch (err) {
-      logger.error(`Callback about error: ${err.message}`);
-    }
+  // 3. Navigation & Main Menu Callbacks
+  if (data === "main_menu") {
+    const welcomeMsg = getWelcomeText(lang, userName);
+    const keyboard = getMainMenuKeyboard(lang, isAdmin(userId));
+    await safeEditOrSend(bot, chatId, messageId, welcomeMsg, keyboard);
     return;
   }
 
+  if (data === "view_services" || data === "disambig_yes_services") {
+    const text = getServicesText(lang);
+    const keyboard = getServicesKeyboard(lang);
+    await safeEditOrSend(bot, chatId, messageId, text, keyboard);
+    return;
+  }
+
+  if (data === "view_portfolio" || data === "disambig_yes_portfolio") {
+    const text = getPortfolioText(lang);
+    const keyboard = getPortfolioKeyboard(lang);
+    await safeEditOrSend(bot, chatId, messageId, text, keyboard);
+    return;
+  }
+
+  if (data === "view_about") {
+    const text = getAboutText(lang);
+    const keyboard = getAboutKeyboard(lang);
+    await safeEditOrSend(bot, chatId, messageId, text, keyboard);
+    return;
+  }
+
+  if (data === "view_contact" || data === "disambig_yes_contact") {
+    const text = getContactText(lang);
+    const keyboard = getContactKeyboard(lang);
+    await safeEditOrSend(bot, chatId, messageId, text, keyboard);
+    return;
+  }
+
+  if (data === "switch_lang") {
+    const prompt = lang === "oromo"
+      ? "🌐 *Afaan filadhaa / Select your preferred language:*"
+      : "🌐 *Select your preferred language / Afaan filadhaa:*";
+    const keyboard = {
+      inline_keyboard: [
+        [
+          { text: "English 🇺🇸", callback_data: "lang_switch_english" },
+          { text: "Afaan Oromoo 🇪🇹", callback_data: "lang_switch_oromo" },
+        ],
+        [
+          { text: lang === "oromo" ? "⬅️ Duubatti" : "⬅️ Back", callback_data: "main_menu" },
+        ],
+      ],
+    };
+    await safeEditOrSend(bot, chatId, messageId, prompt, keyboard);
+    return;
+  }
+
+  if (data.startsWith("lang_switch_")) {
+    const newLang = data.replace("lang_switch_", "");
+    setUserLanguage(userId, newLang);
+    trackLanguageSelection(userId, userName, newLang);
+
+    const welcomeMsg = getWelcomeText(newLang, userName);
+    const keyboard = getMainMenuKeyboard(newLang, isAdmin(userId));
+    await safeEditOrSend(bot, chatId, messageId, welcomeMsg, keyboard);
+    return;
+  }
+
+  // 4. Interactive Quotation Flow Callbacks
+  if (data === "start_quote" || data === "disambig_yes_quote") {
+    setUserState(userId, STATE_QUOTE_SERVICE, {});
+    const text = getQuoteWizardStep1Text(lang);
+    const keyboard = getQuoteWizardKeyboard(lang);
+    await safeEditOrSend(bot, chatId, messageId, text, keyboard);
+    return;
+  }
+
+  if (data.startsWith("quote_service_")) {
+    const serviceKey = data.replace("quote_service_", "");
+    const { getServiceById } = require("../services/serviceCatalogService");
+    const catalogItem = getServiceById(serviceKey);
+    const serviceMap = {
+      web: "Full-Stack Web Development",
+      mobile: "Mobile App Development",
+      bot: "Telegram Bot Development",
+      backend: "Backend & REST API",
+      arch: "System Architecture & Database",
+      other: "Custom Software Consultation",
+    };
+    const chosenService = catalogItem ? catalogItem.name : (serviceMap[serviceKey] || "Custom Software Development");
+    const estimate = catalogItem ? catalogItem.startingPrice : null;
+
+    setUserState(userId, STATE_QUOTE_DESC, {
+      service: chosenService,
+      serviceId: catalogItem ? catalogItem.id : null,
+      quoteEstimate: estimate,
+    });
+    setSelectedService(userId, chosenService);
+
+    const prompt = lang === "oromo"
+      ? `✅ Tajaajila Filatame: *${chosenService}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n2️⃣ Maaloo galma fi qabiyyee ijoo pirojektii keessanii gabaabinaan naaf ibsaa:`
+      : `✅ Selected Service: *${chosenService}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n2️⃣ Please briefly describe your project goals and key features.`;
+
+    const cancelKeyboard = {
+      inline_keyboard: [
+        [{ text: lang === "oromo" ? "❌ Dhiisi (Cancel)" : "❌ Cancel Quote", callback_data: "quote_cancel" }],
+      ],
+    };
+
+    await safeEditOrSend(bot, chatId, messageId, prompt, cancelKeyboard);
+    return;
+  }
+
+  if (data === "quote_cancel") {
+    clearUserState(userId);
+    const cancelMsg = lang === "oromo"
+      ? "❌ *Gaaffiin gatii haqameera.* Waan biraa maal si gargaaruu danda'a?"
+      : "❌ *Quote request canceled.* How else can I assist you today?";
+
+    const keyboard = getMainMenuKeyboard(lang, isAdmin(userId));
+    await safeEditOrSend(bot, chatId, messageId, cancelMsg, keyboard);
+    return;
+  }
+
+  // 5. Utility & Help Callbacks
   if (data === "help_stats") {
     const userStat = getUserStats(userId);
     if (!userStat) {
-      try { await bot.sendMessage(chatId, t("commands.stats_no_data", lc)); } catch (e) {}
+      await safeEditOrSend(bot, chatId, messageId, "No stats available yet.", getMainMenuKeyboard(lang, isAdmin(userId)));
       return;
     }
     const ctx = getContext(userId);
     const memoryCount = ctx ? ctx.messageCount : 0;
     const reply = lang === "oromo"
-      ? `📊 *Itti Gaafii kee*\n📅 Yeroo dura: ${formatDate(userStat.firstSeen)}\n💬 Ergaa: ${userStat.messageCount}\n🌐 Afaan: ${userStat.language || "unknown"}\n🧠 Yaadannoo: ${memoryCount}`
-      : `📊 *Your Stats*\n📅 First seen: ${formatDate(userStat.firstSeen)}\n💬 Messages: ${userStat.messageCount}\n🌐 Language: ${userStat.language || "unknown"}\n🧠 Memory: ${memoryCount}`;
-    try {
-      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_stats", reply);
-    } catch (err) {
-      logger.error(`Callback stats error: ${err.message}`);
-    }
+      ? `📊 *Istaatistiksii Keessan*\n📅 Guyyaa jalqabaa: ${formatDate(userStat.firstSeen)}\n💬 Ergaawwan: ${userStat.messageCount}\n🌐 Afaan: ${userLang}\n🧠 Yaadannoo: ${memoryCount}`
+      : `📊 *Your Activity Stats*\n📅 First seen: ${formatDate(userStat.firstSeen)}\n💬 Messages sent: ${userStat.messageCount}\n🌐 Language: ${userLang}\n🧠 Session memory: ${memoryCount}`;
+
+    const kb = {
+      inline_keyboard: [
+        [{ text: lang === "oromo" ? "⬅️ Fuula Duraa" : "⬅️ Back to Main Menu", callback_data: "main_menu" }],
+      ],
+    };
+    await safeEditOrSend(bot, chatId, messageId, reply, kb);
     return;
   }
 
   if (data === "help_joke") {
     const jokes = getAllJokes(lang);
     const joke = jokes.length > 0 ? jokes[0] : t("joke.no_jokes", lc);
-    try {
-      await bot.sendMessage(chatId, joke, {
-        reply_markup: jokes.length > 1
-          ? { inline_keyboard: [[{ text: lang === "oromo" ? "Kan itti aanu →" : "Next →", callback_data: "joke_1" }]] }
-          : undefined,
-      });
-      addMemory(userId, "bot", joke);
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_joke", joke);
-    } catch (err) {
-      logger.error(`Callback joke error: ${err.message}`);
-    }
+    const kb = {
+      inline_keyboard: [
+        jokes.length > 1 ? [{ text: "Next Joke →", callback_data: "joke_1" }] : [],
+        [{ text: "⬅️ Main Menu", callback_data: "main_menu" }],
+      ].filter((r) => r.length > 0),
+    };
+    await safeEditOrSend(bot, chatId, messageId, joke, kb);
     return;
   }
 
   if (data === "help_forget") {
     clearMemory(userId);
-    try {
-      const msg = lang === "oromo"
-        ? "🧹 Yaadannoo qulqulleffame!"
-        : "🧹 Memory cleared!";
-      await bot.sendMessage(chatId, msg);
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_forget", msg);
-      logger.info(`🧹 User ${userId} cleared memory via /help button.`);
-    } catch (err) {
-      logger.error(`Callback forget error: ${err.message}`);
-    }
-    return;
-  }
-
-  if (data === "help_ai") {
-    try {
-      const status = await getAIStatus();
-      const statusLine = status && status.running
-        ? t("ai.status_running", lc, { port: AI_PORT })
-        : t("ai.status_stopped", lc);
-      const reply =
-        `${t("ai.title", lc)}\n\n` +
-        `${t("ai.intro", lc)}\n\n` +
-        `${t("ai.how_it_works", lc)}\n\n` +
-        `${t("ai.tech_stack", lc)}\n\n` +
-        `${t("ai.capabilities", lc)}\n\n` +
-        `${t("ai.commands", lc)}\n\n` +
-        `${t("ai.tips", lc)}\n\n` +
-        `━━━━━━━━━━━━━━\n${statusLine}\n` +
-        t("ai.model_current", lc, { model: getModel() });
-      await bot.sendMessage(chatId, reply, { parse_mode: "Markdown" });
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "help_ai", "AI info");
-      logger.info(`🤖 Showed AI info to user ${userId}`);
-    } catch (err) {
-      logger.error(`Callback help_ai error: ${err.message}`);
-    }
+    clearUserState(userId);
+    const msgText = lang === "oromo"
+      ? "🧹 *Yaadannoo qulqulleeffameera!*"
+      : "🧹 *Session memory cleared successfully!*";
+    await safeEditOrSend(bot, chatId, messageId, msgText, getMainMenuKeyboard(lang, isAdmin(userId)));
     return;
   }
 
@@ -209,53 +251,16 @@ async function handleCallback(callbackQuery, bot) {
     const page = parseInt(data.split("_")[1], 10);
     const jokes = getAllJokes(lang);
     if (page < 0 || page >= jokes.length) {
-      try { await bot.sendMessage(chatId, t("joke.no_more", lc)); } catch (e) {}
       return;
     }
     const joke = jokes[page];
-    try {
-      await bot.sendMessage(chatId, joke, {
-        reply_markup: jokeKeyboard(page, jokes.length, lang),
-      });
-      addMemory(userId, "bot", joke);
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", `joke_page_${page}`, joke);
-    } catch (err) {
-      logger.error(`Joke page callback error: ${err.message}`);
-    }
+    await safeEditOrSend(bot, chatId, messageId, joke, jokeKeyboard(page, jokes.length, lang));
     return;
   }
 
   if (data === "show_email") {
-    const email = "yihunebelay859@gmail.com";
-    try {
-      await bot.sendMessage(chatId, `✉️ *Email:* ${email}\n\n📋 *Copied!* (tap and copy above)`, { parse_mode: "Markdown" });
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "show_email", email);
-    } catch (err) {
-      logger.error(`show_email callback error: ${err.message}`);
-    }
-    return;
-  }
-
-  if (data.startsWith("lang_switch_")) {
-    const newLang = data.replace("lang_switch_", "");
-    setUserLanguage(userId, newLang);
-    const userName = callbackQuery.from.first_name || "unknown";
-    trackLanguageSelection(userId, userName, newLang);
-    const displayLang = newLang === "oromo" ? "Afaan Oromoo 🇪🇹" : "English 🇺🇸";
-    const confirmMsg = newLang === "oromo"
-      ? `✅ Afaan Oromoo 🇪🇹 ti jijjirame!\n\nAmmaa kaasee haasa'awwan hunduu afaan Oromoo ta'u.`
-      : `✅ Language switched to English 🇺🇸\n\nFrom now on, all conversations will be in English.`;
-    try {
-      await bot.editMessageText(confirmMsg, {
-        chat_id: chatId,
-        message_id: msg.message_id,
-        parse_mode: "Markdown",
-      });
-      trackBotReply(userId, callbackQuery.from.first_name || "unknown", "lang_switch", confirmMsg);
-      logger.info(`🌐 User ${userId} switched language to ${newLang}`);
-    } catch (err) {
-      logger.error(`Language switch error: ${err.message}`);
-    }
+    const email = "contact@ariititech.com";
+    await safeEditOrSend(bot, chatId, messageId, `✉️ *Email:* \`${email}\`\n\n(Tap above to copy)`, getMainMenuKeyboard(lang, isAdmin(userId)));
     return;
   }
 }

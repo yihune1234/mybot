@@ -1,18 +1,18 @@
 {
   "hiReplies": {
     "english": [
-      "Hello 👋 I am the official assistant of Yihune B, a software developer and system builder. How can I help you today?",
-      "Hey there! Yihune B's assistant here. How can I assist you today?",
-      "Welcome! I'm the digital assistant representing Yihune B — a full-stack developer and system architect. What can I do for you?",
-      "Hi! Yihune B's AI assistant speaking. Need help with development, system design, or just curious about Yihune's work? I'm here to help!",
-      "Hello! This is Yihune B's intelligent assistant. How may I help you today?"
+      "Hello 👋 I am the engineering team at Aritii Tech, a software developer and system builder. How can I help you today?",
+      "Hey there! Aritii Tech representative here. How can I assist you today?",
+      "Welcome! I'm the digital assistant representing Aritii Tech — a full-stack developer and system architect. What can I do for you?",
+      "Hi! Aritii Tech representative speaking. Need help with development, system design, or have a project idea? I'm here to help!",
+      "Hello! This is Aritii Tech representative. How may I help you today?"
     ],
     "oromo": [
-      "Akkam jirtu 👋 Ani asistan mootummaa Yihune B ti. Har'a maal isin gargaaruu danda'a?",
-      "Akkam! Yihune B asistan isaa as jira. Maal si gargaaruu danda'a?",
-      "Bagaa nagaan dhufte! Ani asistan dijitaalii Yihune B ti — inni developer fi system architect dha. Maal siif gochuu danda'a?",
-      "Akkam! Asistan AI Yihune B as jira. Gargaarsa ijaarsa sirnaa, ykn waa'ee hojii Yihune beekuu feenyee? Ani as jira!",
-      "Akkam! Ani asistan ogeessa Yihune B ti. Har'a maal isin gargaaruu danda'a?"
+      "Akkam jirtu 👋 Ani bakka bu'aa Aritii Tech ti. Har'a maal isin gargaaruu danda'a?",
+      "Akkam! Aritii Tech isaa as jira. Maal si gargaaruu danda'a?",
+      "Bagaa nagaan dhufte! Ani asistan dijitaalii Aritii Tech ti — inni developer fi system architect dha. Maal siif gochuu danda'a?",
+      "Akkam! Gareen Aritii Tech as jira. Gargaarsa ijaarsa sirnaa, ykn waa'ee tajaajila keenyaa beekuu feenyee? As jirra!",
+      "Akkam! Ani asistan ogeessa Aritii Tech ti. Har'a maal isin gargaaruu danda'a?"
     ]
   },
   "triggerReplies": {
@@ -32,15 +32,15 @@
     },
     "what are you doing": {
       "english": [
-        "I'm here assisting users as Yihune B's digital representative. How can I help you?",
-        "Ready to help with any questions about Yihune B, his projects, or technical problems you need solved.",
-        "I'm analyzing queries, providing technical support, and representing Yihune B professionally. What do you need?",
-        "Always working — that's the life of an AI assistant! What can I do for you?"
+        "I'm here assisting users as Aritii Tech's digital representative. How can I help you?",
+        "Ready to help with any questions about Aritii Tech, his projects, or technical problems you need solved.",
+        "I'm analyzing queries, providing technical support, and representing Aritii Tech professionally. What do you need?",
+        "Always working — that's the life of an client representative! What can I do for you?"
       ],
       "oromo": [
-        "Ani as jira fayyadamtoota gargaaruu fi Yihune B bakka bu'uuf. Maal si gargaaruu danda'a?",
-        "Qophii dha gaafiiwwan waa'ee Yihune B, hojiilee isaa, ykn rakkina teknikaa furuuf. Maal barbaadda?",
-        "Ani gaafiiwwan sakatta'aa, gargaarsa teknikaa kennaa, fi Yihune B bakka bu'aa. Maal barbaadda?",
+        "Ani as jira fayyadamtoota gargaaruu fi Aritii Tech bakka bu'uuf. Maal si gargaaruu danda'a?",
+        "Qophii dha gaafiiwwan waa'ee Aritii Tech, hojiilee isaa, ykn rakkina teknikaa furuuf. Maal barbaadda?",
+        "Ani gaafiiwwan sakatta'aa, gargaarsa teknikaa kennaa, fi Aritii Tech bakka bu'aa. Maal barbaadda?",
         "Yeroo hundaa hojii irra! Kun jireenya asistan AI ti! Maal siif gochuu danda'a?"
       ]
     },
@@ -206,70 +206,70 @@
     },
     "what are you": {
       "english": [
-        "I am the official AI assistant and digital portfolio representative of Yihune B — a software developer, system builder, and innovation-focused creator. How can I help you?",
-        "I'm Yihune B's intelligent assistant. I represent his skills, services, and projects professionally. Ask me anything about development or his work!",
-        "I am Yihune B — but the digital version. I'm here to assist with technical questions, showcase his portfolio, and help you build amazing systems."
+        "I am the official representative and digital portfolio representative of Aritii Tech — a software developer, system builder, and innovation-focused creator. How can I help you?",
+        "I'm Aritii Tech representative. I represent his skills, services, and projects professionally. Ask me anything about development or his work!",
+        "I am Aritii Tech — but the digital version. I'm here to assist with technical questions, showcase his portfolio, and help you build amazing systems."
       ],
       "oromo": [
-        "Ani asistan AI fi bakka bu'aa poortfolioo Yihune B ti — inni developer software, ijaarsa sirnaa, fi uummaa irratti xiyyeeffate. Maal si gargaaruu danda'a?",
-        "Ani asistan ogeessa Yihune B ti. Ani dandeettii, tajaajila, fi hojiilee isaa bakka bu'aa. Waa'ee ijaarsaa ykn hojii isaa na gaafadhu!",
-        "Ani Yihune B — garuu version dijitaalii. As jira gaafiiwwan teknikaa deebisuuf, poortfolioo isaa agarsiisuuf, fi sirna dinqisiisaa ijaaruu si gargaaruuf."
+        "Ani asistan AI fi bakka bu'aa poortfolioo Aritii Tech ti — inni developer software, ijaarsa sirnaa, fi uummaa irratti xiyyeeffate. Maal si gargaaruu danda'a?",
+        "Ani asistan ogeessa Aritii Tech ti. Ani dandeettii, tajaajila, fi hojiilee isaa bakka bu'aa. Waa'ee ijaarsaa ykn hojii isaa na gaafadhu!",
+        "Ani Aritii Tech — garuu version dijitaalii. As jira gaafiiwwan teknikaa deebisuuf, poortfolioo isaa agarsiisuuf, fi sirna dinqisiisaa ijaaruu si gargaaruuf."
       ]
     },
     "tell me about yourself": {
       "english": [
-        "I'm the official AI assistant of Yihune B. My role is to represent him professionally, answer questions about his skills and services, and provide technical guidance. Yihune B is a software developer specializing in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. How can I assist you?",
-        "I am Yihune B's digital portfolio and assistant. Yihune B builds intelligent, secure, scalable, and impactful digital systems for the future. I'm here to showcase his expertise and help with your technical needs. What would you like to know?",
-        "I represent Yihune B — a passionate software developer and system architect. I can tell you about his projects, skills, services, or help with technical problems. Think of me as his 24/7 technical representative!"
+        "I'm the official representative of Aritii Tech. My role is to represent him professionally, answer questions about his skills and services, and provide technical guidance. Aritii Tech is a software developer specializing in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. How can I assist you?",
+        "I am Aritii Tech's digital portfolio and assistant. Aritii Tech builds intelligent, secure, scalable, and impactful digital systems for the future. I'm here to showcase his expertise and help with your technical needs. What would you like to know?",
+        "I represent Aritii Tech — a passionate software developer and system architect. I can tell you about his projects, skills, services, or help with technical problems. Think of me as his 24/7 technical representative!"
       ],
       "oromo": [
-        "Ani asistan AI Yihune B ti. Hojiin koo bakka bu'uu isaa, gaafiiwwan waa'ee dandeettii fi tajaajila isaa deebisuu, fi qajeelfama teknikaa kennuu dha. Yihune B developer software kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Maal si gargaaruu danda'a?",
-        "Ani poortfolioo dijitaalii fi asistan Yihune B ti. Yihune B sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara. Ani as jira dandeettii isaa agarsiisuuf fi fedhii teknikaa kee guutuuf. Maal beekuu feenyee?",
-        "Ani Yihune B bakka bu'aa — inni developer software fi system architect dha. Ani waa'ee hojiilee isaa, dandeettii, tajaajila, ykn rakkinoota teknikaa siin himuu danda'a. Bakka bu'aa teknikaa sa'aatii 24/7 isa fakkaadhu!"
+        "Ani bakka bu'aa Aritii Tech ti. Hojiin koo bakka bu'uu isaa, gaafiiwwan waa'ee dandeettii fi tajaajila isaa deebisuu, fi qajeelfama teknikaa kennuu dha. Aritii Tech developer software kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Maal si gargaaruu danda'a?",
+        "Ani poortfolioo dijitaalii fi garee Aritii Tech ti. Aritii Tech sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara. Ani as jira dandeettii isaa agarsiisuuf fi fedhii teknikaa kee guutuuf. Maal beekuu feenyee?",
+        "Ani Aritii Tech bakka bu'aa — inni developer software fi system architect dha. Ani waa'ee hojiilee isaa, dandeettii, tajaajila, ykn rakkinoota teknikaa siin himuu danda'a. Bakka bu'aa teknikaa sa'aatii 24/7 isa fakkaadhu!"
       ]
     },
     "about yourself": {
       "english": [
-        "I'm the official AI assistant of Yihune B. My role is to represent him professionally, answer questions about his skills and services, and provide technical guidance. Yihune B is a software developer specializing in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. How can I assist you?",
-        "I am Yihune B's digital portfolio and assistant. Yihune B builds intelligent, secure, scalable, and impactful digital systems for the future. I'm here to showcase his expertise and help with your technical needs. What would you like to know?",
-        "I represent Yihune B — a passionate software developer and system architect. I can tell you about his projects, skills, services, or help with technical problems. Think of me as his 24/7 technical representative!"
+        "I'm the official representative of Aritii Tech. My role is to represent him professionally, answer questions about his skills and services, and provide technical guidance. Aritii Tech is a software developer specializing in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. How can I assist you?",
+        "I am Aritii Tech's digital portfolio and assistant. Aritii Tech builds intelligent, secure, scalable, and impactful digital systems for the future. I'm here to showcase his expertise and help with your technical needs. What would you like to know?",
+        "I represent Aritii Tech — a passionate software developer and system architect. I can tell you about his projects, skills, services, or help with technical problems. Think of me as his 24/7 technical representative!"
       ],
       "oromo": [
-        "Ani asistan AI Yihune B ti. Hojiin koo bakka bu'uu isaa, gaafiiwwan waa'ee dandeettii fi tajaajila isaa deebisuu, fi qajeelfama teknikaa kennuu dha. Yihune B developer software kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Maal si gargaaruu danda'a?",
-        "Ani poortfolioo dijitaalii fi asistan Yihune B ti. Yihune B sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara. Ani as jira dandeettii isaa agarsiisuuf fi fedhii teknikaa kee guutuuf. Maal beekuu feenyee?",
-        "Ani Yihune B bakka bu'aa — inni developer software fi system architect dha. Ani waa'ee hojiilee isaa, dandeettii, tajaajila, ykn rakkinoota teknikaa siin himuu danda'a. Bakka bu'aa teknikaa sa'aatii 24/7 isa fakkaadhu!"
+        "Ani bakka bu'aa Aritii Tech ti. Hojiin koo bakka bu'uu isaa, gaafiiwwan waa'ee dandeettii fi tajaajila isaa deebisuu, fi qajeelfama teknikaa kennuu dha. Aritii Tech developer software kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Maal si gargaaruu danda'a?",
+        "Ani poortfolioo dijitaalii fi garee Aritii Tech ti. Aritii Tech sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara. Ani as jira dandeettii isaa agarsiisuuf fi fedhii teknikaa kee guutuuf. Maal beekuu feenyee?",
+        "Ani Aritii Tech bakka bu'aa — inni developer software fi system architect dha. Ani waa'ee hojiilee isaa, dandeettii, tajaajila, ykn rakkinoota teknikaa siin himuu danda'a. Bakka bu'aa teknikaa sa'aatii 24/7 isa fakkaadhu!"
       ]
     },
     "what can you do": {
       "english": [
-        "I represent Yihune B's services and expertise. Here's what Yihune B can help you with:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nWhich one are you interested in?"
+        "I represent Aritii Tech's services and expertise. Here's what Aritii Tech can help you with:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nWhich one are you interested in?"
       ],
       "oromo": [
-        "Ani tajaajila fi dandeettii Yihune B bakka bu'aa. Yihune B maal si gargaaruu danda'a:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nKamirratti fedhii qabda?"
+        "Ani tajaajila fi dandeettii Aritii Tech bakka bu'aa. Aritii Tech maal si gargaaruu danda'a:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nKamirratti fedhii qabda?"
       ]
     },
     "services": {
       "english": [
-        "I represent Yihune B's services and expertise. Here's what Yihune B can help you with:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nWhich one are you interested in?"
+        "I represent Aritii Tech's services and expertise. Here's what Aritii Tech can help you with:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nWhich one are you interested in?"
       ],
       "oromo": [
-        "Ani tajaajila fi dandeettii Yihune B bakka bu'aa. Yihune B maal si gargaaruu danda'a:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nKamirratti fedhii qabda?"
+        "Ani tajaajila fi dandeettii Aritii Tech bakka bu'aa. Aritii Tech maal si gargaaruu danda'a:\n\n💻 *Full-stack web development*\n🔧 *Backend API development*\n🤖 *Telegram bot development*\n🧠 *AI chatbot systems*\n🔐 *Authentication systems (JWT, secure login)*\n🆔 *Digital identity systems*\n📜 *Credential verification platforms*\n🗄️ *Database design and optimization*\n🏗️ *System architecture design*\n🐛 *Bug fixing and debugging*\n☁️ *Deployment and cloud setup*\n🎨 *UI/UX improvement consulting*\n💡 *Startup and project idea development*\n\nKamirratti fedhii qabda?"
       ]
     },
     "skills": {
       "english": [
-        "Yihune B works with a modern tech stack:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Other:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nHe builds intelligent, secure, scalable, and impactful digital systems for the future. What would you like to know more about?"
+        "Aritii Tech works with a modern tech stack:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Other:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nHe builds intelligent, secure, scalable, and impactful digital systems for the future. What would you like to know more about?"
       ],
       "oromo": [
-        "Yihune B teknoolojii ammayyaa fayyadama:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Kan biroo:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nInni sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara. Waa'ee maalii beekuu feenyee?"
+        "Aritii Tech teknoolojii ammayyaa fayyadama:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Kan biroo:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nInni sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara. Waa'ee maalii beekuu feenyee?"
       ]
     },
     "tech stack": {
       "english": [
-        "Yihune B works with a modern tech stack:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Other:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nHe builds intelligent, secure, scalable, and impactful digital systems for the future. What would you like to know more about?"
+        "Aritii Tech works with a modern tech stack:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Other:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nHe builds intelligent, secure, scalable, and impactful digital systems for the future. What would you like to know more about?"
       ],
       "oromo": [
-        "Yihune B teknoolojii ammayyaa fayyadama:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Kan biroo:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nInni sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara. Waa'ee maalii beekuu feenyee?"
+        "Aritii Tech teknoolojii ammayyaa fayyadama:\n\n🎨 *Frontend:* React.js, HTML, CSS, JavaScript\n⚙️ *Backend:* Node.js, Django, PHP\n🗄️ *Database:* PostgreSQL, MySQL\n🔗 *Kan biroo:* REST APIs, JWT Authentication, Git & GitHub, Docker, Cloud deployment, AI integration systems, W3C Verifiable Credentials, DID systems\n\nInni sirna ogeessa, nageenya qabu, babal'achuu danda'u, fi bu'aa qabu ijaara. Waa'ee maalii beekuu feenyee?"
       ]
     },
     "i love you": {
@@ -311,12 +311,12 @@
     "you are smart": {
       "english": [
         "Aw thanks! I try my best 💪",
-        "All thanks to Yihune! He built me this way 😎",
+        "All thanks to our engineering standards! We build with precision 😎",
         "I'm flattered! But honestly, you're the smart one for chatting with me 😄"
       ],
       "oromo": [
         "Galatoomi! Hunduma nan yaala 💪",
-        "Hundi galata Yihune! Akkas na hojjate 😎",
+        "Hundi galata qulqullina injinaringii keenyaati! 😎",
         "Na dinqisiifte! Dhugaa isaa, ati qalbiin beekti na wajjiin haasa'uuf 😄"
       ]
     },
@@ -363,26 +363,26 @@
   },
   "identityReplies": {
     "english": [
-      "I am the official AI assistant and digital portfolio of Yihune B — a software developer and system builder. Yihune specializes in AI systems, cybersecurity, digital identity, full-stack development, and system architecture. I'm here to represent him professionally and assist with your technical needs.",
-      "Yihune B is a software developer, system builder, and innovation-focused creator. He builds modern, scalable, and secure digital systems with real-world impact. I'm his digital assistant — ask me about his skills, services, or projects!",
-      "I represent Yihune B — a passionate developer who works with React, Node.js, Django, PostgreSQL, and more. His vision is to build intelligent, secure, scalable, and impactful digital systems for the future. How can I help you?"
+      "We are the official engineering team of Aritii Tech. We build high-performance web applications, cross-platform mobile apps, enterprise Telegram bots, and scalable cloud systems. How can we assist you today?",
+      "Aritii Tech is a software developer, system builder, and innovation-focused creator. He builds modern, scalable, and secure digital systems with real-world impact. I'm his digital assistant — ask me about his skills, services, or projects!",
+      "I represent Aritii Tech — a passionate developer who works with React, Node.js, Django, PostgreSQL, and more. His vision is to build intelligent, secure, scalable, and impactful digital systems for the future. How can I help you?"
     ],
     "oromo": [
-      "Ani asistan AI fi poortfolioo dijitaalii Yihune B ti — inni developer software fi ijaarsa sirnaa dha. Yihune kan xiyyeeffatu AI, cybersecurity, digital identity, full-stack development, fi system architecture irratti. Ani as jira bakka bu'uu isaatiif fi fedhii teknikaa kee guutuuf.",
-      "Yihune B developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate dha. Inni sirna ammayyaa, babal'achuu danda'u, fi nageenya qabu ijaara. Ani asistan dijitaalii isaa dha — waa'ee dandeettii, tajaajila, ykn hojiilee isaa na gaafadhu!",
-      "Ani Yihune B bakka bu'aa — inni developer kan React, Node.js, Django, PostgreSQL fi kan biraa irratti hojjatu. Mul'anni isaa sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaaruuf. Maal si gargaaruu danda'a?"
+      "Nuti garee injinaringii Aritii Tech ti. Sirna web ammayyaa, app moobaayilii, botiiwwan Telegram daldalaa, fi cloud teeknoolojii ijaarra. Har'a maal keessatti si gargaaruu dandeenya?",
+      "Aritii Tech developer software, ijaarsa sirnaa, fi uumaa irratti xiyyeeffate dha. Inni sirna ammayyaa, babal'achuu danda'u, fi nageenya qabu ijaara. Ani asistan dijitaalii isaa dha — waa'ee dandeettii, tajaajila, ykn hojiilee isaa na gaafadhu!",
+      "Ani Aritii Tech bakka bu'aa — inni developer kan React, Node.js, Django, PostgreSQL fi kan biraa irratti hojjatu. Mul'anni isaa sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaaruuf. Maal si gargaaruu danda'a?"
     ]
   },
   "aboutReplies": {
     "english": [
-      "Yihune B is a software developer and system builder specializing in AI systems, cybersecurity, digital identity, and full-stack development. He builds modern, scalable, and secure digital systems. I'm his AI assistant — I can tell you more about his services, skills, and projects!",
-      "This bot is Yihune B's digital portfolio and assistant. It represents his professional identity, showcases his technical expertise, and helps users understand his skills and services. Whether you need web development, API design, or system architecture — Yihune B can build it.",
-      "I'm the official portfolio bot of Yihune B. I can help you understand his technical skills across React, Node.js, Django, PostgreSQL, Docker, cloud deployment, and more. Yihune B builds intelligent, secure, scalable, and impactful digital systems for the future."
+      "Aritii Tech is a software developer and system builder specializing in AI systems, cybersecurity, digital identity, and full-stack development. He builds modern, scalable, and secure digital systems. I'm his client representative — I can tell you more about his services, skills, and projects!",
+      "This bot is Aritii Tech's digital portfolio and assistant. It represents his professional identity, showcases his technical expertise, and helps users understand his skills and services. Whether you need web development, API design, or system architecture — Aritii Tech can build it.",
+      "I'm the official portfolio bot of Aritii Tech. I can help you understand his technical skills across React, Node.js, Django, PostgreSQL, Docker, cloud deployment, and more. Aritii Tech builds intelligent, secure, scalable, and impactful digital systems for the future."
     ],
     "oromo": [
-      "Yihune B developer software fi ijaarsa sirnaa kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Inni sirna ammayyaa, babal'achuu danda'u, fi nageenya qabu ijaara. Ani asistan AI isaa dha — waa'ee tajaajila, dandeettii, fi hojiilee isaa siin himuu danda'a!",
-      "Botiin kun poortfolioo dijitaalii fi asistan Yihune B ti. Inni bakka bu'uu isaa, dandeettii teknikaa isaa agarsiisa, fi fayyadamtoota dandeettii fi tajaajila isaa hubachuu gargaara. Web development, API design, ykn system architecture barbaadda? Yihune B ijaaruu danda'a.",
-      "Ani bot poortfolioo Yihune B ti. Dandeettii teknikaa isaa React, Node.js, Django, PostgreSQL, Docker, cloud deployment fi kan biraa irratti si hubachuu gargaaruu danda'a. Yihune B sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara."
+      "Aritii Tech developer software fi ijaarsa sirnaa kan AI, cybersecurity, digital identity, fi full-stack development irratti hojjatu dha. Inni sirna ammayyaa, babal'achuu danda'u, fi nageenya qabu ijaara. Ani asistan AI isaa dha — waa'ee tajaajila, dandeettii, fi hojiilee isaa siin himuu danda'a!",
+      "Botiin kun poortfolioo dijitaalii fi garee Aritii Tech ti. Inni bakka bu'uu isaa, dandeettii teknikaa isaa agarsiisa, fi fayyadamtoota dandeettii fi tajaajila isaa hubachuu gargaara. Web development, API design, ykn system architecture barbaadda? Aritii Tech ijaaruu danda'a.",
+      "Ani bot poortfolioo Aritii Tech ti. Dandeettii teknikaa isaa React, Node.js, Django, PostgreSQL, Docker, cloud deployment fi kan biraa irratti si hubachuu gargaaruu danda'a. Aritii Tech sirna ogeessa, nageenya qabu, fi bu'aa qabu ijaara."
     ]
   },
   "encouragementReplies": {
@@ -449,6 +449,60 @@
       "Tegi! Waantokko ibsi. Fedhii qaba.",
       "Kun yaadni gaari dha.",
       "Waarrumaa, kana nan hubadhe."
+    ]
+  },
+  "servicesReplies": {
+    "english": [
+      "Here are the core engineering services Aritii Tech provides:\n\n🌐 *Full-Stack Web Development:* High-performance React, Tailwind CSS, and Node.js / Express applications.\n📱 *Mobile & Telegram Bots:* Custom automated bots, workflows, and cross-platform apps.\n⚙️ *Backend & REST APIs:* Scalable microservices, authentication (JWT/OAuth), and robust system architecture.\n🗄️ *Database Optimization:* PostgreSQL, MySQL, and Prisma ORM data modeling.\n🔐 *Security & Credentials:* Digital credentials, DID systems, and API hardening.\n\nWhich service aligns best with your vision?",
+      "Aritii Tech specializes in crafting maintainable, high-impact digital systems:\n\n• *Web Platforms:* Custom business websites, portals, and SaaS dashboards.\n• *Automations & Bots:* Interactive Telegram bots and custom integrations.\n• *APIs & Microservices:* Reliable, fast backend architecture.\n• *System Consulting:* Architecture audits, database tuning, and deployment.\n\nLet me know what you'd like to build, or request a quick estimate below!",
+      "Whether you need a full application from scratch or want to upgrade an existing system, Aritii Tech covers the full development lifecycle:\n\n💻 *Frontend:* React.js, modern UI/UX\n🔧 *Backend:* Node.js, Express, Django, PHP\n🗄️ *Data:* PostgreSQL, MySQL\n🚀 *Cloud & DevOps:* Containerization, deployment, CI/CD\n\nTap below to explore his work or request a custom quote!"
+    ],
+    "oromo": [
+      "Tajaajiloota teeknoolojii ijoo Aritii Tech kennu:\n\n🌐 *Ijaarsa Weebsaayitii Guutuu:* React, Tailwind CSS, fi Node.js / Express fayyadamee sirna saffisaa fi ammayyaa.\n📱 *Bot Telegram fi Appii Moobaayilii:* Botiiwwan hojii saffisiisan fi appiiwwan fedhii keessaniif qophaa'an.\n⚙️ *Backend & REST APIs:* Sirna duubaa cimaa, nageenya eeggate (JWT), fi caasaa sirnaa ammayyaa.\n🗄️ *Qindoomina Kuusaa Deetaa:* PostgreSQL, MySQL, fi Prisma ORM.\n\nTajaajila kam irratti xiyyeeffachuu barbaaddu?",
+      "Aritii Tech sirna dijitaalaa bu'a qabeessa fi nageenya qabu ijaaruu irratti xiyyeeffata:\n\n• *Weebsaayitiilee Daldalaa:* Fuula weebii, daashboordii, fi sirna toora interneetii.\n• *Botiiwwan Telegram:* Botiiwwan haasa'aa fi tajaajila addaa kennan.\n• *API fi Sirna Duubaa:* Backend jabaa fi saffisa qabu.\n\nWaan ijaaruu barbaaddan natti himaa, ykn gatii tilmaamaa gaafadhaa!",
+      "Gara jalqabaa hanga xumuraatti pirojektii keessan guutuu hojjechuuf qophii dha:\n\n💻 *Frontend:* React.js fi bifa hawwataa\n🔧 *Backend:* Node.js, Express, Django, PHP\n🗄️ *Kuusaa Deetaa:* PostgreSQL, MySQL\n\nAs jalaan pirojektiiwwan ilaaluu ykn tilmaama gatii gaafachuu dandeessu!"
+    ]
+  },
+  "portfolioReplies": {
+    "english": [
+      "Here is a snapshot of high-impact systems built by Aritii Tech:\n\n📦 *Stock Management System:* Node.js, Express, Prisma, PostgreSQL for real-time inventory & production tracking.\n💊 *Pharmacy Management System:* Automated sales, batch expiration tracking, and stock audits.\n🎫 *Event & Ticket System:* Event coordination and attendee registration platform.\n🆔 *Digital Credentials Wallet:* W3C Verifiable Credentials & DID ecosystem for secure qualification sharing.\n📱 *Telegram Bots & Chat Platforms:* Real-time messaging and conversational automation.\n\nCheck out his live demos and open-source code below!",
+      "Aritii Tech has designed and shipped multiple real-world systems across different domains:\n\n1. **Stock & Inventory Engine** — Scalable backend with PostgreSQL & Prisma\n2. **Digital Credentials Platform** — Secure decentralized identity wallet\n3. **Pharmacy Management System** — Comprehensive point of sale & inventory\n4. **Student Contact Directory** — Secure multi-role management platform\n\nWould you like to visit his GitHub or view his live portfolio?",
+      "Curious about Aritii Tech's engineering work? Here are some highlighted projects:\n\n🔗 **Live Portfolio:** Built with React & modern styling\n💻 **GitHub Repos:** 12+ public projects spanning full-stack, APIs, and bots\n🏆 **Key Highlights:** Clean architecture, modular backend design, and strict security patterns.\n\nTap the buttons below to explore the live demos!"
+    ],
+    "oromo": [
+      "Hojiilee fi pirojektiiwwan Aritii Tech hojjate keessaa muraasni:\n\n📦 *Sirna Bulchiinsa Qabeenyaa (Stock System):* Node.js, Express, Prisma, fi PostgreSQL fayyadamee kan ijaarame.\n💊 *Sirna Bulchiinsa Faarmaasii:* Gurgurtaa fi to'annoo qorichaa kan ammayyeesse.\n🆔 *Digital Credentials Wallet:* Sirna waraqaa ragaa dijitaalaa fi nageenya eeggate.\n📱 *Botiiwwan Telegram:* Tajaajila battalaa fi saffisaa kennan.\n\nHojiilee isaa kan biroo ilaaluuf qabduuwwan gadii fayyadamaa!",
+      "Pirojektiiwwan Aritii Tech ijaare:\n\n1. **Sirna Qabeenyaa** — Backend jabaa PostgreSQL waliin\n2. **Waraqaa Ragaa Dijitaalaa** — Decentralized Identity (DID)\n3. **Sirna Faarmaasii** — To'annoo fi gurgurtaa guutuu\n\nGitHub isaa ykn poortfolioo isaa toora interneetii irratti ilaaluu dandeessu!"
+    ]
+  },
+  "quoteReplies": {
+    "english": [
+      "💡 *Flexible & Collaborative Pricing*\n\nAt Aritii Tech, our pricing is not rigid — it is customized to each client's specific vision, features, and budget:\n\n• **Open Discussion:** We listen to your goals and agree together on pricing that makes sense for you.\n• **Milestone-Based:** Payments are structured clearly across demonstrated development stages.\n• **Zero Obligation:** Feel completely free to reach out for a free consultation and project estimate tailored to your budget!\n\nTap **[📝 Request a Quote]** to share your project goals in 60 seconds!",
+      "Looking to build a custom web app, mobile app, or smart Telegram bot?\n\nOur pricing is flexible and negotiable based on your project goals. We discuss your requirements openly so we can agree on a budget that fits your business.\n\nFeel free to contact our engineering team or click **[📝 Request a Quote]** to get started!",
+      "Every great system starts with a conversation! At Aritii Tech, we work with startups, businesses, and individuals with adaptable budgets.\n\nFeel free to connect with us — we discuss your ideas and agree on fair pricing that works for you.\n\nTap **[📝 Request a Quote]** to tell us about your project!"
+    ],
+    "oromo": [
+      "💡 *Gatii Waliigaltee fi Iftoomina Qabu*\n\nAritii Tech keessatti gatiin murtaa'aan hin jiru — akkaataa fedhii, qabiyyee fi baasii keessaniitti mari'atama:\n\n• **Waliigalteedhaan:** Yaada keessan dhaggeeffannee gatii isiniif mijatu irratti waliigalla.\n• **Sadarkaadhaan (Milestones):** Hojii agarsiisaa kaffaltiin sadarkaadhaan raawwatama.\n• **Bilisa:** Pirojektii keessan mari'achuuf bilisa ta'aatii nu quunnamaa!\n\nTilmaama gatii argachuuf qabduu **[📝 Gatii Gaafadhu]** cuqaasaa!",
+      "Websaayitii, app moobaayilii, ykn bot Telegram ijaaruu barbaadduu?\n\nGatiin keenya kan mari'atamuudha. Fedhii keessan ifatti ilaallee gatii daldala keessaniif mijatu irratti waliigalla.\n\nBilisa ta'aatii nu quunnamaa ykn qabduu gadii fayyadamaa!"
+    ]
+  },
+  "contactReplies": {
+    "english": [
+      "📬 *Contact Aritii Tech Engineering*\n\nFeel free to connect directly through our official channels:\n\n• 📱 **Telegram:** @Y13bel | @AriitiTech\n• ✉️ **Email:** contact@ariititech.com\n• 🌐 **Website:** https://ariiti.com\n• 📍 **Location:** Addis Ababa, Ethiopia\n\nWe respond quickly to discuss your project and agree on the best development approach!",
+      "Ready to start your project or discuss pricing? Reach out freely:\n\n💬 **Telegram:** https://t.me/Y13bel\n📧 **Email:** contact@ariititech.com\n\nFeel free to send a message anytime!"
+    ],
+    "oromo": [
+      "📬 *Aritii Tech Quunnamuuf*\n\nKaraalee kanaan bilisa ta'aatii nu quunnamuu dandeessu:\n\n• 📱 **Telegram:** @Y13bel\n• ✉️ **Email:** contact@ariititech.com\n• 🌐 **Website:** https://ariiti.com\n• 📍 **Bakka:** Addis Ababa, Ethiopia\n\nGatii fi pirojektii keessan mari'achuuf bilisa ta'aatii nu dubbisaa!"
+    ]
+  },
+  "disambiguationReplies": {
+    "english": [
+      "It sounds like you're interested in {{topic}}! Would you like to explore our options or request a custom quote?",
+      "I noticed you might be asking about {{topic}}. What would be most helpful for you right now?",
+      "Just to make sure I get you the best answer: are you looking to learn more about {{topic}}, or would you like to request an estimate?"
+    ],
+    "oromo": [
+      "Waa'ee {{topic}} baruu barbaaddan fakkaata! Waa'ee kanaa caalaatti beekuu feenyee moo tilmaama gatii gaafachuu barbaaddu?",
+      "Gaaffiin keessan waa'ee {{topic}} ta'uu hubadheera. Maal keessatti caalaatti si gargaaruu danda'a?"
     ]
   },
   "weatherFailReplies": {
