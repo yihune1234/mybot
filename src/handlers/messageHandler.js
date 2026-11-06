@@ -351,6 +351,12 @@ async function handleMessage(msg, bot, userList) {
         await bot.sendMessage(chatId, `✅ <b>Operating hours updated to:</b> <code>${text.trim()}</code>\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
         return;
       }
+      if (activeState === "STATE_ADMIN_EDIT_ABOUT") {
+        clearUserState(userId);
+        await updateCompanyProfile({ about: text.trim() });
+        await bot.sendMessage(chatId, `✅ <b>About / Bio updated to:</b>\n<i>${text.trim()}</i>\n\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        return;
+      }
     }
 
     if (activeState === STATE_QUOTE_SERVICE) {

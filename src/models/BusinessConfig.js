@@ -12,6 +12,10 @@ const BusinessConfigSchema = new mongoose.Schema(
       name: { type: String, default: "Aritii Tech" },
       legalName: { type: String, default: "Aritii Technologies PLC" },
       tagline: { type: String, default: "Engineering Digital Excellence" },
+      about: {
+        type: String,
+        default: "Aritii Technologies PLC delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions."
+      },
       email: { type: String, default: "contact@ariititech.com" },
       phone: { type: String, default: "+251911000000" },
       telegram: { type: String, default: "@Y13bel" },

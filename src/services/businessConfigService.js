@@ -9,6 +9,7 @@ const DEFAULT_CONFIG = {
     name: "Aritii Tech",
     legalName: "Aritii Technologies PLC",
     tagline: "Engineering Digital Excellence",
+    about: "Aritii Technologies PLC delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions.",
     email: "contact@ariititech.com",
     phone: "+251911000000",
     telegram: "@Y13bel",

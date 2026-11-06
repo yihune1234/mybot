@@ -156,11 +156,12 @@ function getAboutText(lang = "english") {
   const isOr = lang === "oromo";
 
   if (isOr) {
+    const aboutOr = c.aboutOr || "*Aritii Technologies PLC* dhaabbata ogeeyyii software fi teeknoolojii dijitaalaa ammayyaati.";
     return (
       `━━━━━━━━━━━━━━━━━━━━━━\n` +
       `  🏢 *WAA'EE ARITII TECH*\n` +
       `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-      `*Aritii Technologies PLC* dhaabbata ogeeyyii software fi teeknoolojii dijitaalaa ammayyaati.\n\n` +
+      `${aboutOr}\n\n` +
       `📍 *Bakka:* ${c.location || "Addis Ababa, Ethiopia"}\n` +
       `⏰ *Sa'aatii Hojii:* ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}\n` +
       `💡 *Kaayyoo:* Yaada keessan gara furmaata teeknoolojii olaanaatti jijjiiruu.\n\n` +
@@ -168,11 +169,13 @@ function getAboutText(lang = "english") {
     );
   }
 
+  const aboutEn = c.about || "*Aritii Technologies PLC* delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions.";
+
   return (
     `━━━━━━━━━━━━━━━━━━━━━━\n` +
     `  🏢 *ABOUT ARITII TECH*\n` +
     `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-    `*Aritii Technologies PLC* delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions.\n\n` +
+    `${aboutEn}\n\n` +
     `📍 *Headquarters:* ${c.location || "Addis Ababa, Ethiopia"}\n` +
     `⏰ *Operating Hours:* ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}\n` +
     `💡 *Core Focus:* Full-Scale Web Applications, Mobile App Development, Telegram Bots, and System Architecture.\n\n` +

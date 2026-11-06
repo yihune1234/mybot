@@ -103,10 +103,15 @@ if (!useWebhook) {
       if (pollingRetries <= MAX_POLLING_RETRIES) {
         const delay = Math.min(pollingRetries * 5000, 30000);
         logger.info(`🔁 Restarting polling in ${delay / 1000}s...`);
-        setTimeout(() => {
-          bot.startPolling().catch((e) => {
+        setTimeout(async () => {
+          try {
+            await bot.stopPolling();
+          } catch (_) {}
+          try {
+            await bot.startPolling();
+          } catch (e) {
             logger.error(`Polling restart failed: ${e.message}`);
-          });
+          }
         }, delay);
       } else {
         logger.error(`❌ Max polling retries reached.`);

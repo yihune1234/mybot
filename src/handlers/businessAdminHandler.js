@@ -227,6 +227,7 @@ async function showProfileMenu(chatId, bot, messageId = null) {
     `💾 <b>Database Status:</b> ${dbStatus}\n\n` +
     `🏷 <b>Company:</b> ${c.name} (${c.legalName})\n` +
     `💡 <b>Tagline:</b> ${c.tagline}\n` +
+    `📝 <b>About / Bio:</b> ${c.about || "Elite software engineering tailored to your business goals."}\n` +
     `📍 <b>Location:</b> ${c.location}\n` +
     `⏰ <b>Operating Hours:</b> ${c.operatingHours}\n` +
     `✉️ <b>Email:</b> ${c.email}\n` +
@@ -247,6 +248,7 @@ async function showProfileMenu(chatId, bot, messageId = null) {
       ],
       [
         { text: "⏰ Edit Hours", callback_data: "admin_edit_hours" },
+        { text: "📝 Edit About / Bio", callback_data: "admin_edit_about" },
       ],
       [{ text: "🔙 Back to Dashboard", callback_data: "admin_nav_main" }],
     ],
@@ -463,6 +465,15 @@ async function handleAdminCallback(action, callbackQuery, bot) {
     await bot.answerCallbackQuery(callbackQuery.id);
     const cancelKb = { inline_keyboard: [[{ text: "❌ Cancel", callback_data: "admin_nav_profile" }]] };
     await renderMessage(bot, chatId, messageId, "⏰ <b>Please type the new Operating Hours in chat</b>\n<i>(e.g. Mon-Fri 8:30 AM - 5:30 PM EAT)</i>:", cancelKb);
+    return true;
+  }
+
+  if (action === "admin_edit_about") {
+    const { setUserState } = require("../services/memoryService");
+    setUserState(userId, "STATE_ADMIN_EDIT_ABOUT", {});
+    await bot.answerCallbackQuery(callbackQuery.id);
+    const cancelKb = { inline_keyboard: [[{ text: "❌ Cancel", callback_data: "admin_nav_profile" }]] };
+    await renderMessage(bot, chatId, messageId, "📝 <b>Please type the new About / Overview text for Aritii Tech in chat</b>:", cancelKb);
     return true;
   }
 

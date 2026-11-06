@@ -95,6 +95,24 @@ async function generateAIResponse(userMessage, history = [], lang = "english") {
   // Add the latest user message
   contents.push({ role: "user", parts: [{ text: userMessage }] });
 
+  // Dynamically load live business details (location, contacts, about) from MongoDB / cache
+  let dynamicInstruction = SYSTEM_INSTRUCTION;
+  try {
+    const { getConfig } = require("./businessConfigService");
+    const cfg = getConfig();
+    const c = cfg?.company || {};
+    dynamicInstruction += `\n\nCURRENT COMPANY DETAILS (Use when asked about location, contact, or hours):
+- Location / Headquarters: ${c.location || "Addis Ababa, Ethiopia"}
+- Operating Hours: ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}
+- Telegram Contact: ${c.telegram || "@Y13bel"}
+- Email: ${c.email || "contact@ariititech.com"}
+- Phone: ${c.phone || "+251911000000"}
+- Website: ${c.website || "https://ariiti.com"}
+- About: ${c.about || "Aritii Technologies PLC delivers elite software engineering tailored to your business goals."}`;
+  } catch (e) {
+    // Graceful fallback to static SYSTEM_INSTRUCTION
+  }
+
   const modelsToTry = [PRIMARY_MODEL, ...FALLBACK_MODELS];
 
   for (const model of modelsToTry) {
@@ -103,7 +121,7 @@ async function generateAIResponse(userMessage, history = [], lang = "english") {
         model,
         contents,
         config: {
-          systemInstruction: SYSTEM_INSTRUCTION,
+          systemInstruction: dynamicInstruction,
           temperature: 0.35,
           maxOutputTokens: 250,
         },
