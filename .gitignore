@@ -1,18 +1,14 @@
 # Dependencies
 node_modules/
-bot/node_modules/
 
 # Environment variables
 .env
-bot/.env
 *.env
 *.env.*
 
 # Logs & Runtime data
 logs/
-bot/logs/
 *.log
-bot/data/
 data/
 
 # OS / Editor
