@@ -59,8 +59,7 @@ async function notifyUserAction(userId, userName, username, text, type, language
     `💬 Message: "${preview}"\n` +
     `📍 Type: ${type}\n` +
     `🌐 Language: ${esc(langDisplay)}\n` +
-    `⏰ Time: ${new Date().toLocaleString()}\n` +
-    `━━━━━━━━━━━━━━`;
+    `⏰ Time: ${new Date().toLocaleString()}`;
   await sendToAdmin(msg);
 }
 
@@ -118,8 +117,7 @@ async function notifySystem(event, details) {
 
 async function notifyQuoteRequest(userId, userName, username, quote) {
   const msg =
-    `<b>🌟 NEW ARITII TECH CLIENT INQUIRY</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>🌟 NEW ARITI TECH CLIENT INQUIRY</b>\n\n` +
     `👤 <b>Client:</b> ${esc(userName)} (@${esc(username || "none")})\n` +
     `🆔 <b>Telegram ID:</b> <code>${userId}</code>\n` +
     `💻 <b>Service:</b> ${esc(quote.service || "Unspecified")}\n` +
@@ -134,8 +132,7 @@ async function notifyAIHandledInquiry(userId, userName, username, question, answ
   const badge = isHighValue ? "🔥 HIGH-VALUE INQUIRY" : "💡 AI HANDLED INQUIRY";
   const userHandle = username ? `@${esc(username)}` : `<code>${userId}</code>`;
   const msg =
-    `<b>${badge}</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>${badge}</b>\n\n` +
     `👤 <b>Client:</b> ${esc(userName)} (${userHandle})\n` +
     `❓ <b>Question:</b> "${esc(question.substring(0, 250))}"\n` +
     `💬 <b>Assistant Reply:</b> "${esc(answer.substring(0, 300))}"\n` +

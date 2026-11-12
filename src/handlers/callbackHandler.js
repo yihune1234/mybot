@@ -120,12 +120,12 @@ async function handleCallback(callbackQuery, bot) {
     const { STATE_VERIFY_MEDIA } = require("../utils/constants");
     setUserState(userId, STATE_VERIFY_MEDIA, {});
     const prompt = lang === "oromo"
-      ? `🔍 *Mirkaneessa Miidiyaa AI (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      ? `🔍 *Mirkaneessa Miidiyaa AI (C2PA & SynthID)*\n\n` +
         `Maaloo suuraa ykn faayila mirkaneeffachuu barbaaddan asitti ergaa ykn forward godhaa.\n\n` +
         `• C2PA Content Credentials fi mallattoolee dijitaalaa ni qoranna\n` +
         `• Google SynthID watermark fi madda AI ni sakatta'a\n` +
         `• Qulqullina olaanaaf faayilicha akka *File / Document* tti ergaa.`
-      : `🔍 *AI Media Verification (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      : `🔍 *AI Media Verification (C2PA & SynthID)*\n\n` +
         `Please send or forward an image or document file to inspect its provenance:\n\n` +
         `• Extracts C2PA Content Credentials & digital signatures\n` +
         `• Checks for Google SynthID imperceptible watermarks\n` +
@@ -202,8 +202,8 @@ async function handleCallback(callbackQuery, bot) {
     setSelectedService(userId, chosenService);
 
     const prompt = lang === "oromo"
-      ? `✅ Tajaajila Filatame: *${chosenService}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n2️⃣ Maaloo galma fi qabiyyee ijoo pirojektii keessanii gabaabinaan naaf ibsaa:`
-      : `✅ Selected Service: *${chosenService}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n2️⃣ Please briefly describe your project goals and key features.`;
+      ? `✅ Tajaajila Filatame: *${chosenService}*\n\n2️⃣ Maaloo galma fi qabiyyee ijoo pirojektii keessanii gabaabinaan naaf ibsaa:`
+      : `✅ Selected Service: *${chosenService}*\n\n2️⃣ Please briefly describe your project goals and key features.`;
 
     const cancelKeyboard = {
       inline_keyboard: [
@@ -283,7 +283,9 @@ async function handleCallback(callbackQuery, bot) {
   }
 
   if (data === "show_email") {
-    const email = "contact@ariititech.com";
+    const { getConfig } = require("../services/businessConfigService");
+    const cfg = getConfig();
+    const email = cfg.company?.email || "contact@arititech.com";
     await safeEditOrSend(bot, chatId, messageId, `✉️ *Email:* \`${email}\`\n\n(Tap above to copy)`, getMainMenuKeyboard(lang, isAdmin(userId)));
     return;
   }

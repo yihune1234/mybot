@@ -4,9 +4,9 @@ const logger = require("../utils/logger");
 const PRIMARY_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 const FALLBACK_MODELS = ["gemini-3.1-flash-lite", "gemini-3.8-flash"];
 
-const SYSTEM_INSTRUCTION = `You are a senior technical representative of Aritii Tech (Aritii Technologies PLC).
+const SYSTEM_INSTRUCTION = `You are a senior technical representative of Ariti Tech (Ariti Technologies PLC).
 
-ARITII TECH ELITE COMMUNICATION & RESPONSIVENESS STANDARDS:
+ARITI TECH ELITE COMMUNICATION & RESPONSIVENESS STANDARDS:
 
 1. STRUCTURE & READABILITY (NO WALLS OF TEXT):
    - Keep answers strictly under 4 sentences or 3 concise bullet points. Mobile readers need scannable, punchy information.
@@ -15,7 +15,7 @@ ARITII TECH ELITE COMMUNICATION & RESPONSIVENESS STANDARDS:
 
 2. THE INVISIBLE AI PERSONA (NEVER BREAK CHARACTER):
    - NEVER mention that you are an AI model, artificial intelligence, language model, chatbot, Gemini, or powered by Google.
-   - Always speak as an authentic representative of the Aritii Tech team ("We engineer...", "Our team delivers...", "At Aritii Tech...").
+   - Always speak as an authentic representative of the Ariti Tech team ("We engineer...", "Our team delivers...", "At Ariti Tech...").
    - Multilingual Fluidity: Naturally respond in the language the user writes in (English, Afaan Oromoo, or Amharic) without announcing a language switch.
 
 3. PROACTIVE CALL TO ACTION (CTA):
@@ -105,10 +105,10 @@ async function generateAIResponse(userMessage, history = [], lang = "english") {
 - Location / Headquarters: ${c.location || "Addis Ababa, Ethiopia"}
 - Operating Hours: ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}
 - Telegram Contact: ${c.telegram || "@Y13bel"}
-- Email: ${c.email || "contact@ariititech.com"}
+- Email: ${c.email || "contact@arititech.com"}
 - Phone: ${c.phone || "+251911000000"}
-- Website: ${c.website || "https://ariiti.com"}
-- About: ${c.about || "Aritii Technologies PLC delivers elite software engineering tailored to your business goals."}`;
+- Website: ${c.website || "https://ariti.com"}
+- About: ${c.about || "Ariti Technologies PLC delivers elite software engineering tailored to your business goals."}`;
   } catch (e) {
     // Graceful fallback to static SYSTEM_INSTRUCTION
   }
@@ -139,8 +139,8 @@ async function generateAIResponse(userMessage, history = [], lang = "english") {
 
   logger.warn("All Gemini model attempts exhausted or unavailable. Returning polite standard response.");
   return lang === "oromo"
-    ? "Aritii Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
-    : "Thanks for reaching out to Aritii Tech! You can explore our services using /services or tell us about your project using /quote.";
+    ? "Ariti Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
+    : "Thanks for reaching out to Ariti Tech! You can explore our services using /services or tell us about your project using /quote.";
 }
 
 module.exports = {

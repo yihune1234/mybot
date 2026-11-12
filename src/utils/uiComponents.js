@@ -3,25 +3,25 @@ const { getActiveServices } = require("../services/serviceCatalogService");
 const { getConfig } = require("../services/businessConfigService");
 
 function getWelcomeText(lang = "english", firstName = "Valued Client") {
+  const config = getConfig();
+  const c = config.company || {};
+  const brandName = c.name || "Ariti Tech";
+
   if (lang === "oromo") {
     return (
-      `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `  🌟 *ARITII TECH* 🌟\n` +
-      `  _Ogeessa Ijaarsa Dijitaalaa_\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-      `Baga nagaan dhuftan! Yaada keessan gara furmaata software saffisaa, amansiisaa fi babal'achuu danda'utti jijjiirra.\n\n` +
-      `Platform web dhuunfaa, app moobaayilii, bot Telegram daldalaa, ykn arkiteekcharii sirnaa barbaaddu, Aritii Tech tajaajila teeknoolojii olaanaa galma daldala keessaniif kan ta'u ni dhiheessa.\n\n` +
+      `🌟 *${brandName.toUpperCase()}*\n` +
+      `_${c.taglineOr || "Ogeessa Ijaarsa Dijitaalaa"}_\n\n` +
+      `Baga nagaan dhuftan, *${firstName}*! Yaada keessan gara furmaata software saffisaa, amansiisaa fi babal'achuu danda'utti jijjiirra.\n\n` +
+      `Platform web dhuunfaa, app moobaayilii, bot Telegram daldalaa, ykn arkiteekcharii sirnaa barbaaddu, ${brandName} tajaajila teeknoolojii olaanaa galma daldala keessaniif kan ta'u ni dhiheessa.\n\n` +
       `💡 *Har'a maal ilaaluu barbaaddu?* Qabduuwwan armaan gadii fayyadamaa:`
     );
   }
 
   return (
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `  🌟 *ARITII TECH* 🌟\n` +
-    `  _Engineering Digital Excellence_\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
-    `Welcome! We transform complex ideas into high-performing, scalable software solutions.\n\n` +
-    `Whether you need a custom web platform, a mobile application, a smart Telegram bot, or robust system architecture, Aritii Tech delivers elite engineering tailored to your business goals.\n\n` +
+    `🌟 *${brandName.toUpperCase()}*\n` +
+    `_${c.tagline || "Engineering Digital Excellence"}_\n\n` +
+    `Welcome, *${firstName}*! We transform complex ideas into high-performing, scalable software solutions.\n\n` +
+    `Whether you need a custom web platform, a mobile application, a smart Telegram bot, or robust system architecture, ${brandName} delivers elite engineering tailored to your business goals.\n\n` +
     `💡 *What would you like to explore today?* Use the interactive menu below:`
   );
 }
@@ -35,7 +35,7 @@ function getMainMenuKeyboard(lang = "english", isAdminUser = false) {
     ],
     [
       { text: isOr ? "📝 Gatii Gaafadhu" : "📝 Request a Quote", callback_data: "start_quote" },
-      { text: isOr ? "🏢 Waa'ee Aritii Tech" : "🏢 About Aritii Tech", callback_data: "view_about" },
+      { text: isOr ? "🏢 Waa'ee Ariti Tech" : "🏢 About Ariti Tech", callback_data: "view_about" },
     ],
     [
       { text: isOr ? "📞 Nu Quunnamaa" : "📞 Contact Us", callback_data: "view_contact" },
@@ -56,13 +56,14 @@ function getMainMenuKeyboard(lang = "english", isAdminUser = false) {
 }
 
 function getServicesText(lang = "english") {
+  const config = getConfig();
+  const c = config.company || {};
+  const brandName = c.name || "Ariti Tech";
   const isOr = lang === "oromo";
 
   if (isOr) {
     return (
-      `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `  💻 *TAJAAJILOOTA ARITII TECH*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `💻 *TAJAAJILOOTA ${brandName.toUpperCase()}*\n\n` +
       `Odeeffannoo dabalataaf ykn pirojektii ajajuuf tajaajila armaan gadii filadhaa:\n\n` +
       `• *Full-Scale Web Applications*\n` +
       `  Custom web apps, platformiiwwan e-commerce, dashboards, fi APIs nageenya qaban. _(Tech: Django, Node.js, React, PostgreSQL, MongoDB)_\n\n` +
@@ -72,16 +73,13 @@ function getServicesText(lang = "english") {
       `  Botiiwwan daldalaa ofiin hojjetan, ajaja/ergaa dhiheessuu, fi Telegram WebApps.\n\n` +
       `• *System Architecture & Cloud*\n` +
       `  Ijaarsa database schema, cloud deployment babal'atu, fi bu'uura API cimaa.\n\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `💡 *Gatii Waliigaltee fi Mijataa:*\n` +
+      `💡 *Gatii Waliigaltee fi Mijataa*\n` +
       `Gatiin akkaataa fedhii fi baasii keessaniitti kan mari'atamuudha. Bilisa ta'aatii nu quunnamaa — mari'annee gatii isiniif ta'u irratti waliigalla!`
     );
   }
 
   return (
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `  💻 *ARITII TECH SERVICES*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `💻 *${brandName.toUpperCase()} SERVICES*\n\n` +
     `Select a service below to learn more or request a project:\n\n` +
     `• *Full-Scale Web Applications*\n` +
     `  Custom web apps, e-commerce platforms, dashboards, and secure APIs. _(Tech: Django, Node.js, React, PostgreSQL, MongoDB)_\n\n` +
@@ -91,8 +89,7 @@ function getServicesText(lang = "english") {
     `  Automated business bots, ordering/delivery workflows, and Telegram WebApps.\n\n` +
     `• *System Architecture & Cloud*\n` +
     `  Database schema design, scalable cloud deployment, and secure API infrastructure.\n\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `💡 *Flexible & Collaborative Pricing:*\n` +
+    `💡 *Flexible & Collaborative Pricing*\n` +
     `Pricing is customized to your unique project scope and requirements. Feel free to contact us — we discuss your vision openly and agree on pricing that works best for your budget!`
   );
 }
@@ -110,11 +107,13 @@ function getServicesKeyboard(lang = "english") {
 }
 
 function getPortfolioText(lang = "english") {
+  const config = getConfig();
+  const c = config.company || {};
+  const brandName = c.name || "Ariti Tech";
+
   if (lang === "oromo") {
     return (
-      `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `  🚀 *POORTFOLIOO ARITII TECH*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `🚀 *POORTFOLIOO ${brandName.toUpperCase()}*\n\n` +
       `Hojiilee fi sirna dijitaalaa dhiheenya kana ijaarre:\n\n` +
       `• 🌐 *Full-Scale Web Platforms:* React, Django fi Node.js irratti kan ijaarame.\n` +
       `• 📱 *Mobile Apps:* Flutter & React Native fayyadamuun kan qophaa'e.\n` +
@@ -125,9 +124,7 @@ function getPortfolioText(lang = "english") {
   }
 
   return (
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `  🚀 *OUR PORTFOLIO & PROVEN WORK*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `🚀 *${brandName.toUpperCase()} PORTFOLIO & PROVEN WORK*\n\n` +
     `Explore our recent enterprise systems, web platforms, and mobile solutions:\n\n` +
     `• 🌐 *Full-Scale Web Applications:* Enterprise SaaS platforms, responsive React frontends, and robust Django / Node.js backends.\n` +
     `• 📱 *Mobile Applications:* Native-quality iOS & Android mobile applications built with Flutter and React Native.\n` +
@@ -156,14 +153,14 @@ function getPortfolioKeyboard(lang = "english") {
 function getAboutText(lang = "english") {
   const config = getConfig();
   const c = config.company || {};
+  const brandName = c.name || "Ariti Tech";
+  const legalName = c.legalName || "Ariti Technologies PLC";
   const isOr = lang === "oromo";
 
   if (isOr) {
-    const aboutOr = c.aboutOr || "*Aritii Technologies PLC* dhaabbata ogeeyyii software fi teeknoolojii dijitaalaa ammayyaati.";
+    const aboutOr = c.aboutOr || `*${legalName}* dhaabbata ogeeyyii software fi teeknoolojii dijitaalaa ammayyaati.`;
     return (
-      `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `  🏢 *WAA'EE ARITII TECH*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `🏢 *WAA'EE ${brandName.toUpperCase()}*\n\n` +
       `${aboutOr}\n\n` +
       `📍 *Bakka:* ${c.location || "Addis Ababa, Ethiopia"}\n` +
       `⏰ *Sa'aatii Hojii:* ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}\n` +
@@ -172,12 +169,10 @@ function getAboutText(lang = "english") {
     );
   }
 
-  const aboutEn = c.about || "*Aritii Technologies PLC* delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions.";
+  const aboutEn = c.about || `*${legalName}* delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions.`;
 
   return (
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `  🏢 *ABOUT ARITII TECH*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `🏢 *ABOUT ${brandName.toUpperCase()}*\n\n` +
     `${aboutEn}\n\n` +
     `📍 *Headquarters:* ${c.location || "Addis Ababa, Ethiopia"}\n` +
     `⏰ *Operating Hours:* ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}\n` +
@@ -205,18 +200,17 @@ function getAboutKeyboard(lang = "english") {
 function getContactText(lang = "english") {
   const config = getConfig();
   const c = config.company || {};
+  const brandName = c.name || "Ariti Tech";
   const isOr = lang === "oromo";
 
   if (isOr) {
     return (
-      `━━━━━━━━━━━━━━━━━━━━━━\n` +
-      `  📞 *NU QUUNNAMAA — ARITII TECH*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+      `📞 *NU QUUNNAMAA — ${brandName.toUpperCase()}*\n\n` +
       `Gatii pirojektii mari'achuuf ykn yaada qabdaniif bilisa ta'aatii nu quunnamaa! Mari'annee gatii isiniif ta'u irratti waliigalla:\n\n` +
       `📱 *Telegram:* ${c.telegram || "@Y13bel"}\n` +
-      `✉️ *Email:* ${c.email || "contact@ariititech.com"}\n` +
+      `✉️ *Email:* ${c.email || "contact@arititech.com"}\n` +
       `📞 *Phone:* ${c.phone || "+251911000000"}\n` +
-      `🌐 *Website:* ${c.website || "https://ariiti.com"}\n` +
+      `🌐 *Website:* ${c.website || "https://ariti.com"}\n` +
       `📍 *Location:* ${c.location || "Addis Ababa, Ethiopia"}\n` +
       `⏰ *Operating Hours:* ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}\n\n` +
       `_Kallattiin mari'achuuf ykn gatii tilmaamaa gaafachuuf filadhaa:_`
@@ -224,14 +218,12 @@ function getContactText(lang = "english") {
   }
 
   return (
-    `━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `  📞 *CONTACT US — ARITII TECH*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `📞 *CONTACT US — ${brandName.toUpperCase()}*\n\n` +
     `Have a project in mind? Feel free to reach out to discuss your ideas openly and agree on a budget that fits your goals:\n\n` +
     `📱 *Telegram:* ${c.telegram || "@Y13bel"}\n` +
-    `✉️ *Email:* ${c.email || "contact@ariititech.com"}\n` +
+    `✉️ *Email:* ${c.email || "contact@arititech.com"}\n` +
     `📞 *Phone:* ${c.phone || "+251911000000"}\n` +
-    `🌐 *Website:* ${c.website || "https://ariiti.com"}\n` +
+    `🌐 *Website:* ${c.website || "https://ariti.com"}\n` +
     `📍 *Headquarters:* ${c.location || "Addis Ababa, Ethiopia"}\n` +
     `⏰ *Operating Hours:* ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}\n\n` +
     `_Feel free to message us on Telegram or start a project inquiry below:_`
@@ -249,7 +241,7 @@ function getContactKeyboard(lang = "english") {
     inline_keyboard: [
       [
         { text: `💬 Telegram: ${c.telegram || "@Y13bel"}`, url: tgUrl },
-        { text: "🌐 Website", url: c.website || "https://ariiti.com" },
+        { text: "🌐 Website", url: c.website || "https://ariti.com" },
       ],
       [
         { text: isOr ? "📝 Gatii Gaafadhu" : "📝 Request a Quote", callback_data: "start_quote" },
@@ -263,16 +255,14 @@ function getQuoteWizardStep1Text(lang = "english") {
   const isOr = lang === "oromo";
   if (isOr) {
     return (
-      `📝 *Interactive Project Quote Wizard (Tarkaanfii 1/4)*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `📝 *Interactive Project Quote Wizard (Tarkaanfii 1/4)*\n\n` +
       `Gosa tajaajila software kam barbaaddu?\n` +
       `_(Web App, Mobile App, Telegram Bot, Custom System)_\n\n` +
       `Qabduuwwan armaan gadii filadhaa ykn kallattiin barreessaa:`
     );
   }
   return (
-    `📝 *Interactive Project Quote Wizard (Step 1 of 4)*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `📝 *Interactive Project Quote Wizard (Step 1 of 4)*\n\n` +
     `What type of software service do you need?\n` +
     `_(Web App, Mobile App, Telegram Bot, Custom System)_\n\n` +
     `Tap an option below or type your requirement:`
@@ -312,7 +302,16 @@ async function safeEditOrSend(bot, chatId, messageId, text, replyMarkup, parseMo
       if (err.message && err.message.includes("message is not modified")) {
         return true;
       }
-      logger.debug(`editMessageText fallback: ${err.message}`);
+      logger.debug(`editMessageText fallback with Markdown: ${err.message}`);
+      // Fallback without parse_mode in case of markdown formatting issue
+      try {
+        await bot.editMessageText(text, {
+          chat_id: chatId,
+          message_id: messageId,
+          reply_markup: replyMarkup,
+        });
+        return true;
+      } catch (_) {}
     }
   }
 
@@ -323,8 +322,16 @@ async function safeEditOrSend(bot, chatId, messageId, text, replyMarkup, parseMo
     });
     return true;
   } catch (err2) {
-    logger.error(`sendMessage failed in safeEditOrSend: ${err2.message}`);
-    return false;
+    logger.debug(`sendMessage Markdown failed: ${err2.message}. Retrying plain.`);
+    try {
+      await bot.sendMessage(chatId, text, {
+        reply_markup: replyMarkup,
+      });
+      return true;
+    } catch (err3) {
+      logger.error(`sendMessage failed in safeEditOrSend: ${err3.message}`);
+      return false;
+    }
   }
 }
 

@@ -6,14 +6,14 @@ const BusinessConfig = require("../models/BusinessConfig");
 
 const DEFAULT_CONFIG = {
   company: {
-    name: "Aritii Tech",
-    legalName: "Aritii Technologies PLC",
+    name: "Ariti Tech",
+    legalName: "Ariti Technologies PLC",
     tagline: "Engineering Digital Excellence",
-    about: "Aritii Technologies PLC delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions.",
-    email: "contact@ariititech.com",
+    about: "Ariti Technologies PLC delivers elite software engineering tailored to your business goals. We transform complex ideas into high-performing, scalable software solutions.",
+    email: "contact@arititech.com",
     phone: "+251911000000",
     telegram: "@Y13bel",
-    website: "https://ariiti.com",
+    website: "https://ariti.com",
     location: "Addis Ababa, Ethiopia",
     operatingHours: "Mon-Fri 8:30 AM - 5:30 PM EAT"
   },

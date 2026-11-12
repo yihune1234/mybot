@@ -159,14 +159,63 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
     return true;
   }
 
-  if (text === "/contact") {
+  if (text === "/services") {
     try {
-      const reply = "📬 *Contact Yihune B*\n\nReach out to Yihune B through any of the platforms below:";
+      const { getServicesText, getServicesKeyboard } = require("../utils/uiComponents");
+      const reply = getServicesText(lang);
       await bot.sendMessage(chatId, reply, {
         parse_mode: "Markdown",
-        reply_markup: contactKeyboard(),
+        reply_markup: getServicesKeyboard(lang),
       });
-      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, reply);
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "Services Menu");
+    } catch (err) {
+      logger.error(`/services error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/quote") {
+    try {
+      const { setUserState } = require("../services/memoryService");
+      const { STATE_QUOTE_SERVICE } = require("../utils/constants");
+      const { getQuoteWizardStep1Text, getQuoteWizardKeyboard } = require("../utils/uiComponents");
+      setUserState(userId, STATE_QUOTE_SERVICE, {});
+      const reply = getQuoteWizardStep1Text(lang);
+      await bot.sendMessage(chatId, reply, {
+        parse_mode: "Markdown",
+        reply_markup: getQuoteWizardKeyboard(lang),
+      });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "Quote Wizard Step 1");
+    } catch (err) {
+      logger.error(`/quote error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/about") {
+    try {
+      const { getAboutText, getAboutKeyboard } = require("../utils/uiComponents");
+      const reply = getAboutText(lang);
+      await bot.sendMessage(chatId, reply, {
+        parse_mode: "Markdown",
+        reply_markup: getAboutKeyboard(lang),
+      });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "About Screen");
+    } catch (err) {
+      logger.error(`/about error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/contact") {
+    try {
+      const { getContactText, getContactKeyboard } = require("../utils/uiComponents");
+      const reply = getContactText(lang);
+      await bot.sendMessage(chatId, reply, {
+        parse_mode: "Markdown",
+        reply_markup: getContactKeyboard(lang),
+      });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "Contact Screen");
     } catch (err) {
       logger.error(`/contact error: ${err.message}`);
     }
@@ -332,19 +381,20 @@ function helpKeyboard(lang = "english") {
   return {
     inline_keyboard: [
       [
-        { text: `ℹ️ ${t("commands.help_about", lc)}`, callback_data: "help_about" },
-        { text: `📊 ${t("commands.help_stats", lc)}`, callback_data: "help_stats" },
+        { text: isOr ? "💻 Tajaajila Software" : "💻 Software Services", callback_data: "view_services" },
+        { text: isOr ? "📝 Gatii Gaafadhu" : "📝 Request a Quote", callback_data: "start_quote" },
       ],
       [
-        { text: `😂 ${t("commands.help_joke", lc)}`, callback_data: "help_joke" },
+        { text: isOr ? "🏢 Waa'ee Ariti Tech" : "🏢 About Ariti Tech", callback_data: "view_about" },
+        { text: isOr ? "🔍 Miidiyaa Mirkaneessi" : "🔍 Verify Media (C2PA)", callback_data: "verify_media_prompt" },
+      ],
+      [
+        { text: `📊 ${t("commands.help_stats", lc)}`, callback_data: "help_stats" },
         { text: `🧹 ${t("commands.help_forget", lc)}`, callback_data: "help_forget" },
       ],
       [
-        { text: isOr ? "🔍 Miidiyaa Mirkaneessi (C2PA)" : "🔍 Verify Media (C2PA)", callback_data: "verify_media_prompt" },
-      ],
-      [
-        { text: "📬 Contact", url: "https://t.me/Y13bel" },
-        { text: "🌐 Portfolio", url: "https://myportfolio-1-01m7.onrender.com/" },
+        { text: isOr ? "📞 Nu Quunnamaa" : "📞 Contact Us", callback_data: "view_contact" },
+        { text: isOr ? "⬅️ Fuula Duraa" : "⬅️ Main Menu", callback_data: "main_menu" },
       ],
     ],
   };

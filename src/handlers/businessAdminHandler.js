@@ -20,8 +20,7 @@ async function showAdminPanel(chatId, bot, messageId = null) {
   const dbStatus = isDbConnected() ? "🟢 MongoDB Connected" : "📁 Local JSON (Resilient)";
 
   const text =
-    `<b>🏢 ARIITI TECH — BUSINESS ADMIN DASHBOARD</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>🏢 ARITI TECH — BUSINESS ADMIN DASHBOARD</b>\n\n` +
     `🏢 <b>Company:</b> ${config.company.name}\n` +
     `⚡ <b>Operating Mode:</b> ${getModeDisplay(currentMode)}\n` +
     `💾 <b>Database:</b> ${dbStatus}\n\n` +
@@ -29,8 +28,7 @@ async function showAdminPanel(chatId, bot, messageId = null) {
     `• <b>Active Services:</b> ${activeServices.length} / ${services.length}\n` +
     `• <b>Total Leads:</b> ${leadSummary.total} (🆕 New: ${leadSummary.new}, 🤝 Won: ${leadSummary.won})\n` +
     `• <b>Registered Users:</b> ${userCount}\n` +
-    `• <b>Admins:</b> ${getAdminIds().length}\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `• <b>Admins:</b> ${getAdminIds().length}\n\n` +
     `<i>Select an administrative module below:</i>`;
 
   const keyboard = {
@@ -61,8 +59,7 @@ async function showServicesMenu(chatId, bot, messageId = null) {
   const services = getAllServices();
 
   let text =
-    `<b>🛠 SERVICES & PRICING MANAGEMENT</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>🛠 SERVICES & PRICING MANAGEMENT</b>\n\n` +
     `Select a service below to edit its status or starting price:\n\n`;
 
   const rows = [];
@@ -93,8 +90,7 @@ async function showServiceDetail(chatId, bot, serviceId, messageId = null) {
   const toggleBtnText = s.isActive ? "⏸ Pause Service" : "▶️ Activate Service";
 
   const text =
-    `<b>🛠 SERVICE DETAILS: ${s.name}</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>🛠 SERVICE DETAILS: ${s.name}</b>\n\n` +
     `📌 <b>ID:</b> <code>${s.id}</code>\n` +
     `📁 <b>Category:</b> ${s.category}\n` +
     `📊 <b>Status:</b> ${statusText}\n` +
@@ -125,8 +121,7 @@ async function showPriceModifier(chatId, bot, serviceId, messageId = null) {
   if (!s) return showServicesMenu(chatId, bot, messageId);
 
   const text =
-    `<b>💵 ADJUST STARTING PRICE: ${s.name}</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>💵 ADJUST STARTING PRICE: ${s.name}</b>\n\n` +
     `Current Price: <b>$${s.startingPrice} ${s.currency}</b>\n\n` +
     `Choose a quick increment or decrement:`;
 
@@ -152,8 +147,7 @@ async function showModeSelector(chatId, bot, messageId = null) {
   const current = getCurrentMode();
 
   const text =
-    `<b>⚡ ARIITI TECH OPERATING MODE</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>⚡ ARITI TECH OPERATING MODE</b>\n\n` +
     `Current Mode: <b>${getModeDisplay(current)}</b>\n\n` +
     `<b>Available Modes:</b>\n\n` +
     `🟢 <b>Mode A (Rule-Based Only):</b>\n` +
@@ -182,8 +176,7 @@ async function showLeadsMenu(chatId, bot, messageId = null) {
   const summary = getLeadSummary();
 
   let text =
-    `<b>📈 CLIENT LEADS & CRM PIPELINE</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>📈 CLIENT LEADS & CRM PIPELINE</b>\n\n` +
     `📊 <b>Pipeline Summary:</b>\n` +
     `• 🆕 New: ${summary.new}\n` +
     `• 📞 Contacted: ${summary.contacted}\n` +
@@ -222,8 +215,7 @@ async function showProfileMenu(chatId, bot, messageId = null) {
   const dbStatus = isDbConnected() ? "🟢 Synced with MongoDB Atlas" : "📁 Local JSON (Resilient)";
 
   const text =
-    `<b>🏢 BUSINESS PROFILE & CONTACT CHANNELS</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>🏢 BUSINESS PROFILE & CONTACT CHANNELS</b>\n\n` +
     `💾 <b>Database Status:</b> ${dbStatus}\n\n` +
     `🏷 <b>Company:</b> ${c.name} (${c.legalName})\n` +
     `💡 <b>Tagline:</b> ${c.tagline}\n` +
@@ -262,8 +254,7 @@ async function showAdminsMenu(chatId, bot, messageId = null) {
   const adminIds = getAdminIds();
 
   let text =
-    `<b>👥 ADMINISTRATOR ACCOUNTS</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>👥 ADMINISTRATOR ACCOUNTS</b>\n\n` +
     `Only authorized administrators can access this menu and configure services.\n\n` +
     `<b>Configured Admins:</b>\n`;
 
@@ -286,8 +277,7 @@ async function showLogsMenu(chatId, bot, messageId = null) {
   const logs = getRecentLogs(10);
 
   let text =
-    `<b>📜 RECENT SECURITY & AUDIT LOGS</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    `<b>📜 RECENT SECURITY & AUDIT LOGS</b>\n\n`;
 
   if (logs.length === 0) {
     text += `<i>No recent activity logs recorded (Log is clean).</i>\n`;
@@ -317,8 +307,7 @@ async function showLogsMenu(chatId, bot, messageId = null) {
 // Clear Logs Confirmation View
 async function showClearLogsConfirm(chatId, bot, messageId = null) {
   const text =
-    `<b>⚠️ CONFIRM CLEARING LOGS</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>⚠️ CONFIRM CLEARING LOGS</b>\n\n` +
     `Are you sure you want to permanently delete all message, user activity, and security audit logs?\n\n` +
     `<i>This action will clear all stored action entries immediately.</i>`;
 
@@ -437,7 +426,7 @@ async function handleAdminCallback(action, callbackQuery, bot) {
     setUserState(userId, "STATE_ADMIN_EDIT_EMAIL", {});
     await bot.answerCallbackQuery(callbackQuery.id);
     const cancelKb = { inline_keyboard: [[{ text: "❌ Cancel", callback_data: "admin_nav_profile" }]] };
-    await renderMessage(bot, chatId, messageId, "✉️ <b>Please type the new Business Email address in chat</b>\n<i>(e.g. contact@ariititech.com)</i>:", cancelKb);
+    await renderMessage(bot, chatId, messageId, "✉️ <b>Please type the new Business Email address in chat</b>\n<i>(e.g. contact@arititech.com)</i>:", cancelKb);
     return true;
   }
 
@@ -446,7 +435,7 @@ async function handleAdminCallback(action, callbackQuery, bot) {
     setUserState(userId, "STATE_ADMIN_EDIT_TELEGRAM", {});
     await bot.answerCallbackQuery(callbackQuery.id);
     const cancelKb = { inline_keyboard: [[{ text: "❌ Cancel", callback_data: "admin_nav_profile" }]] };
-    await renderMessage(bot, chatId, messageId, "📱 <b>Please type the new Telegram handle or channel in chat</b>\n<i>(e.g. @AriitiTech or @Y13bel)</i>:", cancelKb);
+    await renderMessage(bot, chatId, messageId, "📱 <b>Please type the new Telegram handle or channel in chat</b>\n<i>(e.g. @AritiTech or @Y13bel)</i>:", cancelKb);
     return true;
   }
 
@@ -473,7 +462,7 @@ async function handleAdminCallback(action, callbackQuery, bot) {
     setUserState(userId, "STATE_ADMIN_EDIT_ABOUT", {});
     await bot.answerCallbackQuery(callbackQuery.id);
     const cancelKb = { inline_keyboard: [[{ text: "❌ Cancel", callback_data: "admin_nav_profile" }]] };
-    await renderMessage(bot, chatId, messageId, "📝 <b>Please type the new About / Overview text for Aritii Tech in chat</b>:", cancelKb);
+    await renderMessage(bot, chatId, messageId, "📝 <b>Please type the new About / Overview text for Ariti Tech in chat</b>:", cancelKb);
     return true;
   }
 

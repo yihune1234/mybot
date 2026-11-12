@@ -39,7 +39,7 @@ bot.setMyCommands([
   { command: "start", description: "Start the bot & open main menu" },
   { command: "verify", description: "Verify media origin (C2PA & SynthID)" },
   { command: "quote", description: "Request a software quote" },
-  { command: "services", description: "Explore Aritii Tech services" },
+  { command: "services", description: "Explore Ariti Tech services" },
   { command: "help", description: "Show help & available commands" },
   { command: "contact", description: "Contact our engineering team" },
   { command: "language", description: "Switch language (EN / OM)" },

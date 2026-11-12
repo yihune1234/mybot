@@ -1,5 +1,5 @@
 /**
- * Aritii Tech Media Provenance & Verification Service
+ * Ariti Tech Media Provenance & Verification Service
  * Supports C2PA (Content Credentials), Google SynthID, and EXIF/XMP AI detection.
  */
 
@@ -313,9 +313,7 @@ function formatVerificationReport(data, lang = "english") {
   }
 
   let text =
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-    `${statusEmoji} *${statusTitle}*\n` +
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+    `${statusEmoji} *${statusTitle}*\n\n` +
     `📁 *${isOr ? "Faayila:" : "File:"}* \`${fileName}\` (${fileSizeKB} KB)\n` +
     `🎯 *${isOr ? "Murtoo:" : "Verdict:"}* ${data.summary}\n` +
     `📊 *${isOr ? "Sadarkaa Amanamummaa:" : "Confidence Level:"}* ${confidence}\n\n`;
@@ -377,7 +375,6 @@ function formatVerificationReport(data, lang = "english") {
 
   // Mandatory Standard Disclaimer
   text +=
-    `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
     `⚖️ *${isOr ? "Hubachiisa Seeraa:" : "Disclaimer:"}*\n` +
     `_${isOr
       ? "Mirkaneessi dijitaalaa kun mallattoolee amanamummaa qorachuuf gargaara. Ragaan C2PA fi SynthID madda fi seenaa jijjiiramaa agarsiisu, garuu yeroo hunda madda amansiisaa biroo waliin mirkaneeffachuun barbaachisaadha."

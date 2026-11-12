@@ -361,14 +361,12 @@ async function handleMessage(msg, bot, userList) {
   // Onboarding Language Check
   if (!hasSelectedLanguage(userId)) {
     const en =
-      `🏢 *WELCOME TO ARIITI TECH*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `🏢 *WELCOME TO ARITI TECH*\n\n` +
       `We engineer high-performance web systems, cross-platform mobile apps, enterprise Telegram bots, and resilient cloud architectures.\n\n` +
       `🌐 *Please select your language / Afaan kee filadhu:*`;
 
     const om =
-      `🏢 *BAGA GARA ARIITI TECH NAGAYAN DHUFTAN*\n` +
-      `━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      `🏢 *BAGA GARA ARITI TECH NAGAYAN DHUFTAN*\n\n` +
       `Sirna dijitaalaa ammayyaa, web saffisaa, app moobaayilii, fi botiiwwan Telegram daldalaa ijaarra.\n\n` +
       `🌐 *Afaan kee filadhu / Please select your language:*`;
 
@@ -421,13 +419,13 @@ async function handleMessage(msg, bot, userList) {
     // Set state and prompt user
     setUserState(userId, STATE_VERIFY_MEDIA, {});
     const verifyHelp = langForReplies === "oromo"
-      ? `🔍 *Mirkaneessa Miidiyaa AI (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      ? `🔍 *Mirkaneessa Miidiyaa AI (C2PA & SynthID)*\n\n` +
         `Maaloo suuraa irratti *reply* gochuun \`/verify\` jedhaa, ykn suuraa/faayila qabdu \`/verify\` barreesitanii ergaa.\n\n` +
         `• *C2PA Content Credentials:* Madda, seenaa gulaallii, fi mallattoo dijitaalaa ni qorata\n` +
         `• *Google SynthID:* Watermark suuraa AI Google'n uumame ni sakatta'a\n` +
         `• *Meeshaalee AI:* EXIF fi meeshaalee AI (DALL-E, Firefly, Midjourney) ni adda baasa\n\n` +
         `💡 _Qulqullina guutuuf faayilicha akka uncompressed 'File / Document' tti ergaa._`
-      : `🔍 *AI Media Verification (C2PA & SynthID)*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+      : `🔍 *AI Media Verification (C2PA & SynthID)*\n\n` +
         `Please reply to an image or send a photo with the caption \`/verify\` to check its origin and content credentials.\n\n` +
         `• *C2PA Content Credentials:* Extracts origin history, editing steps, and digital signatures.\n` +
         `• *Google SynthID:* Detects imperceptible watermarks and Google generative AI provenance.\n` +
@@ -542,8 +540,8 @@ async function handleMessage(msg, bot, userList) {
       setUserState(userId, STATE_QUOTE_DESC, { service: text });
       setSelectedService(userId, text);
       const prompt = langForReplies === "oromo"
-        ? `✅ Tajaajila: *${text}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n2️⃣ Maaloo galma fi qabiyyee ijoo pirojektii keessanii gabaabinaan naaf ibsaa:`
-        : `✅ Service: *${text}*\n━━━━━━━━━━━━━━━━━━━━━━━━━━\n2️⃣ Please briefly describe your project goals and key features.`;
+        ? `✅ Tajaajila: *${text}*\n\n2️⃣ Maaloo galma fi qabiyyee ijoo pirojektii keessanii gabaabinaan naaf ibsaa:`
+        : `✅ Service: *${text}*\n\n2️⃣ Please briefly describe your project goals and key features.`;
       await bot.sendMessage(chatId, prompt, { parse_mode: "Markdown", reply_markup: cancelOnlyKeyboard(langForReplies) });
       return;
     }
@@ -603,8 +601,8 @@ async function handleMessage(msg, bot, userList) {
       }
 
       const confirmMsg = langForReplies === "oromo"
-        ? `🎉 *Gaaffiin Gatii Keessan Milkaa'inaan Qaqqabeera!*\n\nGalatoomaa, *${firstName}*! Gareen Aritii Tech odeeffannoo pirojektii keessanii argateera:\n\n💻 *Tajaajila:* ${finalQuote.service}\n📋 *Galma Pirojektii:* ${finalQuote.description}\n💰 *Yeroo / Baasii:* ${finalQuote.budget}\n📞 *Quunnamtii:* ${finalQuote.contact}\n\nGareen teeknikaa keenya hatattamaan isin quunnama!`
-        : `🎉 *Project Quote Request Received!*\n\nThank you, *${firstName}*! The Aritii Tech team has received your project details:\n\n💻 *Service:* ${finalQuote.service}\n📋 *Project Goals:* ${finalQuote.description}\n💰 *Timeline / Budget:* ${finalQuote.budget}\n📞 *Contact Info:* ${finalQuote.contact}\n\nOur engineering team will review your specifications and reach out promptly!`;
+        ? `🎉 *Gaaffiin Gatii Keessan Milkaa'inaan Qaqqabeera!*\n\nGalatoomaa, *${firstName}*! Gareen Ariti Tech odeeffannoo pirojektii keessanii argateera:\n\n💻 *Tajaajila:* ${finalQuote.service}\n📋 *Galma Pirojektii:* ${finalQuote.description}\n💰 *Yeroo / Baasii:* ${finalQuote.budget}\n📞 *Quunnamtii:* ${finalQuote.contact}\n\nGareen teeknikaa keenya hatattamaan isin quunnama!`
+        : `🎉 *Project Quote Request Received!*\n\nThank you, *${firstName}*! The Ariti Tech team has received your project details:\n\n💻 *Service:* ${finalQuote.service}\n📋 *Project Goals:* ${finalQuote.description}\n💰 *Timeline / Budget:* ${finalQuote.budget}\n📞 *Contact Info:* ${finalQuote.contact}\n\nOur engineering team will review your specifications and reach out promptly!`;
 
       await bot.sendMessage(chatId, confirmMsg, {
         parse_mode: "Markdown",
@@ -816,25 +814,28 @@ async function handleMessage(msg, bot, userList) {
   }
 
   const smartFallback = langForReplies === "oromo"
-    ? "Aritii Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
-    : "Thanks for reaching out to Aritii Tech! You can explore our services using /services or tell us about your project using /quote.";
+    ? "Ariti Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
+    : "Thanks for reaching out to Ariti Tech! You can explore our services using /services or tell us about your project using /quote.";
 
   await sendBotReply(bot, chatId, userId, firstName, text, smartFallback, getMainMenuKeyboard(langForReplies, isAdmin(userId)), langForReplies);
 }
 
 async function sendBotReply(bot, chatId, userId, firstName, userText, replyText, replyMarkup, lang) {
-  const finalReply = firstName !== "there" && lang === "english" && !replyText.startsWith("Hello") && !replyText.startsWith("Hey")
-    ? `${firstName}, ${replyText[0].toLowerCase() + replyText.slice(1)}`
-    : replyText;
+  const finalReply = replyText;
 
   const options = { parse_mode: "Markdown" };
   if (replyMarkup) options.reply_markup = replyMarkup;
 
   try {
     await bot.sendMessage(chatId, finalReply, options);
-  } catch {
+  } catch (err) {
+    logger.debug(`sendMessage Markdown failed: ${err.message}. Retrying plain text.`);
     delete options.parse_mode;
-    await bot.sendMessage(chatId, finalReply, options);
+    try {
+      await bot.sendMessage(chatId, finalReply, options);
+    } catch (err2) {
+      logger.error(`sendMessage failed: ${err2.message}`);
+    }
   }
 
   addMemory(userId, "bot", finalReply);
