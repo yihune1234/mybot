@@ -6,7 +6,7 @@
     "build": "echo 'Build complete'",
     "start": "node bot.js",
     "dev": "nodemon bot.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test_ariiti_customization.js && node test_milestone1.js && node test_verify_feature.js"
   },
   "nodemonConfig": {
     "ignore": [

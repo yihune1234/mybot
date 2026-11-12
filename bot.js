@@ -37,12 +37,16 @@ const bot = useWebhook ? new TelegramBot(TOKEN) : new TelegramBot(TOKEN, { polli
 
 bot.setMyCommands([
   { command: "start", description: "Start the bot & open main menu" },
-  { command: "verify", description: "Verify media origin (C2PA & SynthID)" },
-  { command: "quote", description: "Request a software quote" },
-  { command: "services", description: "Explore Ariti Tech services" },
-  { command: "help", description: "Show help & available commands" },
+  { command: "services", description: "Explore Ariiti Tech services" },
+  { command: "products", description: "Explore ready digital products" },
+  { command: "portfolio", description: "View our portfolio & projects" },
+  { command: "quote", description: "Request a software service / quote" },
+  { command: "about", description: "About Ariiti Tech" },
   { command: "contact", description: "Contact our engineering team" },
-  { command: "language", description: "Switch language (EN / OM)" },
+  { command: "channels", description: "Follow official channels & socials" },
+  { command: "language", description: "Switch language (EN / OM / AM)" },
+  { command: "verify", description: "Verify media origin (C2PA & SynthID)" },
+  { command: "help", description: "Show help & available commands" },
   { command: "ping", description: "Check bot latency" },
 ]).catch((err) => logger.warn(`Failed to set bot commands: ${err.message}`));
 

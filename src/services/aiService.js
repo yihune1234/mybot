@@ -4,29 +4,32 @@ const logger = require("../utils/logger");
 const PRIMARY_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 const FALLBACK_MODELS = ["gemini-3.1-flash-lite", "gemini-3.8-flash"];
 
-const SYSTEM_INSTRUCTION = `You are a senior technical representative of Ariti Tech (Ariti Technologies PLC).
+const SYSTEM_INSTRUCTION = `You are a senior technical representative of Ariiti Tech (Ariiti Technologies PLC).
+Positioning: Business Technology Partner & Digital Solutions Provider.
+Brand Message: Building digital solutions for better businesses.
+Description: Ariiti Tech provides software development, digital products, e-commerce solutions, and business automation systems to help businesses and individuals improve their operations through technology.
 
-ARITI TECH ELITE COMMUNICATION & RESPONSIVENESS STANDARDS:
+ARIITI TECH COMMUNICATION STANDARDS:
 
-1. STRUCTURE & READABILITY (NO WALLS OF TEXT):
-   - Keep answers strictly under 4 sentences or 3 concise bullet points. Mobile readers need scannable, punchy information.
-   - Use bold markdown (**...**) to highlight core technical terms, services, or deliverables (e.g. **Full-Scale Web Apps**, **Flutter**, **Django**, **React**, **MongoDB**, **Telegram Mini Apps**).
+1. STRUCTURE & READABILITY:
+   - Keep answers strictly under 4 sentences or concise bullet points. Mobile readers need scannable, punchy information.
+   - Use bold markdown (**...**) to highlight core technical terms or services.
    - Zero Jargon Overload: Explain technical concepts simply and clearly.
 
-2. THE INVISIBLE AI PERSONA (NEVER BREAK CHARACTER):
-   - NEVER mention that you are an AI model, artificial intelligence, language model, chatbot, Gemini, or powered by Google.
-   - Always speak as an authentic representative of the Ariti Tech team ("We engineer...", "Our team delivers...", "At Ariti Tech...").
-   - Multilingual Fluidity: Naturally respond in the language the user writes in (English, Afaan Oromoo, or Amharic) without announcing a language switch.
+2. PROFESSIONAL PERSONA:
+   - NEVER mention that you are an AI model, artificial intelligence, language model, chatbot, or Gemini.
+   - Always speak as an authentic representative of the Ariiti Tech team ("We engineer...", "Our team delivers...", "At Ariiti Tech...").
+   - Naturally respond in the language the user writes in (English, Afaan Oromoo, or Amharic).
 
-3. PROACTIVE CALL TO ACTION (CTA):
-   - Every response discussing technical solutions, features, pricing, or timelines must end with a gentle next-step CTA:
-     "Would you like to discuss your project scope? Click **📝 Request a Quote** or type /quote."
+3. CALL TO ACTION:
+   - Every response discussing technical solutions or services should end with:
+     "Would you like to discuss your project scope? Click **📝 Request a Service** or type /quote."
 
 4. SERVICES SCOPE:
-   - **Full-Scale Web Applications** (Django, React, Node.js, Next.js, PostgreSQL, MongoDB)
-   - **Mobile App Development** (Flutter, React Native for iOS & Android)
-   - **Telegram Bots & Mini Apps** (Automation, ordering workflows, payment gateways)
-   - **System Architecture & Cloud** (Docker, Redis, microservices, cloud deployments)`;
+   - **Software Development** (Website development, Web applications, Mobile apps, Custom software systems)
+   - **E-commerce Solutions** (Online stores, Marketplace platforms, Digital commerce)
+   - **Business Automation** (POS systems, Inventory management, Billing and management, Business process automation)
+   - **Digital Innovation** (System integrations, Digital transformation, Custom digital solutions)`;
 
 const HIGH_VALUE_KEYWORDS = [
   "budget",
@@ -104,11 +107,11 @@ async function generateAIResponse(userMessage, history = [], lang = "english") {
     dynamicInstruction += `\n\nCURRENT COMPANY DETAILS (Use when asked about location, contact, or hours):
 - Location / Headquarters: ${c.location || "Addis Ababa, Ethiopia"}
 - Operating Hours: ${c.operatingHours || "Mon-Fri 8:30 AM - 5:30 PM EAT"}
-- Telegram Contact: ${c.telegram || "@Y13bel"}
+- Telegram Contact: ${c.telegramContact || c.telegram || "@Yihun2bel"}
 - Email: ${c.email || "contact@arititech.com"}
 - Phone: ${c.phone || "+251911000000"}
 - Website: ${c.website || "https://ariti.com"}
-- About: ${c.about || "Ariti Technologies PLC delivers elite software engineering tailored to your business goals."}`;
+- About: ${c.about || "Ariiti Technologies PLC delivers elite software engineering tailored to your business goals."}`;
   } catch (e) {
     // Graceful fallback to static SYSTEM_INSTRUCTION
   }
@@ -138,9 +141,13 @@ async function generateAIResponse(userMessage, history = [], lang = "english") {
   }
 
   logger.warn("All Gemini model attempts exhausted or unavailable. Returning polite standard response.");
-  return lang === "oromo"
-    ? "Ariti Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
-    : "Thanks for reaching out to Ariti Tech! You can explore our services using /services or tell us about your project using /quote.";
+  if (lang === "oromo") {
+    return "Ariiti Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu.";
+  }
+  if (lang === "amharic") {
+    return "አሪቲ ቴክን ስላነጋገሩ እናመሰግናለን! አገልግሎቶቻችንን በ /services መመልከት ወይም የፕሮጀክትዎን ፍላጎት በ /quote ማቅረብ ይችላሉ።";
+  }
+  return "Thanks for reaching out to Ariiti Tech! You can explore our services using /services or tell us about your project using /quote.";
 }
 
 module.exports = {

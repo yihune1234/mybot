@@ -49,6 +49,9 @@ function languageSwitchKeyboard(lang = "english") {
         { text: "English 🇺🇸", callback_data: "lang_switch_english" },
         { text: "Afaan Oromoo 🇪🇹", callback_data: "lang_switch_oromo" },
       ],
+      [
+        { text: "አማርኛ (Amharic) 🇪🇹", callback_data: "lang_switch_amharic" },
+      ],
     ],
   };
 }
@@ -170,6 +173,51 @@ async function handleRegularCommand(text, chatId, userId, bot, userList, lang = 
       trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "Services Menu");
     } catch (err) {
       logger.error(`/services error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/products") {
+    try {
+      const { getProductsText, getProductsKeyboard } = require("../utils/uiComponents");
+      const reply = getProductsText(lang);
+      await bot.sendMessage(chatId, reply, {
+        parse_mode: "Markdown",
+        reply_markup: getProductsKeyboard(lang),
+      });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "Products Menu");
+    } catch (err) {
+      logger.error(`/products error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/portfolio") {
+    try {
+      const { getPortfolioText, getPortfolioKeyboard } = require("../utils/uiComponents");
+      const reply = getPortfolioText(lang);
+      await bot.sendMessage(chatId, reply, {
+        parse_mode: "Markdown",
+        reply_markup: getPortfolioKeyboard(lang),
+      });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "Portfolio Menu");
+    } catch (err) {
+      logger.error(`/portfolio error: ${err.message}`);
+    }
+    return true;
+  }
+
+  if (text === "/channels") {
+    try {
+      const { getChannelsText, getChannelsKeyboard } = require("../utils/uiComponents");
+      const reply = getChannelsText(lang);
+      await bot.sendMessage(chatId, reply, {
+        parse_mode: "Markdown",
+        reply_markup: getChannelsKeyboard(lang),
+      });
+      trackBotReply(userId, (getUserById(userId) || {}).firstName || "unknown", text, "Channels Menu");
+    } catch (err) {
+      logger.error(`/channels error: ${err.message}`);
     }
     return true;
   }
@@ -385,7 +433,7 @@ function helpKeyboard(lang = "english") {
         { text: isOr ? "📝 Gatii Gaafadhu" : "📝 Request a Quote", callback_data: "start_quote" },
       ],
       [
-        { text: isOr ? "🏢 Waa'ee Ariti Tech" : "🏢 About Ariti Tech", callback_data: "view_about" },
+        { text: isOr ? "🏢 Waa'ee Ariiti Tech" : "🏢 About Ariiti Tech", callback_data: "view_about" },
         { text: isOr ? "🔍 Miidiyaa Mirkaneessi" : "🔍 Verify Media (C2PA)", callback_data: "verify_media_prompt" },
       ],
       [
@@ -406,7 +454,7 @@ function contactKeyboard() {
       [{ text: "🌐 Portfolio", url: "https://myportfolio-1-01m7.onrender.com/" }],
       [{ text: "💻 GitHub", url: "https://github.com/yihune1234" }],
       [{ text: "🔗 LinkedIn", url: "https://www.linkedin.com/in/yihune-belay-30b0a4383" }],
-      [{ text: "📱 Telegram", url: "https://t.me/Y13bel" }],
+      [{ text: "📱 Telegram", url: "https://t.me/Yihun2bel" }],
       [{ text: "✉️ Email", callback_data: "show_email" }],
     ],
   };

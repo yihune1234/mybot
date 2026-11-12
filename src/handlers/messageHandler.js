@@ -79,7 +79,7 @@ function languageSelectionKeyboard() {
       ],
       [
         { text: "🔗 LinkedIn", url: "https://www.linkedin.com/in/yihune-belay-30b0a4383" },
-        { text: "📱 Telegram", url: "https://t.me/Y13bel" },
+        { text: "📱 Telegram", url: "https://t.me/Yihun2bel" },
       ],
       [
         { text: "✉️ Email", callback_data: "show_email" },
@@ -97,7 +97,7 @@ function serviceKeyboard(lang = "english") {
       ],
       [
         { text: "🌐 Live Portfolio", url: "https://myportfolio-1-01m7.onrender.com/" },
-        { text: "📱 Telegram", url: "https://t.me/Y13bel" },
+        { text: "📱 Telegram", url: "https://t.me/Yihun2bel" },
       ],
     ],
   };
@@ -125,7 +125,7 @@ function quoteKeyboard(lang = "english") {
         { text: lang === "oromo" ? "📝 Qajeelfama Gatii Jalqabi" : "📝 Start Quote Wizard", callback_data: "start_quote" },
       ],
       [
-        { text: lang === "oromo" ? "💬 Yihune Waliin Haasa'i" : "💬 Message Yihune", url: "https://t.me/Y13bel" },
+        { text: lang === "oromo" ? "💬 Yihune Waliin Haasa'i" : "💬 Message Yihune", url: "https://t.me/Yihun2bel" },
         { text: lang === "oromo" ? "💼 Hojiilee Ilaali" : "💼 View Past Work", callback_data: "view_portfolio" },
       ],
     ],
@@ -136,7 +136,7 @@ function contactKeyboard(lang = "english") {
   return {
     inline_keyboard: [
       [
-        { text: "📱 Telegram: @Y13bel", url: "https://t.me/Y13bel" },
+        { text: "📱 Telegram: @Yihun2bel", url: "https://t.me/Yihun2bel" },
         { text: "✉️ Copy Email", callback_data: "show_email" },
       ],
       [
@@ -361,17 +361,25 @@ async function handleMessage(msg, bot, userList) {
   // Onboarding Language Check
   if (!hasSelectedLanguage(userId)) {
     const en =
-      `🏢 *WELCOME TO ARITI TECH*\n\n` +
-      `We engineer high-performance web systems, cross-platform mobile apps, enterprise Telegram bots, and resilient cloud architectures.\n\n` +
-      `🌐 *Please select your language / Afaan kee filadhu:*`;
+      `🏢 *WELCOME TO ARIITI TECH*\n\n` +
+      `Business Technology Partner & Digital Solutions Provider.\n` +
+      `_Building digital solutions for better businesses._\n\n` +
+      `🌐 *Please select your language / Afaan kee filadhu / እባክዎ ቋንቋ ይምረጡ:*`;
 
     const om =
-      `🏢 *BAGA GARA ARITI TECH NAGAYAN DHUFTAN*\n\n` +
-      `Sirna dijitaalaa ammayyaa, web saffisaa, app moobaayilii, fi botiiwwan Telegram daldalaa ijaarra.\n\n` +
-      `🌐 *Afaan kee filadhu / Please select your language:*`;
+      `🏢 *BAGA GARA ARIITI TECH NAGAYAN DHUFTAN*\n\n` +
+      `Hiriyaa Teeknoolojii Daldalaa fi Furmaata Dijitaalaa.\n` +
+      `_Daldala fooyya'aaf furmaata dijitaalaa ijaarra._\n\n` +
+      `🌐 *Afaan kee filadhu / Please select your language / እባክዎ ቋንቋ ይምረጡ:*`;
+
+    const am =
+      `🏢 *ወደ አሪቲ ቴክ (ARIITI TECH) እንኳን በደህና መጡ*\n\n` +
+      `የቢዝነስ ቴክኖሎጂ አጋር እና የዲጂታል መፍትሄዎች አቅራቢ።\n` +
+      `_ለተሻለ ንግድ ዘመናዊ ዲጂታል መፍትሄዎችን መገንባት።_\n\n` +
+      `🌐 *እባክዎ ቋንቋ ይምረጡ / Please select your language / Afaan kee filadhu:*`;
 
     const userLang = detectLanguage(text);
-    const intro = userLang === "oromo" ? om : en;
+    const intro = userLang === "oromo" ? om : userLang === "amharic" ? am : en;
 
     try {
       await bot.sendMessage(chatId, intro, {
@@ -383,8 +391,11 @@ async function handleMessage(msg, bot, userList) {
               { text: "Afaan Oromoo 🇪🇹", callback_data: "lang_om" },
             ],
             [
-              { text: "🛠 Explore Services", callback_data: "view_services" },
-              { text: "💼 Portfolio", callback_data: "view_portfolio" },
+              { text: "አማርኛ (Amharic) 🇪🇹", callback_data: "lang_am" },
+            ],
+            [
+              { text: "💻 Explore Services", callback_data: "view_services" },
+              { text: "🚀 Portfolio", callback_data: "view_portfolio" },
             ],
           ],
         },
@@ -397,7 +408,7 @@ async function handleMessage(msg, bot, userList) {
 
   const lang = getUserLanguage(userId) || "english";
   const lc = getLangCode(lang);
-  const langForReplies = lang === "oromo" ? "oromo" : "english";
+  const langForReplies = (lang === "oromo" || lang === "om") ? "oromo" : (lang === "amharic" || lang === "am") ? "amharic" : "english";
 
   trackMessage(msg, langForReplies);
 
@@ -492,8 +503,17 @@ async function handleMessage(msg, bot, userList) {
     }
 
     // Admin Contact & Profile Editing State Handlers
-    if (activeState.startsWith("STATE_ADMIN_EDIT_") && isAdmin(userId)) {
-      const { updateCompanyProfile } = require("../services/businessConfigService");
+    if (activeState.startsWith("STATE_ADMIN_") && isAdmin(userId)) {
+      const {
+        updateCompanyProfile,
+        updateWelcomeMessage,
+        addSocialLink,
+        addChannelLink,
+      } = require("../services/businessConfigService");
+      const { addService } = require("../services/serviceCatalogService");
+      const { addProduct } = require("../services/productCatalogService");
+      const { addPortfolioProject } = require("../services/portfolioService");
+
       const backProfileKb = {
         inline_keyboard: [[{ text: "🏢 Return to Business Profile", callback_data: "admin_nav_profile" }]],
       };
@@ -501,37 +521,132 @@ async function handleMessage(msg, bot, userList) {
       if (activeState === "STATE_ADMIN_EDIT_PHONE") {
         clearUserState(userId);
         await updateCompanyProfile({ phone: text.trim() });
-        await bot.sendMessage(chatId, `✅ <b>Business phone updated to:</b> <code>${text.trim()}</code>\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        await bot.sendMessage(chatId, `✅ <b>Business phone updated to:</b> <code>${text.trim()}</code>\n💾 Saved to configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
         return;
       }
       if (activeState === "STATE_ADMIN_EDIT_EMAIL") {
         clearUserState(userId);
         await updateCompanyProfile({ email: text.trim() });
-        await bot.sendMessage(chatId, `✅ <b>Business email updated to:</b> <code>${text.trim()}</code>\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        await bot.sendMessage(chatId, `✅ <b>Business email updated to:</b> <code>${text.trim()}</code>\n💾 Saved to configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
         return;
       }
       if (activeState === "STATE_ADMIN_EDIT_TELEGRAM") {
         clearUserState(userId);
-        await updateCompanyProfile({ telegram: text.trim() });
-        await bot.sendMessage(chatId, `✅ <b>Business Telegram updated to:</b> <code>${text.trim()}</code>\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        await updateCompanyProfile({ telegramContact: text.trim(), telegram: text.trim() });
+        await bot.sendMessage(chatId, `✅ <b>Business Telegram updated to:</b> <code>${text.trim()}</code>\n💾 Saved to configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
         return;
       }
       if (activeState === "STATE_ADMIN_EDIT_LOCATION") {
         clearUserState(userId);
         await updateCompanyProfile({ location: text.trim() });
-        await bot.sendMessage(chatId, `✅ <b>Business location updated to:</b> <code>${text.trim()}</code>\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        await bot.sendMessage(chatId, `✅ <b>Business location updated to:</b> <code>${text.trim()}</code>\n💾 Saved to configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
         return;
       }
       if (activeState === "STATE_ADMIN_EDIT_HOURS") {
         clearUserState(userId);
         await updateCompanyProfile({ operatingHours: text.trim() });
-        await bot.sendMessage(chatId, `✅ <b>Operating hours updated to:</b> <code>${text.trim()}</code>\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        await bot.sendMessage(chatId, `✅ <b>Operating hours updated to:</b> <code>${text.trim()}</code>\n💾 Saved to configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
         return;
       }
       if (activeState === "STATE_ADMIN_EDIT_ABOUT") {
         clearUserState(userId);
         await updateCompanyProfile({ about: text.trim() });
-        await bot.sendMessage(chatId, `✅ <b>About / Bio updated to:</b>\n<i>${text.trim()}</i>\n\n💾 Saved directly to MongoDB Atlas & local configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        await bot.sendMessage(chatId, `✅ <b>About / Bio updated to:</b>\n<i>${text.trim()}</i>\n\n💾 Saved to configuration!`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        return;
+      }
+      if (activeState === "STATE_ADMIN_EDIT_WELCOME") {
+        const targetLang = userSession.data?.targetLang || "english";
+        clearUserState(userId);
+        updateWelcomeMessage(targetLang, text.trim());
+        const backWelcomeKb = {
+          inline_keyboard: [[{ text: "👋 Return to Welcome Menu", callback_data: "admin_nav_welcome" }]],
+        };
+        await bot.sendMessage(chatId, `✅ <b>${targetLang.toUpperCase()} Welcome message updated!</b>\n\n<i>${text.trim()}</i>\n\n💾 Saved to configuration!`, { parse_mode: "HTML", reply_markup: backWelcomeKb });
+        return;
+      }
+      if (activeState === "STATE_ADMIN_ADD_SERVICE") {
+        clearUserState(userId);
+        const parts = text.split("|").map((p) => p.trim());
+        const name = parts[0] || "New Service";
+        const category = parts[1] || "Software Development";
+        const price = parseFloat(parts[2]) || 500;
+        const desc = parts[3] || "Custom digital solution provided by Ariiti Tech.";
+        const newSrv = addService({
+          name,
+          category,
+          startingPrice: price,
+          description: desc,
+          features: ["Tailored engineering", "Full testing & deployment", "Documentation"],
+        });
+        const backServicesKb = {
+          inline_keyboard: [[{ text: "🛠 Return to Services", callback_data: "admin_nav_services" }]],
+        };
+        await bot.sendMessage(chatId, `✅ <b>New Service Created Successfully!</b>\n\n• <b>Name:</b> ${newSrv.name}\n• <b>Category:</b> ${newSrv.category}\n• <b>Price:</b> $${newSrv.startingPrice}\n• <b>Description:</b> ${newSrv.description}`, { parse_mode: "HTML", reply_markup: backServicesKb });
+        return;
+      }
+      if (activeState === "STATE_ADMIN_ADD_PRODUCT") {
+        clearUserState(userId);
+        const parts = text.split("|").map((p) => p.trim());
+        const name = parts[0] || "New Digital Product";
+        const category = parts[1] || "Digital Solutions";
+        const pricing = parts[2] || "Contact for pricing";
+        const desc = parts[3] || "Turnkey software solution by Ariiti Tech.";
+        const newProd = addProduct({
+          name,
+          category,
+          pricing,
+          description: desc,
+          features: ["Turnkey architecture", "Fast deployment", "Support included"],
+        });
+        const backProdKb = {
+          inline_keyboard: [[{ text: "📦 Return to Products", callback_data: "admin_nav_products" }]],
+        };
+        await bot.sendMessage(chatId, `✅ <b>New Product Created Successfully!</b>\n\n• <b>Name:</b> ${newProd.name}\n• <b>Category:</b> ${newProd.category}\n• <b>Pricing:</b> ${newProd.pricing}\n• <b>Description:</b> ${newProd.description}`, { parse_mode: "HTML", reply_markup: backProdKb });
+        return;
+      }
+      if (activeState === "STATE_ADMIN_ADD_PORTFOLIO") {
+        clearUserState(userId);
+        const parts = text.split("|").map((p) => p.trim());
+        const title = parts[0] || "New Showcase Project";
+        const category = parts[1] || "Digital Solutions";
+        const techStack = parts[2] || "Modern Web & Mobile";
+        const desc = parts[3] || "Delivered enterprise solution by Ariiti Tech.";
+        const newPort = addPortfolioProject({
+          title,
+          category,
+          techStack,
+          description: desc,
+        });
+        const backPortKb = {
+          inline_keyboard: [[{ text: "🚀 Return to Portfolio", callback_data: "admin_nav_portfolio" }]],
+        };
+        await bot.sendMessage(chatId, `✅ <b>Portfolio Project Added!</b>\n\n• <b>Title:</b> ${newPort.title}\n• <b>Category:</b> ${newPort.category}\n• <b>Tech:</b> \`${newPort.techStack}\`\n• <b>Description:</b> ${newPort.description}`, { parse_mode: "HTML", reply_markup: backPortKb });
+        return;
+      }
+      if (activeState === "STATE_ADMIN_ADD_SOCIAL") {
+        clearUserState(userId);
+        const parts = text.split("|").map((p) => p.trim());
+        const name = parts[0] || "Social";
+        const url = parts[1] || "";
+        if (!url) {
+          await bot.sendMessage(chatId, "❌ Invalid format. Please provide <code>Name | URL</code>.", { parse_mode: "HTML", reply_markup: backProfileKb });
+          return;
+        }
+        addSocialLink(name, url);
+        await bot.sendMessage(chatId, `✅ <b>Social link for '${name}' added!</b>\n🔗 ${url}`, { parse_mode: "HTML", reply_markup: backProfileKb });
+        return;
+      }
+      if (activeState === "STATE_ADMIN_ADD_CHANNEL") {
+        clearUserState(userId);
+        const parts = text.split("|").map((p) => p.trim());
+        const name = parts[0] || "Channel";
+        const url = parts[1] || "";
+        if (!url) {
+          await bot.sendMessage(chatId, "❌ Invalid format. Please provide <code>Channel Name | Telegram URL</code>.", { parse_mode: "HTML", reply_markup: backProfileKb });
+          return;
+        }
+        addChannelLink(name, url);
+        await bot.sendMessage(chatId, `✅ <b>Channel link for '${name}' added!</b>\n📢 ${url}`, { parse_mode: "HTML", reply_markup: backProfileKb });
         return;
       }
     }
@@ -600,9 +715,14 @@ async function handleMessage(msg, bot, userList) {
         logger.error(`Failed to notify admin of quote: ${err.message}`);
       }
 
-      const confirmMsg = langForReplies === "oromo"
-        ? `🎉 *Gaaffiin Gatii Keessan Milkaa'inaan Qaqqabeera!*\n\nGalatoomaa, *${firstName}*! Gareen Ariti Tech odeeffannoo pirojektii keessanii argateera:\n\n💻 *Tajaajila:* ${finalQuote.service}\n📋 *Galma Pirojektii:* ${finalQuote.description}\n💰 *Yeroo / Baasii:* ${finalQuote.budget}\n📞 *Quunnamtii:* ${finalQuote.contact}\n\nGareen teeknikaa keenya hatattamaan isin quunnama!`
-        : `🎉 *Project Quote Request Received!*\n\nThank you, *${firstName}*! The Ariti Tech team has received your project details:\n\n💻 *Service:* ${finalQuote.service}\n📋 *Project Goals:* ${finalQuote.description}\n💰 *Timeline / Budget:* ${finalQuote.budget}\n📞 *Contact Info:* ${finalQuote.contact}\n\nOur engineering team will review your specifications and reach out promptly!`;
+      let confirmMsg;
+      if (langForReplies === "oromo") {
+        confirmMsg = `🎉 *Gaaffiin Gatii Keessan Milkaa'inaan Qaqqabeera!*\n\nGalatoomaa, *${firstName}*! Gareen Ariiti Tech odeeffannoo pirojektii keessanii argateera:\n\n💻 *Tajaajila:* ${finalQuote.service}\n📋 *Galma Pirojektii:* ${finalQuote.description}\n💰 *Yeroo / Baasii:* ${finalQuote.budget}\n📞 *Quunnamtii:* ${finalQuote.contact}\n\nGareen teeknikaa keenya hatattamaan isin quunnama!`;
+      } else if (langForReplies === "amharic") {
+        confirmMsg = `🎉 *የአገልግሎት ጥያቄዎ በተሳካ ሁኔታ ደርሶናል!*\n\nእናመሰግናለን፣ *${firstName}*! የአሪቲ ቴክ (Ariiti Tech) የምህንድስና ቡድን የፕሮጀክትዎን ዝርዝር መረጃ ተቀብሏል፦\n\n💻 *አገልግሎት:* ${finalQuote.service}\n📋 *የፕሮጀክቱ አላማ:* ${finalQuote.description}\n💰 *በጀት / የጊዜ ሰሌዳ:* ${finalQuote.budget}\n📞 *የመገናኛ አድራሻ:* ${finalQuote.contact}\n\nየምህንድስና ቡድናችን ዝርዝሩን ተመልክቶ በአፋጣኝ ያነጋግርዎታል!`;
+      } else {
+        confirmMsg = `🎉 *Project Service Request Received!*\n\nThank you, *${firstName}*! The Ariiti Tech team has received your project details:\n\n💻 *Service:* ${finalQuote.service}\n📋 *Project Goals:* ${finalQuote.description}\n💰 *Timeline / Budget:* ${finalQuote.budget}\n📞 *Contact Info:* ${finalQuote.contact}\n\nOur engineering team will review your specifications and reach out promptly!`;
+      }
 
       await bot.sendMessage(chatId, confirmMsg, {
         parse_mode: "Markdown",
@@ -814,8 +934,10 @@ async function handleMessage(msg, bot, userList) {
   }
 
   const smartFallback = langForReplies === "oromo"
-    ? "Ariti Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
-    : "Thanks for reaching out to Ariti Tech! You can explore our services using /services or tell us about your project using /quote.";
+    ? "Ariiti Tech quunnamuu keessaniif galatoomaa! Tajaajiloota keenya /services fayyadamuun ilaaluu ykn waa'ee pirojektii keessanii /quote fayyadamuun nuuf ibsuu dandeessu."
+    : langForReplies === "amharic"
+    ? "አሪቲ ቴክን ስላነጋገሩ እናመሰግናለን! አገልግሎቶቻችንን በ /services መመልከት ወይም የፕሮጀክትዎን ፍላጎት በ /quote ማቅረብ ይችላሉ።"
+    : "Thanks for reaching out to Ariiti Tech! You can explore our services using /services or tell us about your project using /quote.";
 
   await sendBotReply(bot, chatId, userId, firstName, text, smartFallback, getMainMenuKeyboard(langForReplies, isAdmin(userId)), langForReplies);
 }

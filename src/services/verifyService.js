@@ -1,5 +1,5 @@
 /**
- * Ariti Tech Media Provenance & Verification Service
+ * Ariiti Tech Media Provenance & Verification Service
  * Supports C2PA (Content Credentials), Google SynthID, and EXIF/XMP AI detection.
  */
 

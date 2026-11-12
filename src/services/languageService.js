@@ -66,6 +66,13 @@ function detectLanguage(text) {
   if (!text || text.trim().length === 0) return "unknown";
 
   const lower = text.toLowerCase().trim();
+
+  // Amharic detection: check for Ge'ez Ethiopic script characters (\u1200 - \u137F)
+  const amharicChars = (text.match(/[\u1200-\u137F]/g) || []).length;
+  if (amharicChars > 2 || (amharicChars > 0 && text.trim().length < 10)) {
+    return "amharic";
+  }
+
   const words = lower.split(/\s+/).filter(Boolean);
   if (words.length === 0) return "unknown";
 

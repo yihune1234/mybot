@@ -71,6 +71,32 @@ function addService(serviceData) {
   return newService;
 }
 
+function deleteService(serviceId) {
+  const services = getAllServices();
+  const index = services.findIndex((s) => s.id === serviceId);
+  if (index === -1) return false;
+
+  services.splice(index, 1);
+  saveServices(services);
+  logger.info(`Service ${serviceId} deleted.`);
+  return true;
+}
+
+function getServicesByCategory(category = null) {
+  const active = getActiveServices();
+  if (!category) return active;
+  return active.filter((s) => s.category.toLowerCase() === category.toLowerCase());
+}
+
+function getAllCategories() {
+  const services = getAllServices();
+  const cats = new Set();
+  services.forEach((s) => {
+    if (s.category) cats.add(s.category);
+  });
+  return Array.from(cats);
+}
+
 module.exports = {
   getAllServices,
   getActiveServices,
@@ -79,4 +105,7 @@ module.exports = {
   toggleServiceStatus,
   updateServicePrice,
   addService,
+  deleteService,
+  getServicesByCategory,
+  getAllCategories,
 };

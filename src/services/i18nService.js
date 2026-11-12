@@ -9,8 +9,13 @@ function loadTranslations() {
   try {
     translations.en = require(path.join(i18nDir, "en.json"));
     translations.om = require(path.join(i18nDir, "om.json"));
+    try {
+      translations.am = require(path.join(i18nDir, "am.json"));
+    } catch (_) {
+      translations.am = translations.en;
+    }
     loaded = true;
-    logger.info(`🌐 i18n loaded: English (${Object.keys(translations.en).length} sections), Afaan Oromoo (${Object.keys(translations.om).length} sections)`);
+    logger.info(`🌐 i18n loaded: English (${Object.keys(translations.en).length} sections), Afaan Oromoo (${Object.keys(translations.om).length} sections), Amharic (${Object.keys(translations.am).length} sections)`);
   } catch (err) {
     logger.error(`Failed to load i18n files: ${err.message}`);
     throw err;
@@ -48,7 +53,10 @@ function t(key, lang = "en", params = {}) {
 }
 
 function getLangCode(lang) {
-  if (lang === "oromo" || lang === "om") return "om";
+  if (!lang) return "en";
+  const normalized = String(lang).toLowerCase();
+  if (normalized === "oromo" || normalized === "om") return "om";
+  if (normalized === "amharic" || normalized === "am") return "am";
   return "en";
 }
 

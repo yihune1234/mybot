@@ -1,0 +1,86 @@
+{
+  "language": {
+    "name": "Amharic",
+    "code": "am",
+    "emoji": "🇪🇹"
+  },
+  "welcome": {
+    "first_time": "እንኳን ደህና መጡ! ለመቀጠል እባክዎ ቋንቋ ይምረጡ።",
+    "select_language": "🌐 *የቋንቋ ምርጫ*\n\nእባክዎ የሚፈልጉትን ቋንቋ ይምረጡ፦",
+    "language_saved": "✅ ቋንቋው ወደ አማርኛ ተቀናብሯል 🇪🇹",
+    "hello": "ሰላም! ዛሬ በምን ልርዳዎት?",
+    "hello_oromo": "Akkam jirtu! Har'a maal keessatti isin gargaaruu danda'a?"
+  },
+  "commands": {
+    "start": "ሰላም 👋 እኔ የአሪቲ ቴክ (Ariiti Tech) ይፋዊ ዲጂታል ረዳት ነኝ።\n\nእኛ የምንሰጣቸው አገልግሎቶች፦\n• የሶፍትዌር፣ የዌብሳይት እና የሞባይል አፕሊኬሽን ልማት\n• የኢ-ኮሜርስ እና የዲጂታል ንግድ መፍትሄዎች\n• የቢዝነስ አውቶሜሽን እና የPOS ሲስተሞች\n• የቴክኖሎጂ ምክር እና የዋጋ ግምት\n\nየአማራጭ ዝርዝሩን ለማየት /help ይጠቀሙ!",
+    "help": "🤖 *የእርዳታ ማውጫ*\nከታች ካሉት አንዱን ይምረጡ፦",
+    "help_about": "ስለ እኛ",
+    "help_stats": "ስታቲስቲክስ",
+    "help_joke": "ቀልድ",
+    "help_forget": "ማስታወሻ አጽዳ",
+    "forget_done": "🧹 ማስታወሻ ጸድቷል! ያለፈውን ውይይት ረስተነዋል።",
+    "forget_oromo": "🧹 Yaadannoo qulqulleffame! Haasa'aa duraa irraanfadheera.",
+    "stats_title": "📊 *የእርስዎ መረጃ*",
+    "stats_first_seen": "📅 የተመዘገቡበት ቀን",
+    "stats_messages": "💬 የላኳቸው መልእክቶች",
+    "stats_language": "🌐 ቋንቋ",
+    "stats_memory": "🧠 የውይይት ማህደረ ትውስታ",
+    "stats_no_data": "እስካሁን ምንም መረጃ የለም። በመጀመሪያ መልእክት ይላኩ!",
+    "ping_response": "ፖንግ! 🏓",
+    "ping_time": "የመልስ ፍጥነት",
+    "echo_usage": "አጠቃቀም፦ /echo <መልእክት>",
+    "remind_usage": "አጠቃቀም፦ /remind <ጊዜ> <ማስታወሻ>\nምሳሌ፦\n/remind 10s ደውል",
+    "remind_invalid": "ትክክለኛ የጊዜ ቅርጸት አይደለም። ለምሳሌ 10s, 5min, 1h ይጠቀሙ።",
+    "remind_max": "ከፍተኛው የማስታወሻ ጊዜ 24 ሰዓት ነው።",
+    "remind_set": "✅ ማስታወሻ ተይዟል! በማስታወሻው ጊዜ አሳውቆታለሁ።",
+    "weather_usage": "አጠቃቀም፦ /weather <የከተማ ስም>",
+    "weather_unavailable": "ይቅርታ፣ የአየር ሁኔታ አገልግሎት በአሁኑ ወቅት አይገኝም።",
+    "weather_ask_city": "የየትኛውን ከተማ አየር ሁኔታ ማወቅ ይፈልጋሉ? /weather <ከተማ> ይሞክሩ!"
+  },
+  "language_command": {
+    "title": "🌐 *የቋንቋ ቅንብሮች*\n\nየአሁኑ ቋንቋ፦ {{language}} {{emoji}}\n\nየሚመርጡትን ቋንቋ ይምረጡ፦",
+    "switched": "✅ ቋንቋው ወደ {{language}} {{emoji}} ተቀይሯል\n\nከአሁን በኋላ ውይይቶች በ{{language}} ይሆናሉ።",
+    "button_en": "English 🇺🇸",
+    "button_om": "Afaan Oromoo 🇪🇹",
+    "button_am": "አማርኛ 🇪🇹",
+    "current": "የአሁኑ ቋንቋ"
+  },
+  "admin": {
+    "not_admin": "⛔ ይህንን ትእዛዝ አስተዳዳሪ ብቻ ነው መጠቀም የሚችለው።",
+    "reload_ok": "🔄 ምላሾች እና ሞዴሎች በስኬት ታድሰዋል!",
+    "reload_fail": "❌ ማደስ አልተሳካም",
+    "broadcast_sending": "📤 መልእክት ለ{{count}} ተጠቃሚዎች በመላክ ላይ...",
+    "broadcast_done": "✅ ስርጭት ተጠናቋል!\n✓ የተላከ፦ {{sent}}\n✗ ያልተሳካ፦ {{failed}}",
+    "broadcast_usage": "አጠቃቀም፦ /broadcast <መልእክት>",
+    "getuser_not_found": "ተጠቃሚው አልተገኘም።",
+    "statsall_title": "📊 *አጠቃላይ ስታቲስቲክስ*",
+    "statsall_users": "👥 ጠቅላላ ተጠቃሚዎች",
+    "statsall_messages": "💬 ጠቅላላ መልእክቶች",
+    "statsall_top": "🏆 *ቀዳሚ 5 ተጠቃሚዎች:*"
+  },
+  "time": {
+    "current": "🕐 የአሁኑ ሰዓት {{time}} ነው።"
+  },
+  "help_response": "የተለያዩ አገልግሎቶችን ማሰስ፣ የዋጋ ግምት መጠየቅ ወይም ጥያቄዎችዎን ማቅረብ ይችላሉ! ማውጫውን ለማየት /help ይጠቀሙ።",
+  "joke": {
+    "no_jokes": "በአሁኑ ሰዓት ምንም ቀልድ አልተገኘም!",
+    "no_jokes_oromo": "Waan kolfaa amma hin beeku!",
+    "next": "ቀጣይ →",
+    "prev": "← ቀዳሚ",
+    "next_oromo": "Kan itti aanu →",
+    "prev_oromo": "← Kan duraa",
+    "no_more": "በዚህ ገጽ ተጨማሪ ቀልዶች የሉም።"
+  },
+  "errors": {
+    "generic": "ይቅርታ፣ ችግር አጋጥሟል። እባክዎ እንደገና ይሞክሩ።",
+    "weather_fetch": "ይቅርታ፣ ለተጠቀሰው ከተማ የአየር ሁኔታ መረጃ ማምጣት አልተቻለም።"
+  },
+  "verify": {
+    "usage": "🔍 *የAI ሚዲያ ትክክለኛነት ማረጋገጫ (C2PA & SynthID)*\n\nእባክዎ ምስል ወይም ሰነድ ይላኩ ወይም ፎቶ ላይ `/verify` በማለት ምላሽ ይስጡ።",
+    "analyzing": "⏳ *የፋይሉን አመጣጥ በመመርመር ላይ...*\nየC2PA ዲጂታል ምስክርነቶች እና የGoogle SynthID ምልክቶችን በመፈተሽ ላይ...",
+    "multiple_files": "⚠️ *እባክዎ በአንድ ጊዜ አንድ ፋይል ብቻ ይላኩ* ለትክክለኛ ምርመራ።",
+    "oversized": "❌ *የፋይሉ መጠን ከገደብ በላይ ነው።* የሚፈቀደው ከፍተኛ መጠን 20 ሜጋባይት ነው።",
+    "download_failed": "❌ ፋይሉን ከቴሌግራም አገልጋዮች ማውረድ አልተቻለም። እባክዎ እንደገና ይሞክሩ።",
+    "button": "🔍 ሚዲያ አረጋግጥ (C2PA)"
+  }
+}
